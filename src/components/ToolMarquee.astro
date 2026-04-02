@@ -1,0 +1,31 @@
+---
+const tools = [
+  "LinkedIn", "Google Ads", "Meta", "Salesforce", "Mailchimp", 
+  "Python", "Figma", "Adobe Suite", "GitHub", "Jira", "HTML5"
+];
+---
+
+<div class="py-12 border-y border-stone-100 bg-white/30 overflow-hidden group">
+  <div class="flex w-fit animate-marquee pause-hover">
+    <div class="flex items-center gap-16 px-8">
+      {tools.map((tool) => (
+        <span class="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-stone-400 hover:text-zapier transition-colors cursor-default whitespace-nowrap">
+          {tool}
+        </span>
+      ))}
+    </div>
+    <div class="flex items-center gap-16 px-8" aria-hidden="true">
+      {tools.map((tool) => (
+        <span class="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-stone-400 hover:text-zapier transition-colors cursor-default whitespace-nowrap">
+          {tool}
+        </span>
+      ))}
+    </div>
+  </div>
+</div>
+
+<style>
+  .pause-hover:hover {
+    animation-play-state: paused;
+  }
+</style>

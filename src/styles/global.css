@@ -1,0 +1,82 @@
+@import "tailwindcss";
+
+/* 1. FONTS - Fixed and Complete */
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Instrument+Serif:ital,wght@0,400;1,400&family=JetBrains+Mono:wght@400;700&display=swap');
+
+/* 2. TAILWIND v4 THEME (Variables) */
+@theme {
+  --font-sans: "Instrument Sans", sans-serif;
+  --font-serif: "Instrument Serif", serif;
+  --font-mono: "JetBrains Mono", monospace;
+
+  /* Engineering-Grade Color Palette */
+  --color-paper: #F9F8F6;
+  --color-zapier: #FF4F00;
+  --color-surface: #FFFFFF;
+  
+  /* Animations for the "Operating Model" & Marquee */
+  --animate-spin-slow: spin 8s linear infinite;
+  
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+}
+
+/* 3. UTILITIES */
+.animate-marquee {
+  animation: marquee 40s linear infinite;
+}
+
+.dot-grid {
+  background-image: radial-gradient(#d1d0cb 0.8px, transparent 0.8px);
+  background-size: 24px 24px;
+}
+
+.no-scrollbar::-webkit-scrollbar { 
+  display: none; 
+}
+
+/* 4. GLOBAL ELEMENTS (The "Architectural" Finish) */
+
+body {
+  background-color: var(--color-paper);
+  color: #1c1917; /* stone-900 */
+  -webkit-font-smoothing: antialiased;
+}
+
+/* The Grain/Noise Overlay - Adds Industrial Texture */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  opacity: 0.035;
+  z-index: 99;
+  pointer-events: none;
+  background-image: url("https://grainy-gradients.vercel.app/noise.svg");
+  filter: contrast(150%) brightness(1000%);
+}
+
+/* Custom Selection for the "Systems-Led" Brand */
+::selection {
+  background-color: #ffede5; /* Light Zapier tint */
+  color: #FF4F00;
+}
+
+/* Smooth reveal for the main entry */
+main {
+  animation: fadeIn 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Ensuring the Utility Lab bars have a default color fallback */
+.bg-zapier {
+  background-color: var(--color-zapier) !important;
+}

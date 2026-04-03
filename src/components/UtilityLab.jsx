@@ -15,8 +15,8 @@ import {
 function WalletSnapCard({ children, scrollRef }) {
   const cardRef = useRef(null);
   const [style, setStyle] = useState({
-    scale: 0.96,
-    opacity: 0.72,
+    scale: 0.985,
+    y: 0,
   });
 
   useEffect(() => {
@@ -26,7 +26,7 @@ function WalletSnapCard({ children, scrollRef }) {
 
     const updateCardState = () => {
       if (window.innerWidth >= 768) {
-        setStyle({ scale: 1, opacity: 1 });
+        setStyle({ scale: 1, y: 0 });
         return;
       }
 
@@ -40,13 +40,10 @@ function WalletSnapCard({ children, scrollRef }) {
       const maxDistance = containerRect.width * 0.7;
       const progress = Math.min(distance / maxDistance, 1);
 
-      const scale = 1 - progress * 0.08;
-      const opacity = 1 - progress * 0.28;
+      const scale = 1 - progress * 0.035;
+      const y = progress * 8;
 
-      setStyle({
-        scale,
-        opacity,
-      });
+      setStyle({ scale, y });
     };
 
     updateCardState();
@@ -63,12 +60,12 @@ function WalletSnapCard({ children, scrollRef }) {
   return (
     <motion.div
       ref={cardRef}
-      style={{
+      animate={{
         scale: style.scale,
-        opacity: style.opacity,
+        y: style.y,
       }}
-      transition={{ type: "spring", stiffness: 220, damping: 26 }}
-      className="snap-center shrink-0 min-w-[86%] sm:min-w-[74%] md:min-w-0"
+      transition={{ type: "spring", stiffness: 260, damping: 28 }}
+      className="snap-center shrink-0 min-w-[88%] sm:min-w-[74%] md:min-w-0"
     >
       {children}
     </motion.div>
@@ -561,54 +558,52 @@ export default function UtilityLab() {
         </div>
 
         <div className="relative">
-          <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-6 sm:w-8 z-10 bg-gradient-to-r from-paper to-transparent md:hidden" />
-          <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-6 sm:w-8 z-10 bg-gradient-to-l from-paper to-transparent md:hidden" />
-
-          <div
-            ref={mobileScrollRef}
-            className="flex md:grid md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 overflow-x-auto no-scrollbar snap-x snap-mandatory md:overflow-visible pb-6 md:pb-0 -mx-4 px-5 sm:px-6 md:mx-0 md:px-0 [scrollbar-width:none] [-ms-overflow-style:none]"
-            style={{
-              WebkitOverflowScrolling: "touch",
-              scrollPaddingLeft: "1.25rem",
-              scrollPaddingRight: "1.25rem",
-            }}
-          >
-            {tools.map((tool, i) => (
-              <WalletSnapCard key={i} scrollRef={mobileScrollRef}>
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.08 }}
-                  viewport={{ once: true }}
-                  className="p-5 sm:p-7 md:p-8 bg-white border border-stone-200 rounded-[24px] md:rounded-[32px] flex flex-col justify-between group hover:border-zapier transition-all duration-500 hover:shadow-xl hover:shadow-orange-500/5"
-                >
-                  <div>
-                    <div className="flex justify-between items-start mb-5 md:mb-8">
-                      <div className="w-10 h-10 rounded-2xl bg-paper flex items-center justify-center text-stone-400 group-hover:text-zapier transition-colors">
-                        {tool.icon}
-                      </div>
-                      <Code2 className="w-4 h-4 text-stone-100 group-hover:text-stone-300 transition-colors" />
-                    </div>
-
-                    <h4 className="font-bold text-stone-900 text-lg mb-2">
-                      {tool.title}
-                    </h4>
-
-                    <p className="text-stone-500 text-[13px] sm:text-sm leading-relaxed mb-4 md:mb-6">
-                      {tool.desc}
-                    </p>
-
-                    {tool.demo}
-                  </div>
-
-                  <div className="mt-5 md:mt-8 pt-4 md:pt-6 border-t border-stone-50 flex justify-between items-center text-[9px] font-mono font-bold uppercase tracking-widest gap-3">
-                    <span className="text-stone-400 truncate">{tool.tech}</span>
-                    <span className="text-zapier shrink-0">{tool.impact}</span>
-                  </div>
-                </motion.div>
-              </WalletSnapCard>
-            ))}
+          
+<div
+  ref={mobileScrollRef}
+  className="flex md:grid md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 overflow-x-auto no-scrollbar snap-x snap-mandatory md:overflow-visible pb-6 md:pb-0 -mx-4 px-4 sm:px-5 md:mx-0 md:px-0"
+  style={{
+    WebkitOverflowScrolling: "touch",
+    scrollPaddingLeft: "1rem",
+    scrollPaddingRight: "1rem",
+  }}
+>
+  {tools.map((tool, i) => (
+    <WalletSnapCard key={i} scrollRef={mobileScrollRef}>
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ delay: i * 0.08 }}
+        viewport={{ once: true }}
+        className="p-5 sm:p-7 md:p-8 bg-white border border-stone-200 rounded-[24px] md:rounded-[32px] flex flex-col justify-between group hover:border-zapier transition-all duration-500 hover:shadow-xl hover:shadow-orange-500/5"
+      >
+        <div>
+          <div className="flex justify-between items-start mb-5 md:mb-8">
+            <div className="w-10 h-10 rounded-2xl bg-paper flex items-center justify-center text-stone-400 group-hover:text-zapier transition-colors">
+              {tool.icon}
+            </div>
+            <Code2 className="w-4 h-4 text-stone-100 group-hover:text-stone-300 transition-colors" />
           </div>
+
+          <h4 className="font-bold text-stone-900 text-lg mb-2">
+            {tool.title}
+          </h4>
+
+          <p className="text-stone-500 text-[13px] sm:text-sm leading-relaxed mb-4 md:mb-6">
+            {tool.desc}
+          </p>
+
+          {tool.demo}
+        </div>
+
+        <div className="mt-5 md:mt-8 pt-4 md:pt-6 border-t border-stone-50 flex justify-between items-center text-[9px] font-mono font-bold uppercase tracking-widest gap-3">
+          <span className="text-stone-400 truncate">{tool.tech}</span>
+          <span className="text-zapier shrink-0">{tool.impact}</span>
+        </div>
+      </motion.div>
+    </WalletSnapCard>
+  ))}
+</div>
         </div>
 
         <div className="mt-6 md:mt-12">

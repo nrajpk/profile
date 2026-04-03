@@ -114,8 +114,10 @@ export default function BentoSystems() {
       className="py-16 px-4 sm:px-5 md:py-24 md:px-6 bg-paper"
     >
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6">
+        
         {/* LEFT: THE STRATEGY ENGINE */}
-        <div className="md:col-span-8 md:row-span-2 p-6 sm:p-7 md:p-12 bg-white border border-stone-200 rounded-[24px] md:rounded-[32px] flex flex-col justify-between relative overflow-hidden min-h-[360px] md:min-h-0">
+        {/* FIX: Removed md:row-span-2 and added md:min-h-[480px] to ensure the right side has enough room to stack cleanly */}
+        <div className="md:col-span-8 p-6 sm:p-7 md:p-12 bg-white border border-stone-200 rounded-[24px] md:rounded-[32px] flex flex-col justify-between relative overflow-hidden min-h-[360px] md:min-h-[480px]">
           <div className="relative z-10">
             <span className="font-mono text-[9px] sm:text-[10px] text-zapier font-bold uppercase mb-4 md:mb-6 block tracking-[0.22em]">
               Growth Architecture
@@ -163,11 +165,14 @@ export default function BentoSystems() {
         </div>
 
         {/* RIGHT: MOBILE SWIPE / DESKTOP STACK */}
-        <div className="md:col-span-4">
-          <div className="flex md:flex-col gap-4 md:gap-6 overflow-x-auto md:overflow-visible snap-x snap-mandatory md:snap-none no-scrollbar -mx-4 px-4 md:mx-0 md:px-0 pb-1 md:pb-0">
+        {/* FIX: Added `flex flex-col` to the wrapper so it passes the stretched height down */}
+        <div className="md:col-span-4 flex flex-col">
+          <div className="flex md:flex-col gap-4 md:gap-6 overflow-x-auto md:overflow-visible snap-x snap-mandatory md:snap-none no-scrollbar -mx-4 px-4 md:mx-0 md:px-0 pb-1 md:pb-0 md:flex-1">
+            
             {/* ROI STATS CARD */}
-            <div className="min-w-[84%] sm:min-w-[78%] md:min-w-0 snap-center md:snap-align-none h-[240px] sm:h-[250px] md:h-full shrink-0">
-              <div className="h-full bg-stone-900 text-white rounded-[24px] md:rounded-[32px] p-6 sm:p-7 md:p-8 flex flex-col justify-between relative overflow-hidden">
+            {/* FIX: Replaced md:h-full with md:h-auto and md:flex-1 so the two cards split 50/50 */}
+            <div className="min-w-[84%] sm:min-w-[78%] md:min-w-0 snap-center md:snap-align-none h-[240px] sm:h-[250px] md:h-auto md:flex-1 shrink-0 flex flex-col">
+              <div className="flex-1 bg-stone-900 text-white rounded-[24px] md:rounded-[32px] p-6 sm:p-7 md:p-8 flex flex-col justify-between relative overflow-hidden">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={`${view}-${statIndex}`}
@@ -205,10 +210,11 @@ export default function BentoSystems() {
             </div>
 
             {/* INSIGHT CARD */}
-            <div className="min-w-[84%] sm:min-w-[78%] md:min-w-0 snap-center md:snap-align-none h-[240px] sm:h-[250px] md:h-full shrink-0">
+            {/* FIX: Added flex-1 and converted button to take full height */}
+            <div className="min-w-[84%] sm:min-w-[78%] md:min-w-0 snap-center md:snap-align-none h-[240px] sm:h-[250px] md:h-auto md:flex-1 shrink-0 flex flex-col">
               <button
                 type="button"
-                className="h-full w-full text-left bg-white border border-stone-200 rounded-[24px] md:rounded-[32px] p-6 sm:p-7 md:p-8 flex flex-col justify-between group"
+                className="flex-1 w-full text-left bg-white border border-stone-200 rounded-[24px] md:rounded-[32px] p-6 sm:p-7 md:p-8 flex flex-col justify-between group transition-shadow hover:shadow-xl hover:border-stone-300"
                 onClick={() =>
                   setStatIndex((prev) => (prev + 1) % active.insights.length)
                 }
@@ -242,6 +248,7 @@ export default function BentoSystems() {
                 </AnimatePresence>
               </button>
             </div>
+
           </div>
         </div>
       </div>

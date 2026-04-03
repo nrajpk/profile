@@ -247,8 +247,7 @@ export default function CreativeStudio() {
                 <span className="text-stone-500 text-4xl md:text-6xl">A Mind for Systems.</span>
               </h2>
               <p className="text-stone-400 text-lg leading-relaxed max-w-xl">
-                 Great design isn't subjective; it's a measurable parameter of trust. I combine a meticulous <strong>editorial eye</strong> with my <strong>B.Tech engineering roots</strong> to architect visual assets that command authority in high-ticket global markets.
-              </p>
+                 Great design isn't subjective; it's a measurable parameter of trust.</p>
            </div>
 
            <div className="relative z-10 mt-16 md:mt-0">

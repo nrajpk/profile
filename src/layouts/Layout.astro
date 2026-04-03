@@ -1,4 +1,5 @@
 ---
+import Footer from '../components/Footer.jsx';
 import '../styles/global.css';
 ---
 <!doctype html>
@@ -9,6 +10,14 @@ import '../styles/global.css';
 		<title>Nikhil Raj PK | Systems Led Growth Architect</title>
 	</head>
 	<body class="dot-grid font-sans bg-paper text-stone-900 antialiased selection:bg-orange-100 selection:text-orange-900">
-		<slot />
+		
+        {/* Main content from index.astro injected here */}
+        <main>
+            <slot />
+        </main>
+
+        {/* The Global Footer injected at the bottom of every page */}
+        <Footer client:visible />
+        
 	</body>
 </html>

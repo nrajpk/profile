@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   BarChart3,
@@ -11,12 +11,76 @@ import {
   ActivitySquare,
 } from "lucide-react";
 
+// --- WALLET-STYLE SNAP CARD ---
+function WalletSnapCard({ children, scrollRef }) {
+  const cardRef = useRef(null);
+  const [style, setStyle] = useState({
+    scale: 0.96,
+    opacity: 0.72,
+  });
+
+  useEffect(() => {
+    const container = scrollRef?.current;
+    const card = cardRef.current;
+    if (!container || !card) return;
+
+    const updateCardState = () => {
+      if (window.innerWidth >= 768) {
+        setStyle({ scale: 1, opacity: 1 });
+        return;
+      }
+
+      const containerRect = container.getBoundingClientRect();
+      const cardRect = card.getBoundingClientRect();
+
+      const containerCenter = containerRect.left + containerRect.width / 2;
+      const cardCenter = cardRect.left + cardRect.width / 2;
+      const distance = Math.abs(containerCenter - cardCenter);
+
+      const maxDistance = containerRect.width * 0.7;
+      const progress = Math.min(distance / maxDistance, 1);
+
+      const scale = 1 - progress * 0.08;
+      const opacity = 1 - progress * 0.28;
+
+      setStyle({
+        scale,
+        opacity,
+      });
+    };
+
+    updateCardState();
+
+    container.addEventListener("scroll", updateCardState, { passive: true });
+    window.addEventListener("resize", updateCardState);
+
+    return () => {
+      container.removeEventListener("scroll", updateCardState);
+      window.removeEventListener("resize", updateCardState);
+    };
+  }, [scrollRef]);
+
+  return (
+    <motion.div
+      ref={cardRef}
+      style={{
+        scale: style.scale,
+        opacity: style.opacity,
+      }}
+      transition={{ type: "spring", stiffness: 220, damping: 26 }}
+      className="snap-center shrink-0 min-w-[86%] sm:min-w-[74%] md:min-w-0"
+    >
+      {children}
+    </motion.div>
+  );
+}
+
 // --- MICRO-DEMO 1: EXECUTIVE BRIEF ---
 const ExecutiveBriefDemo = () => {
   const [active, setActive] = useState(false);
 
   return (
-    <div className="bg-stone-950 p-4 rounded-xl font-mono text-[9px] mt-4 border border-stone-800 group/demo">
+    <div className="bg-stone-950 p-4 rounded-xl font-mono text-[9px] mt-3 border border-stone-800 group/demo">
       <div className="flex justify-between items-center mb-3">
         <span className="text-stone-500 uppercase tracking-tighter">
           CFO_Daily_Brief.py
@@ -57,7 +121,7 @@ const ExecutiveBriefDemo = () => {
 // --- MICRO-DEMO 2: PIPELINE LOGIC ---
 const PipelineLogicDemo = () => {
   return (
-    <div className="mt-4 p-4 bg-stone-900 rounded-xl border border-white/5 font-mono text-[9px] group/demo">
+    <div className="mt-3 p-4 bg-stone-900 rounded-xl border border-white/5 font-mono text-[9px] group/demo">
       <div className="flex items-center gap-2 mb-3">
         <div className="px-1.5 py-0.5 bg-zapier/20 text-zapier rounded border border-zapier/30">
           ID: 3
@@ -111,7 +175,12 @@ const PowerBIView = ({ metric }) => {
           <motion.div
             initial={{ height: 0 }}
             animate={{ height: `${val}%` }}
-            transition={{ type: "spring", bounce: 0, duration: 1, delay: i * 0.05 }}
+            transition={{
+              type: "spring",
+              bounce: 0,
+              duration: 1,
+              delay: i * 0.05,
+            }}
             className="w-full rounded-t-sm transition-all duration-700 bg-blue-500 shadow-[0_0_15px_rgba(59,130,246,0.3)]"
             style={{ minHeight: "4px" }}
           />
@@ -287,14 +356,15 @@ const ExecutivePerformanceHub = () => {
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      className="mt-10 md:mt-12 p-5 sm:p-6 md:p-12 bg-stone-900 rounded-[28px] md:rounded-[40px] text-white border border-white/5 shadow-2xl relative overflow-hidden"
+      className="p-5 sm:p-6 md:p-12 bg-stone-900 rounded-[28px] md:rounded-[40px] text-white border border-white/5 shadow-2xl relative overflow-hidden"
     >
       <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-6 md:gap-12">
-        {/* Left */}
         <div className="lg:col-span-4 flex flex-col justify-between">
           <div>
             <div className="flex items-center gap-3 mb-5 md:mb-6">
-              <div className={`p-2 rounded-lg transition-colors duration-500 bg-white/5 ${currentTheme.text}`}>
+              <div
+                className={`p-2 rounded-lg transition-colors duration-500 bg-white/5 ${currentTheme.text}`}
+              >
                 <BarChart3 size={20} />
               </div>
               <h4 className="font-bold text-lg md:text-xl uppercase tracking-tighter">
@@ -303,7 +373,9 @@ const ExecutivePerformanceHub = () => {
             </div>
 
             <p className="hidden md:block text-stone-400 text-sm leading-relaxed mb-8">
-              Select a core growth metric and observe the data through native rendering environments. Bridging infrastructure with boardroom visibility.
+              Select a core growth metric and observe the data through native
+              rendering environments. Bridging infrastructure with boardroom
+              visibility.
             </p>
 
             <div className="flex lg:flex-col overflow-x-auto no-scrollbar gap-2 mb-5 md:mb-0 -mx-1 px-1">
@@ -324,7 +396,10 @@ const ExecutivePerformanceHub = () => {
                     {metricConfig[metric].short}
                   </span>
                   {activeMetric === metric && (
-                    <Activity size={12} className="hidden lg:block animate-pulse" />
+                    <Activity
+                      size={12}
+                      className="hidden lg:block animate-pulse"
+                    />
                   )}
                 </button>
               ))}
@@ -354,11 +429,12 @@ const ExecutivePerformanceHub = () => {
           </div>
         </div>
 
-        {/* Right */}
         <div className="lg:col-span-8 bg-black/40 rounded-2xl md:rounded-3xl p-5 sm:p-6 md:p-8 border border-white/5 flex flex-col h-[260px] sm:h-[300px] md:h-[360px] relative">
           <div className="flex justify-between items-center mb-5 md:mb-8 gap-3">
             <div className="flex items-center gap-2 md:gap-3 min-w-0">
-              <div className={`h-2 w-2 rounded-full animate-pulse ${currentTheme.color}`} />
+              <div
+                className={`h-2 w-2 rounded-full animate-pulse ${currentTheme.color}`}
+              />
               <div className="flex flex-col min-w-0">
                 <span className="font-mono text-[8px] text-stone-600 uppercase tracking-widest block mb-0.5">
                   Data_Source
@@ -374,10 +450,14 @@ const ExecutivePerformanceHub = () => {
               <span className="font-mono text-[8px] text-stone-600 uppercase tracking-widest block mb-0.5">
                 Active_Dimension
               </span>
-              <span className={`font-mono text-[9px] md:text-[10px] font-bold uppercase ${currentTheme.text} hidden md:inline`}>
+              <span
+                className={`font-mono text-[9px] md:text-[10px] font-bold uppercase ${currentTheme.text} hidden md:inline`}
+              >
                 {metricConfig[activeMetric].label}
               </span>
-              <span className={`font-mono text-[9px] font-bold uppercase ${currentTheme.text} md:hidden`}>
+              <span
+                className={`font-mono text-[9px] font-bold uppercase ${currentTheme.text} md:hidden`}
+              >
                 {metricConfig[activeMetric].short}
               </span>
             </div>
@@ -385,15 +465,23 @@ const ExecutivePerformanceHub = () => {
 
           <div className="flex-1 flex items-end justify-center w-full">
             <AnimatePresence mode="wait">
-              {activeTool === "powerbi" && <PowerBIView key="pbi" metric={activeMetric} />}
-              {activeTool === "ga4" && <GA4View key="ga4" metric={activeMetric} />}
-              {activeTool === "gtm" && <GTMView key="gtm" metric={activeMetric} />}
+              {activeTool === "powerbi" && (
+                <PowerBIView key="pbi" metric={activeMetric} />
+              )}
+              {activeTool === "ga4" && (
+                <GA4View key="ga4" metric={activeMetric} />
+              )}
+              {activeTool === "gtm" && (
+                <GTMView key="gtm" metric={activeMetric} />
+              )}
             </AnimatePresence>
           </div>
         </div>
       </div>
 
-      <div className={`absolute -right-20 -bottom-20 opacity-[0.03] pointer-events-none transition-colors duration-1000 ${currentTheme.text}`}>
+      <div
+        className={`absolute -right-20 -bottom-20 opacity-[0.03] pointer-events-none transition-colors duration-1000 ${currentTheme.text}`}
+      >
         <Activity size={480} />
       </div>
     </motion.div>
@@ -416,7 +504,7 @@ const tools = [
     tech: "Automation / CRM",
     icon: <Activity size={20} />,
     demo: (
-      <div className="mt-4 p-4 bg-stone-950 rounded-xl flex items-center justify-center border border-stone-800 h-[96px]">
+      <div className="mt-4 p-4 bg-stone-950 rounded-xl flex items-center justify-center border border-stone-800 h-[84px] sm:h-[96px]">
         <Mail className="text-zapier animate-bounce" size={16} />
         <span className="ml-3 font-mono text-[9px] text-stone-500 uppercase tracking-widest">
           Generating Digest...
@@ -439,7 +527,7 @@ const tools = [
     tech: "Node.js / Webhooks",
     icon: <ShieldCheck size={20} />,
     demo: (
-      <div className="mt-4 p-4 border border-dashed border-stone-200 rounded-xl flex items-center justify-center font-mono text-[8px] text-stone-300 uppercase tracking-[0.2em] h-[96px]">
+      <div className="mt-4 p-4 border border-dashed border-stone-200 rounded-xl flex items-center justify-center font-mono text-[8px] text-stone-300 uppercase tracking-[0.2em] h-[84px] sm:h-[96px]">
         Tracing_Signal_Active
       </div>
     ),
@@ -447,18 +535,20 @@ const tools = [
 ];
 
 export default function UtilityLab() {
+  const mobileScrollRef = useRef(null);
+
   return (
     <section
       id="lab"
-      className="py-16 md:py-32 px-4 sm:px-5 md:px-6 bg-paper relative overflow-hidden"
+      className="scroll-mt-24 py-16 md:py-32 px-4 sm:px-5 md:px-6 bg-paper relative overflow-hidden"
     >
       <div className="max-w-6xl mx-auto">
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-10 md:mb-20 gap-5 md:gap-6">
-          <div className="max-w-xl">
-            <span className="font-mono text-[9px] md:text-[10px] font-bold text-stone-400 uppercase tracking-[0.26em] md:tracking-[0.3em] mb-3 md:mb-4 block">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 md:mb-20 gap-4 md:gap-6">
+          <div className="max-w-xl pt-1">
+            <span className="font-mono text-[9px] md:text-[10px] font-bold text-stone-400 uppercase tracking-[0.22em] md:tracking-[0.3em] mb-2 md:mb-4 block">
               Engineered Efficiency
             </span>
-            <h2 className="text-[34px] sm:text-[40px] md:text-5xl font-bold tracking-tight text-stone-900 italic font-serif">
+            <h2 className="text-[34px] sm:text-[40px] md:text-5xl font-bold tracking-tight text-stone-900 italic font-serif leading-none">
               The Utility Lab.
             </h2>
           </div>
@@ -470,42 +560,60 @@ export default function UtilityLab() {
           </div>
         </div>
 
-        <div className="flex md:grid md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 overflow-x-auto no-scrollbar snap-x snap-mandatory md:overflow-visible pb-6 md:pb-0 -mx-4 px-4 md:mx-0 md:px-0">
-          {tools.map((tool, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.08 }}
-              viewport={{ once: true }}
-              className="min-w-[84%] sm:min-w-[72%] md:min-w-0 snap-center p-6 sm:p-7 md:p-8 bg-white border border-stone-200 rounded-[24px] md:rounded-[32px] flex flex-col justify-between group hover:border-zapier transition-all duration-500 hover:shadow-2xl hover:shadow-orange-500/5 shrink-0"
-            >
-              <div>
-                <div className="flex justify-between items-start mb-6 md:mb-8">
-                  <div className="w-10 h-10 rounded-2xl bg-paper flex items-center justify-center text-stone-400 group-hover:text-zapier transition-colors">
-                    {tool.icon}
+        <div className="relative">
+          <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-6 sm:w-8 z-10 bg-gradient-to-r from-paper to-transparent md:hidden" />
+          <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-6 sm:w-8 z-10 bg-gradient-to-l from-paper to-transparent md:hidden" />
+
+          <div
+            ref={mobileScrollRef}
+            className="flex md:grid md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 overflow-x-auto no-scrollbar snap-x snap-mandatory md:overflow-visible pb-6 md:pb-0 -mx-4 px-5 sm:px-6 md:mx-0 md:px-0 [scrollbar-width:none] [-ms-overflow-style:none]"
+            style={{
+              WebkitOverflowScrolling: "touch",
+              scrollPaddingLeft: "1.25rem",
+              scrollPaddingRight: "1.25rem",
+            }}
+          >
+            {tools.map((tool, i) => (
+              <WalletSnapCard key={i} scrollRef={mobileScrollRef}>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: i * 0.08 }}
+                  viewport={{ once: true }}
+                  className="p-5 sm:p-7 md:p-8 bg-white border border-stone-200 rounded-[24px] md:rounded-[32px] flex flex-col justify-between group hover:border-zapier transition-all duration-500 hover:shadow-xl hover:shadow-orange-500/5"
+                >
+                  <div>
+                    <div className="flex justify-between items-start mb-5 md:mb-8">
+                      <div className="w-10 h-10 rounded-2xl bg-paper flex items-center justify-center text-stone-400 group-hover:text-zapier transition-colors">
+                        {tool.icon}
+                      </div>
+                      <Code2 className="w-4 h-4 text-stone-100 group-hover:text-stone-300 transition-colors" />
+                    </div>
+
+                    <h4 className="font-bold text-stone-900 text-lg mb-2">
+                      {tool.title}
+                    </h4>
+
+                    <p className="text-stone-500 text-[13px] sm:text-sm leading-relaxed mb-4 md:mb-6">
+                      {tool.desc}
+                    </p>
+
+                    {tool.demo}
                   </div>
-                  <Code2 className="w-4 h-4 text-stone-100 group-hover:text-stone-300 transition-colors" />
-                </div>
 
-                <h4 className="font-bold text-stone-900 text-lg mb-2">
-                  {tool.title}
-                </h4>
-                <p className="text-stone-500 text-sm leading-relaxed mb-5 md:mb-6">
-                  {tool.desc}
-                </p>
-                {tool.demo}
-              </div>
-
-              <div className="mt-6 md:mt-8 pt-5 md:pt-6 border-t border-stone-50 flex justify-between items-center text-[9px] font-mono font-bold uppercase tracking-widest gap-3">
-                <span className="text-stone-400 truncate">{tool.tech}</span>
-                <span className="text-zapier shrink-0">{tool.impact}</span>
-              </div>
-            </motion.div>
-          ))}
+                  <div className="mt-5 md:mt-8 pt-4 md:pt-6 border-t border-stone-50 flex justify-between items-center text-[9px] font-mono font-bold uppercase tracking-widest gap-3">
+                    <span className="text-stone-400 truncate">{tool.tech}</span>
+                    <span className="text-zapier shrink-0">{tool.impact}</span>
+                  </div>
+                </motion.div>
+              </WalletSnapCard>
+            ))}
+          </div>
         </div>
 
-        <ExecutivePerformanceHub />
+        <div className="mt-6 md:mt-12">
+          <ExecutivePerformanceHub />
+        </div>
       </div>
     </section>
   );

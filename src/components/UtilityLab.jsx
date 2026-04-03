@@ -1,5 +1,5 @@
-import { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence, useMotionValue, useSpring } from "framer-motion";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   BarChart3,
   Mail,
@@ -10,88 +10,6 @@ import {
   Code2,
   ActivitySquare,
 } from "lucide-react";
-
-// --- WALLET-STYLE SNAP CARD (MOBILE OPTIMIZED) ---
-function WalletSnapCard({ children, scrollRef }) {
-  const cardRef = useRef(null);
-
-  const scale = useMotionValue(1);
-  const y = useMotionValue(0);
-  const opacity = useMotionValue(1);
-
-  const smoothScale = useSpring(scale, { stiffness: 400, damping: 30 });
-  const smoothY = useSpring(y, { stiffness: 400, damping: 30 });
-  const smoothOpacity = useSpring(opacity, { stiffness: 400, damping: 30 });
-
-  useEffect(() => {
-    let container = scrollRef?.current;
-    let card = cardRef.current;
-    let animationFrameId;
-
-    const updateCardState = () => {
-      // Instantly reset physics for Desktop Grid
-      if (window.innerWidth >= 768) {
-        scale.set(1);
-        y.set(0);
-        opacity.set(1);
-        return;
-      }
-
-      if (!container || !card) return;
-
-      const containerRect = container.getBoundingClientRect();
-      const cardRect = card.getBoundingClientRect();
-
-      const containerCenter = containerRect.left + containerRect.width / 2;
-      const cardCenter = cardRect.left + cardRect.width / 2;
-      const distance = Math.abs(containerCenter - cardCenter);
-
-      const maxDistance = containerRect.width * 0.7;
-      const progress = Math.min(distance / maxDistance, 1);
-
-      scale.set(1 - progress * 0.08);
-      y.set(progress * 18);
-      opacity.set(1 - progress * 0.5);
-    };
-
-    const initBind = () => {
-      container = scrollRef?.current;
-      card = cardRef.current;
-      if (container && card) {
-        updateCardState();
-        container.addEventListener("scroll", updateCardState, { passive: true });
-        window.addEventListener("resize", updateCardState);
-      } else {
-        animationFrameId = requestAnimationFrame(initBind);
-      }
-    };
-
-    initBind();
-
-    return () => {
-      if (container) {
-        container.removeEventListener("scroll", updateCardState);
-        window.removeEventListener("resize", updateCardState);
-      }
-      cancelAnimationFrame(animationFrameId);
-    };
-  }, [scrollRef]);
-
-  return (
-    <motion.div
-      ref={cardRef}
-      style={{
-        scale: smoothScale,
-        y: smoothY,
-        opacity: smoothOpacity,
-      }}
-      // STRUCTURAL FIX: Mobile min-widths vs Desktop full-width
-      className="snap-center shrink-0 min-w-[88%] sm:min-w-[74%] md:min-w-0 md:w-full h-full"
-    >
-      {children}
-    </motion.div>
-  );
-}
 
 // --- MICRO-DEMO 1: EXECUTIVE BRIEF ---
 const ExecutiveBriefDemo = () => {
@@ -470,10 +388,8 @@ const tools = [
 
 // --- MAIN EXPORT ---
 export default function UtilityLab() {
-  const mobileScrollRef = useRef(null);
-
   return (
-    <section id="lab" className="scroll-mt-24 py-16 md:py-32 px-4 sm:px-5 md:px-6 bg-paper relative overflow-hidden">
+    <section id="lab" className="scroll-mt-24 py-16 md:py-32 px-4 sm:px-5 md:px-6 bg-paper relative overflow-x-hidden">
       <div className="max-w-6xl mx-auto">
         
         {/* Header */}
@@ -494,46 +410,59 @@ export default function UtilityLab() {
           </div>
         </div>
 
-        {/* Structural Fix: Mobile Scroll Container vs Desktop CSS Grid */}
-        <div className="relative">
-          <div
-            ref={mobileScrollRef}
-            className="flex md:grid md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 overflow-x-auto no-scrollbar snap-x snap-mandatory md:overflow-visible pb-6 md:pb-0 -mx-4 px-4 sm:px-5 md:mx-0 md:px-0"
-            style={{ WebkitOverflowScrolling: "touch", scrollPaddingLeft: "1rem", scrollPaddingRight: "1rem" }}
-          >
-            {tools.map((tool, i) => (
-              <WalletSnapCard key={i} scrollRef={mobileScrollRef}>
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.08 }}
-                  viewport={{ once: true }}
-                  className="h-full p-5 sm:p-7 md:p-8 bg-white border border-stone-200 rounded-[24px] md:rounded-[32px] flex flex-col justify-between group hover:border-zapier transition-all duration-500 hover:shadow-xl hover:shadow-orange-500/5"
-                >
-                  <div>
-                    <div className="flex justify-between items-start mb-5 md:mb-8">
-                      <div className="w-10 h-10 rounded-2xl bg-paper flex items-center justify-center text-stone-400 group-hover:text-zapier transition-colors">
-                        {tool.icon}
-                      </div>
-                      <Code2 className="w-4 h-4 text-stone-100 group-hover:text-stone-300 transition-colors" />
-                    </div>
-
-                    <h4 className="font-bold text-stone-900 text-lg mb-2">{tool.title}</h4>
-                    <p className="text-stone-500 text-[13px] sm:text-sm leading-relaxed mb-4 md:mb-6">{tool.desc}</p>
-                    {tool.demo}
+        {/* WALLET STACK ARCHITECTURE 
+          Mobile: flex-col with sticky cards.
+          Desktop: 2x2 or 4x1 CSS Grid. 
+        */}
+        <div className="relative flex flex-col md:grid md:grid-cols-2 lg:grid-cols-4 gap-0 md:gap-6 pb-12 md:pb-0">
+          {tools.map((tool, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: i * 0.1 }}
+              viewport={{ once: true }}
+              style={{
+                // Calculate sticky drop position for mobile. (e.g. 100px, 140px, 180px)
+                "--wallet-top": `${100 + i * 40}px`,
+                "--wallet-z": i + 10,
+              }}
+              className={`
+                sticky md:static 
+                top-[var(--wallet-top)] md:top-auto 
+                z-[var(--wallet-z)] md:z-auto
+                w-full h-[320px] md:h-full 
+                p-5 sm:p-7 md:p-8 
+                bg-white border border-stone-200 
+                rounded-[32px] 
+                flex flex-col justify-between group 
+                transition-all duration-500 
+                shadow-[0_-8px_20px_-10px_rgba(0,0,0,0.1)] md:shadow-none hover:shadow-xl hover:border-zapier
+                ${i > 0 ? "-mt-16 sm:-mt-24 md:mt-0" : ""} 
+              `}
+            >
+              <div>
+                <div className="flex justify-between items-start mb-5 md:mb-8">
+                  <div className="w-10 h-10 rounded-2xl bg-paper flex items-center justify-center text-stone-400 group-hover:text-zapier transition-colors">
+                    {tool.icon}
                   </div>
+                  <Code2 className="w-4 h-4 text-stone-200 group-hover:text-stone-300 transition-colors" />
+                </div>
 
-                  <div className="mt-5 md:mt-8 pt-4 md:pt-6 border-t border-stone-50 flex justify-between items-center text-[9px] font-mono font-bold uppercase tracking-widest gap-3">
-                    <span className="text-stone-400 truncate">{tool.tech}</span>
-                    <span className="text-zapier shrink-0">{tool.impact}</span>
-                  </div>
-                </motion.div>
-              </WalletSnapCard>
-            ))}
-          </div>
+                <h4 className="font-bold text-stone-900 text-lg mb-2">{tool.title}</h4>
+                <p className="text-stone-500 text-[13px] sm:text-sm leading-relaxed mb-4 md:mb-6">{tool.desc}</p>
+                {tool.demo}
+              </div>
+
+              <div className="mt-5 md:mt-8 pt-4 md:pt-6 border-t border-stone-50 flex justify-between items-center text-[9px] font-mono font-bold uppercase tracking-widest gap-3">
+                <span className="text-stone-400 truncate">{tool.tech}</span>
+                <span className="text-zapier shrink-0">{tool.impact}</span>
+              </div>
+            </motion.div>
+          ))}
         </div>
 
-        <div className="mt-6 md:mt-12">
+        <div className="mt-12 md:mt-24">
           <ExecutivePerformanceHub />
         </div>
         

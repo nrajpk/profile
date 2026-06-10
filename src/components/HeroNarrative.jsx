@@ -5,7 +5,7 @@ export default function HeroNarrative() {
   const smoothEase = [0.16, 1, 0.3, 1];
 
   return (
-    <section className="min-h-screen flex flex-col justify-center px-6 max-w-6xl mx-auto">
+    <section className="min-h-screen flex flex-col justify-center pt-32 pb-0 px-6 max-w-6xl mx-auto">
       
       {/* Identity Badge Section */}
       <motion.div 
@@ -38,14 +38,14 @@ export default function HeroNarrative() {
       </motion.div>
 
       {/* Staggered Title Reveal */}
-      <h1 className="text-6xl md:text-8xl font-bold leading-[0.95] tracking-tight mb-10 text-stone-900">
+      <h1 className="text-[72px] md:text-[108px] font-bold leading-[0.87] tracking-tight mb-10 text-stone-900">
         {titleWords.map((word, i) => (
           <motion.span
             key={i}
             initial={{ opacity: 0, y: 15, filter: "blur(4px)" }}
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             transition={{ 
-              delay: i * 0.1 + 0.3, // Slight extra delay so the badge loads first
+              delay: i * 0.1 + 0.3,
               duration: 0.8, 
               ease: smoothEase 
             }}
@@ -67,7 +67,7 @@ export default function HeroNarrative() {
         initial={{ opacity: 0, y: 10 }} 
         animate={{ opacity: 1, y: 0 }} 
         transition={{ delay: 1, duration: 1, ease: smoothEase }}
-        className="text-xl md:text-2xl text-stone-500 font-medium max-w-2xl leading-relaxed"
+        className="text-[17px] md:text-[19px] text-stone-500 max-w-2xl leading-[1.75]"
       >
         Metrics slip. Sales questions lead quality. Reporting slows down decisions. These are signals your systems need to catch up to your momentum.
       </motion.p>

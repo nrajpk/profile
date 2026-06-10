@@ -44,7 +44,7 @@ const VideoGradingEngine = () => {
 
   return (
     <div
-      className="relative h-56 sm:h-64 md:h-72 bg-stone-900 rounded-[24px] md:rounded-[32px] mt-6 md:mt-8 overflow-hidden group cursor-pointer border border-stone-800 shadow-xl"
+      className="relative h-56 sm:h-64 md:h-72 bg-stone-900 rounded-lg mt-6 md:mt-8 overflow-hidden group cursor-pointer border border-stone-800 shadow-xl"
       onClick={() => setIsGraded(!isGraded)}
     >
       <motion.div
@@ -118,7 +118,7 @@ const OpticalInspectionLens = () => {
 
   return (
     <div
-      className={`relative h-56 sm:h-64 md:h-72 bg-stone-100 rounded-[24px] md:rounded-[32px] mt-6 md:mt-8 overflow-hidden border border-stone-200 shadow-inner group ${
+      className={`relative h-56 sm:h-64 md:h-72 bg-stone-100 rounded-lg mt-6 md:mt-8 overflow-hidden border border-stone-200 shadow-inner group ${
         isTouchDevice ? "cursor-default" : "cursor-none"
       }`}
       onMouseMove={(e) => {
@@ -189,100 +189,134 @@ const OpticalInspectionLens = () => {
   );
 };
 
-// --- 4. CONVERSION ARCHITECTURE COMPONENT: DYNAMIC OPTIMIZER ---
+// --- 4. CONVERSION ARCHITECTURE COMPONENT: SPLIT TERMINAL ---
 const ConversionOptimizerDemo = () => {
   const [isOptimized, setIsOptimized] = useState(false);
 
+  const specLines = [
+    { label: "[HERO]", active: false },
+    { label: "[TRUST]", active: false },
+    { label: "[FORM]", active: true },
+    { label: "[CTA]", active: true },
+    { label: "[SOCIAL]", active: false },
+  ];
+
   return (
-    <div className="relative w-full max-w-[280px] sm:max-w-[320px] md:w-72 bg-stone-900 border border-stone-800 shadow-2xl rounded-[22px] md:rounded-[24px] p-4 flex flex-col gap-3 group">
-      <div className="flex justify-between items-center mb-2 px-1 gap-4">
-        <span className="font-mono text-[8px] text-stone-500 uppercase tracking-widest">
-          {isOptimized ? "Optimized_State" : "Base_Layout_v1"}
-        </span>
-        <div className="flex items-center gap-2 shrink-0">
-          <span className="font-mono text-[8px] text-stone-400">CVR:</span>
-          <span
-            className={`font-mono text-[12px] font-bold transition-colors duration-700 ${
-              isOptimized ? "text-emerald-400" : "text-stone-300"
-            }`}
-          >
+    <div className="relative w-full max-w-[560px] bg-stone-950 border border-stone-800 rounded-xl overflow-hidden">
+      {/* Terminal Header */}
+      <div className="flex items-center justify-between px-4 py-2.5 border-b border-stone-800 bg-stone-900">
+        <div className="flex items-center gap-3">
+          <div className="flex gap-1.5">
+            <div className="w-2.5 h-2.5 rounded-full bg-stone-700" />
+            <div className="w-2.5 h-2.5 rounded-full bg-stone-700" />
+            <div className="w-2.5 h-2.5 rounded-full bg-stone-700" />
+          </div>
+          <span className="font-mono text-[9px] text-stone-500 uppercase tracking-[0.2em]">
+            {isOptimized ? "LAYOUT_SPEC: optimized_v2" : "LAYOUT_SPEC: base_v1"}
+          </span>
+        </div>
+        <div className="flex items-center gap-2">
+          <span className="font-mono text-[9px] text-stone-500">CVR:</span>
+          <span className={`font-mono text-[11px] font-bold transition-colors duration-700 ${isOptimized ? "text-emerald-400" : "text-stone-300"}`}>
             {isOptimized ? "4.8%" : "1.2%"}
           </span>
         </div>
       </div>
 
-      <div
-        className={`grid gap-2 transition-all duration-700 ${
-          isOptimized ? "grid-cols-2" : "grid-cols-1"
-        }`}
-      >
-        <motion.div
-          layout
-          transition={{ type: "spring", stiffness: 200, damping: 20 }}
-          className={`bg-stone-800 rounded-xl p-3 flex flex-col justify-center ${
-            isOptimized ? "col-span-2 h-16" : "h-24"
-          }`}
-        >
-          <div className="w-1/2 h-2 bg-stone-500 rounded-full mb-3" />
-          <div className="w-full h-1 bg-stone-600 rounded-full mb-1.5" />
-          <div className="w-3/4 h-1 bg-stone-600 rounded-full" />
-        </motion.div>
-
-        <motion.div
-          layout
-          transition={{ type: "spring", stiffness: 200, damping: 20 }}
-          className={`rounded-xl p-3 border ${
-            isOptimized
-              ? "border-zapier/50 bg-zapier/10 h-24"
-              : "border-stone-700 bg-stone-800/50 h-20"
-          }`}
-        >
+      {/* Split Panes */}
+      <div className="flex">
+        {/* Left Pane — Diff View */}
+        <div className="w-[45%] border-r border-stone-800 p-4 relative overflow-hidden">
+          {/* Ghost grid fades on optimize */}
           <div
-            className={`w-1/3 h-1.5 rounded-full mb-4 ${
-              isOptimized ? "bg-zapier" : "bg-stone-500"
-            }`}
+            className="absolute inset-0 pointer-events-none transition-opacity duration-700"
+            style={{
+              opacity: isOptimized ? 0 : 0.04,
+              backgroundImage: "linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)",
+              backgroundSize: "32px 32px",
+            }}
           />
-          <div className="w-full h-4 bg-stone-900 rounded mb-2" />
-          <div
-            className={`w-full h-6 rounded ${
-              isOptimized ? "bg-zapier" : "bg-stone-700"
-            }`}
-          />
-        </motion.div>
-
-        <motion.div
-          layout
-          transition={{ type: "spring", stiffness: 200, damping: 20 }}
-          className={`bg-stone-800 rounded-xl p-3 flex flex-col items-center justify-center ${
-            isOptimized ? "h-24 order-last" : "h-12"
-          }`}
-        >
-          <div className="flex gap-2">
-            {[1, 2, 3].map((i) => (
+          <div className="relative z-10 space-y-2.5">
+            {specLines.map((line, i) => (
               <div
                 key={i}
-                className={`rounded-full ${
-                  isOptimized ? "w-6 h-6 bg-stone-600" : "w-4 h-4 bg-stone-700"
+                className={`flex items-center gap-2 py-1 border-l-2 pl-2 transition-colors duration-500 ${
+                  line.active && isOptimized ? "border-zapier" : "border-stone-700"
                 }`}
-              />
+              >
+                <span className={`font-mono text-[8px] uppercase tracking-wider transition-colors duration-500 ${
+                  line.active && isOptimized ? "text-zapier" : "text-stone-600"
+                }`}>
+                  {line.label}
+                </span>
+                <div className={`flex-1 h-px transition-colors duration-500 ${
+                  line.active && isOptimized ? "bg-zapier/30" : "bg-stone-800"
+                }`} />
+              </div>
             ))}
           </div>
-          {isOptimized && (
-            <div className="w-1/2 h-1 bg-stone-600 rounded-full mt-3" />
-          )}
-        </motion.div>
+        </div>
+
+        {/* Right Pane — Live Render */}
+        <div className="flex-1 p-4 bg-stone-900/50">
+          <div className={`grid gap-2 transition-all duration-700 ${isOptimized ? "grid-cols-2" : "grid-cols-1"}`}>
+            <motion.div
+              layout
+              transition={{ type: "spring", stiffness: 200, damping: 20 }}
+              className={`bg-stone-800 rounded-md p-2.5 flex flex-col justify-center ${isOptimized ? "col-span-2 h-12" : "h-16"}`}
+            >
+              <div className="w-1/2 h-1.5 bg-stone-600 rounded-sm mb-2" />
+              <div className="w-full h-1 bg-stone-700 rounded-sm mb-1" />
+              <div className="w-3/4 h-1 bg-stone-700 rounded-sm" />
+            </motion.div>
+
+            <motion.div
+              layout
+              transition={{ type: "spring", stiffness: 200, damping: 20 }}
+              className={`rounded-md p-2.5 border ${
+                isOptimized ? "border-zapier/50 bg-zapier/10 h-20" : "border-stone-700 bg-stone-800/50 h-16"
+              }`}
+            >
+              <div className={`w-1/3 h-1 rounded-sm mb-3 ${isOptimized ? "bg-zapier" : "bg-stone-600"}`} />
+              <div className="w-full h-3 bg-stone-900 rounded-sm mb-1.5" />
+              <div className={`w-full h-5 rounded-sm ${isOptimized ? "bg-zapier" : "bg-stone-700"}`} />
+            </motion.div>
+
+            <motion.div
+              layout
+              transition={{ type: "spring", stiffness: 200, damping: 20 }}
+              className={`bg-stone-800 rounded-md p-2.5 flex items-center justify-center ${isOptimized ? "h-20" : "h-10"}`}
+            >
+              <div className="flex gap-1.5">
+                {[1, 2, 3].map((i) => (
+                  <div key={i} className={`rounded-full ${isOptimized ? "w-5 h-5 bg-stone-600" : "w-3 h-3 bg-stone-700"}`} />
+                ))}
+              </div>
+            </motion.div>
+          </div>
+        </div>
       </div>
 
-      <button
-        onClick={() => setIsOptimized(!isOptimized)}
-        className="mt-2 w-full py-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg font-mono text-[9px] text-white uppercase tracking-widest transition-colors flex justify-center items-center gap-2"
-      >
-        <Activity
-          size={10}
-          className={isOptimized ? "text-emerald-400" : "text-stone-400"}
-        />
-        {isOptimized ? "Revert Architecture" : "Run Optimization"}
-      </button>
+      {/* Status Bar */}
+      <div className="flex items-center gap-3 px-4 py-2.5 border-t border-stone-800 bg-stone-900">
+        <span className="font-mono text-[8px] text-stone-600 uppercase tracking-[0.18em]">CVR_DELTA:</span>
+        <span className={`font-mono text-[8px] font-bold transition-colors duration-700 ${isOptimized ? "text-emerald-400" : "text-stone-600"}`}>
+          {isOptimized ? "+3.6%" : "—"}
+        </span>
+        <span className="font-mono text-[8px] text-stone-600 uppercase tracking-[0.18em] ml-1">SIGNAL:</span>
+        <span className="flex items-center gap-1.5">
+          {isOptimized && <div className="w-1.5 h-1.5 rounded-full bg-zapier animate-pulse" />}
+          <span className={`font-mono text-[8px] font-bold uppercase transition-colors duration-700 ${isOptimized ? "text-zapier" : "text-stone-600"}`}>
+            {isOptimized ? "heatmap_active" : "standby"}
+          </span>
+        </span>
+        <button
+          onClick={() => setIsOptimized(!isOptimized)}
+          className="ml-auto font-mono text-[8px] text-stone-500 hover:text-white uppercase tracking-[0.18em] transition-colors border border-stone-700 hover:border-stone-500 px-2.5 py-1 rounded"
+        >
+          {isOptimized ? "revert" : "optimize"}
+        </button>
+      </div>
     </div>
   );
 };
@@ -304,7 +338,7 @@ export default function CreativeStudio() {
         </div>
 
         {/* 1. FULL WIDTH THEME MANIFESTO */}
-        <div className="w-full bg-stone-950 text-white rounded-[28px] sm:rounded-[32px] md:rounded-[48px] p-6 sm:p-8 md:p-20 mb-6 md:mb-8 flex flex-col md:flex-row justify-between items-center relative overflow-hidden group shadow-2xl">
+        <div className="w-full bg-stone-950 text-white rounded-xl p-6 sm:p-8 md:pt-14 md:pb-10 md:px-16 mb-6 md:mb-8 flex flex-col md:flex-row justify-between items-center relative overflow-hidden group shadow-2xl">
           <div
             className="absolute inset-0 opacity-[0.03] pointer-events-none"
             style={{
@@ -315,7 +349,7 @@ export default function CreativeStudio() {
           />
 
           <div className="relative z-10 max-w-2xl text-center md:text-left">
-            <h2 className="text-[36px] sm:text-[44px] md:text-7xl font-bold tracking-tighter italic font-serif mb-4 md:mb-6 leading-[0.95]">
+            <h2 className="text-[36px] sm:text-[44px] md:text-[64px] font-bold tracking-tighter italic font-serif mb-4 md:mb-6 leading-[0.9]">
               An Eye for Design.
               <br />
               <span className="text-stone-500 text-[28px] sm:text-[34px] md:text-6xl">
@@ -335,7 +369,7 @@ export default function CreativeStudio() {
         {/* 2. THE PRODUCTION GRID */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 md:gap-8">
           {/* VIDEO PRODUCTION */}
-          <div className="lg:col-span-7 p-6 sm:p-8 md:p-12 bg-paper rounded-[28px] sm:rounded-[32px] md:rounded-[48px] border border-stone-200 group relative overflow-hidden transition-all duration-500 hover:shadow-xl hover:border-zapier/30">
+          <div className="lg:col-span-7 p-6 sm:p-8 md:p-12 bg-paper rounded-xl border border-stone-200 group relative overflow-hidden transition-all duration-500 hover:shadow-xl hover:border-zapier/30">
             <div className="relative z-10">
               <div className="flex justify-between items-start mb-6 md:mb-10 gap-4">
                 <div className="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-white shadow-sm flex items-center justify-center text-stone-400 group-hover:text-zapier transition-colors border border-stone-100 shrink-0">
@@ -359,7 +393,7 @@ export default function CreativeStudio() {
           </div>
 
           {/* PHOTOGRAPHY / IMAGERY */}
-          <div className="lg:col-span-5 p-6 sm:p-8 md:p-12 bg-white border border-stone-200 rounded-[28px] sm:rounded-[32px] md:rounded-[48px] shadow-sm hover:shadow-xl transition-all duration-500 hover:border-zapier/30 flex flex-col justify-between">
+          <div className="lg:col-span-5 p-6 sm:p-8 md:p-12 bg-white border border-stone-200 rounded-xl shadow-sm hover:shadow-xl transition-all duration-500 hover:border-zapier/30 flex flex-col justify-between">
             <div>
               <div className="flex justify-between items-start mb-6 md:mb-10 gap-4">
                 <div className="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-stone-50 flex items-center justify-center text-stone-400 shrink-0">
@@ -381,7 +415,7 @@ export default function CreativeStudio() {
           </div>
 
           {/* 3. CONVERSION ARCHITECTURE */}
-          <div className="lg:col-span-12 p-6 sm:p-8 md:p-14 bg-stone-50 border border-stone-200 rounded-[28px] sm:rounded-[32px] md:rounded-[48px] flex flex-col md:flex-row items-center justify-between group overflow-hidden relative shadow-sm hover:shadow-xl transition-all duration-500">
+          <div className="lg:col-span-12 p-6 sm:p-8 md:p-14 bg-stone-50 border border-stone-200 rounded-xl flex flex-col md:flex-row items-center justify-between group overflow-hidden relative shadow-sm hover:shadow-xl transition-all duration-500">
             <div className="relative z-10 max-w-xl mb-10 md:mb-0">
               <div className="flex items-center gap-3 mb-5 md:mb-6 flex-wrap">
                 <Layers

@@ -111,13 +111,12 @@ export default function BentoSystems() {
   return (
     <section
       id="expertise"
-      className="py-16 px-4 sm:px-5 md:py-24 md:px-6 bg-paper"
+      className="pt-16 pb-32 px-4 sm:px-5 md:px-6 bg-paper"
     >
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6">
         
         {/* LEFT: THE STRATEGY ENGINE */}
-        {/* FIX: Removed md:row-span-2 and added md:min-h-[480px] to ensure the right side has enough room to stack cleanly */}
-        <div className="md:col-span-8 p-6 sm:p-7 md:p-12 bg-white border border-stone-200 rounded-[24px] md:rounded-[32px] flex flex-col justify-between relative overflow-hidden min-h-[360px] md:min-h-[480px]">
+        <div className="md:col-span-8 p-6 sm:p-7 md:p-12 bg-white border border-stone-200 rounded-xl flex flex-col justify-between relative overflow-hidden min-h-[360px] md:min-h-[480px]">
           <div className="relative z-10">
             <span className="font-mono text-[9px] sm:text-[10px] text-zapier font-bold uppercase mb-4 md:mb-6 block tracking-[0.22em]">
               Growth Architecture
@@ -131,7 +130,7 @@ export default function BentoSystems() {
                 exit={{ opacity: 0, x: 8 }}
                 transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
               >
-                <h3 className="text-[30px] sm:text-[34px] md:text-5xl font-bold leading-[1.04] text-stone-900 tracking-tight max-w-lg text-balance">
+                <h3 className="text-[30px] sm:text-[34px] md:text-[56px] md:leading-[0.92] font-bold leading-[1.04] text-stone-900 tracking-tight max-w-lg text-balance">
                   {active.title}
                 </h3>
 
@@ -165,14 +164,12 @@ export default function BentoSystems() {
         </div>
 
         {/* RIGHT: MOBILE SWIPE / DESKTOP STACK */}
-        {/* FIX: Added `flex flex-col` to the wrapper so it passes the stretched height down */}
         <div className="md:col-span-4 flex flex-col">
           <div className="flex md:flex-col gap-4 md:gap-6 overflow-x-auto md:overflow-visible snap-x snap-mandatory md:snap-none no-scrollbar -mx-4 px-4 md:mx-0 md:px-0 pb-1 md:pb-0 md:flex-1">
             
             {/* ROI STATS CARD */}
-            {/* FIX: Replaced md:h-full with md:h-auto and md:flex-1 so the two cards split 50/50 */}
             <div className="min-w-[84%] sm:min-w-[78%] md:min-w-0 snap-center md:snap-align-none h-[240px] sm:h-[250px] md:h-auto md:flex-1 shrink-0 flex flex-col">
-              <div className="flex-1 bg-stone-900 text-white rounded-[24px] md:rounded-[32px] p-6 sm:p-7 md:p-8 flex flex-col justify-between relative overflow-hidden">
+              <div className="flex-1 bg-stone-900 text-white rounded-xl p-6 sm:p-7 md:p-8 flex flex-col justify-between relative overflow-hidden">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={`${view}-${statIndex}`}
@@ -187,7 +184,7 @@ export default function BentoSystems() {
                     </div>
 
                     <div>
-                      <p className="text-[42px] sm:text-[48px] md:text-5xl font-bold tracking-tighter italic font-serif leading-none">
+                      <p className="text-[42px] sm:text-[48px] md:text-[64px] font-bold tracking-tighter italic font-serif leading-none">
                         {active.stats[statIndex].value}
                       </p>
                       <p className="font-mono text-[9px] sm:text-[10px] uppercase tracking-[0.18em] text-stone-400 mt-2 font-bold">
@@ -210,11 +207,10 @@ export default function BentoSystems() {
             </div>
 
             {/* INSIGHT CARD */}
-            {/* FIX: Added flex-1 and converted button to take full height */}
             <div className="min-w-[84%] sm:min-w-[78%] md:min-w-0 snap-center md:snap-align-none h-[240px] sm:h-[250px] md:h-auto md:flex-1 shrink-0 flex flex-col">
               <button
                 type="button"
-                className="flex-1 w-full text-left bg-white border border-stone-200 rounded-[24px] md:rounded-[32px] p-6 sm:p-7 md:p-8 flex flex-col justify-between group transition-shadow hover:shadow-xl hover:border-stone-300"
+                className="flex-1 w-full text-left bg-white border border-stone-200 rounded-xl p-6 sm:p-7 md:p-8 flex flex-col justify-between group transition-shadow hover:shadow-xl hover:border-stone-300"
                 onClick={() =>
                   setStatIndex((prev) => (prev + 1) % active.insights.length)
                 }

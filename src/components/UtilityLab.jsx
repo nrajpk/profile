@@ -68,7 +68,7 @@ export default function UtilityLab() {
   ];
 
   return (
-    <section id="lab" className="py-24 md:py-32 px-6 bg-paper">
+    <section id="lab" className="pt-24 pb-16 px-6 bg-paper">
       <div className="max-w-6xl mx-auto">
         
         {/* Header */}
@@ -77,7 +77,7 @@ export default function UtilityLab() {
             <span className="font-mono text-[10px] font-bold text-stone-400 uppercase tracking-[0.3em] mb-4 block">The Operating Model</span>
             <h2 className="text-5xl font-bold tracking-tight text-stone-900 italic font-serif">The Utility Lab.</h2>
           </div>
-          <div className="hidden md:block px-4 py-2 bg-white border border-stone-100 rounded-full text-[9px] font-mono font-bold text-stone-400 uppercase">
+          <div className="hidden md:block px-4 py-2 bg-white border border-stone-100 rounded-md text-[9px] font-mono font-bold text-stone-400 uppercase">
             System Status: 100% Operational
           </div>
         </div>
@@ -96,7 +96,7 @@ export default function UtilityLab() {
                   relative overflow-hidden cursor-pointer
                   bg-white border transition-all duration-500
                   ${isExpanded ? 'border-zapier shadow-xl' : 'border-stone-200 hover:border-stone-400'}
-                  rounded-[32px] p-8
+                  rounded-xl p-8
                   flex flex-col
                   /* Mobile Stack Logic: If not expanded, show only 80px peeking */
                   ${!isExpanded ? 'h-[90px] md:h-[500px]' : 'h-[420px] md:h-[500px]'}
@@ -144,7 +144,7 @@ export default function UtilityLab() {
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          className="mt-12 p-8 md:p-12 bg-stone-900 rounded-[40px] text-white border border-white/5 relative overflow-hidden"
+          className="mt-12 p-8 md:p-12 bg-stone-900 rounded-xl text-white border border-white/5 relative overflow-hidden"
         >
           <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12">
             <div className="lg:col-span-4">
@@ -165,7 +165,7 @@ export default function UtilityLab() {
               </div>
             </div>
             
-            <div className="lg:col-span-8 bg-black/40 rounded-3xl p-8 border border-white/5 h-[320px] flex flex-col justify-between">
+            <div className="lg:col-span-8 bg-black/40 rounded-xl p-8 border border-white/5 h-[320px] flex flex-col justify-between">
               <div className="flex justify-between items-center text-[9px] font-mono text-stone-500 uppercase tracking-widest">
                 <span>Active_Metric: {activeMetric}.pbix</span>
                 <span className="text-zapier animate-pulse">Live_Sync</span>

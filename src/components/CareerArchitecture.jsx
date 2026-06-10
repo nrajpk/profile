@@ -73,7 +73,7 @@ export default function CareerArchitecture() {
   const [activeId, setActiveId] = useState("deployment-04");
 
   return (
-    <section id="experience" className="py-40 px-6 bg-paper border-t border-stone-100">
+    <section id="experience" className="pt-20 pb-32 px-6 bg-paper border-t border-stone-100">
       <div className="max-w-6xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
           
@@ -81,7 +81,7 @@ export default function CareerArchitecture() {
           <div className="lg:col-span-5">
             <div className="mb-12">
               <span className="font-mono text-[10px] font-bold text-stone-400 uppercase tracking-[0.4em] mb-4 block">Archive</span>
-              <h2 className="text-5xl font-bold tracking-tight text-stone-900 italic font-serif">Deployment History.</h2>
+              <h2 className="text-[56px] leading-[0.92] font-bold tracking-tight text-stone-900 italic font-serif">Deployment History.</h2>
             </div>
 
             <div className="space-y-2">
@@ -107,7 +107,7 @@ export default function CareerArchitecture() {
             </div>
 
             {/* Educational Foundation */}
-            <div className="mt-16 p-8 bg-stone-900 rounded-[32px] text-white relative overflow-hidden group">
+            <div className="mt-16 p-8 bg-stone-900 rounded-xl text-white relative overflow-hidden group">
                <div className="relative z-10">
                 <Terminal className="text-zapier mb-4" size={20} />
                 <p className="font-mono text-[9px] text-stone-500 uppercase tracking-widest mb-1">Root Foundation</p>
@@ -128,7 +128,7 @@ export default function CareerArchitecture() {
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: -20 }}
                   transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                  className="bg-white border border-stone-200 rounded-[48px] p-10 md:p-16 shadow-sm h-full flex flex-col"
+                  className="bg-white border border-stone-200 rounded-xl p-10 md:p-16 shadow-sm h-full flex flex-col"
                 >
                   <div className="flex flex-wrap gap-3 mb-8">
                     <span className="px-3 py-1 bg-stone-50 border border-stone-100 rounded-full font-mono text-[9px] font-bold text-stone-400 uppercase tracking-widest">

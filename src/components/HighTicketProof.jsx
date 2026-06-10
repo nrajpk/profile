@@ -15,7 +15,7 @@ export default function HighTicketArchitecture() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start mb-24">
           <div className="lg:col-span-8">
             <motion.span initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} className="font-mono text-[10px] font-bold text-zapier uppercase tracking-[0.4em] mb-6 block">Expertise Vertical</motion.span>
-            <h2 className="text-5xl md:text-8xl font-bold tracking-tighter leading-[0.9] italic font-serif">High-Ticket <br/> B2B Architecture.</h2>
+            <h2 className="text-[56px] md:text-[96px] font-bold tracking-tighter leading-[0.9] italic font-serif">High-Ticket <br/> B2B Architecture.</h2>
           </div>
           <div className="lg:col-span-4 lg:pt-12">
             <p className="text-stone-500 text-lg leading-relaxed italic border-l border-stone-800 pl-8">
@@ -27,7 +27,7 @@ export default function HighTicketArchitecture() {
         {/* The Growth Operating Model (Conceptual) */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           
-          <div className="p-10 bg-white/[0.03] border border-white/10 rounded-[40px] hover:border-zapier/50 transition-colors group">
+          <div className="p-10 bg-white/[0.03] border border-white/10 rounded-xl hover:border-zapier/50 transition-colors group">
             <Globe className="text-zapier mb-8" size={32} />
             <h4 className="text-2xl font-bold mb-4">Global Signal Sync</h4>
             <p className="text-stone-500 text-sm leading-relaxed">
@@ -35,7 +35,7 @@ export default function HighTicketArchitecture() {
             </p>
           </div>
 
-          <div className="p-10 bg-white/[0.03] border border-white/10 rounded-[40px] hover:border-zapier/50 transition-colors">
+          <div className="p-10 bg-white/[0.03] border border-white/10 rounded-xl hover:border-zapier/50 transition-colors">
             <Share2 className="text-zapier mb-8" size={32} />
             <h4 className="text-2xl font-bold mb-4">CRM Orchestration</h4>
             <p className="text-stone-500 text-sm leading-relaxed">
@@ -43,7 +43,7 @@ export default function HighTicketArchitecture() {
             </p>
           </div>
 
-          <div className="p-10 bg-white/[0.03] border border-white/10 rounded-[40px] hover:border-zapier/50 transition-colors">
+          <div className="p-10 bg-white/[0.03] border border-white/10 rounded-xl hover:border-zapier/50 transition-colors">
             <Database className="text-zapier mb-8" size={32} />
             <h4 className="text-2xl font-bold mb-4">Governance Layer</h4>
             <p className="text-stone-500 text-sm leading-relaxed">
@@ -57,7 +57,7 @@ export default function HighTicketArchitecture() {
         <motion.div 
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          className="mt-12 p-12 bg-white rounded-[56px] text-stone-900 overflow-hidden relative group shadow-2xl"
+          className="mt-12 p-12 bg-white rounded-xl text-stone-900 overflow-hidden relative group shadow-2xl"
         >
           <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
              <div>
@@ -72,7 +72,7 @@ export default function HighTicketArchitecture() {
              </div>
              
              {/* Abstract System Topology Visual */}
-             <div className="bg-stone-50 rounded-[40px] p-8 border border-stone-200">
+             <div className="bg-stone-50 rounded-xl p-8 border border-stone-200">
                 <div className="space-y-4">
                    {[
                      { l: "Intent Mapping", v: "Active" },

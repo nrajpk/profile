@@ -34,8 +34,44 @@
 }
 
 .dot-grid {
-  background-image: radial-gradient(#d1d0cb 0.8px, transparent 0.8px);
-  background-size: 24px 24px;
+  background-image: radial-gradient(#d1d0cb 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+/* Typographic scale — exact px values, clamp-responsive */
+:root {
+  --text-hero: clamp(72px, 9vw, 108px);
+  --text-h2: clamp(44px, 5.5vw, 64px);
+  --text-body: 17px;
+  --text-label: 9px;
+}
+
+/* Shared utility tokens */
+.section-label {
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.35em;
+  color: #78716c; /* stone-500 */
+}
+
+.hairline {
+  border: 1px solid rgba(28, 25, 23, 0.10); /* stone-900 at 10% */
+}
+
+.status-bar {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: #a8a29e; /* stone-400 */
+  border-top: 1px solid rgba(28, 25, 23, 0.08);
+  padding-top: 0.75rem;
+  margin-top: 1rem;
 }
 
 .no-scrollbar::-webkit-scrollbar { 

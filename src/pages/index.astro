@@ -2,10 +2,10 @@
 import Layout from '../layouts/Layout.astro';
 import Navigation from '../components/Navigation.jsx';
 import HeroNarrative from '../components/HeroNarrative.jsx';
+import ToolMarquee from '../components/ToolMarquee.astro';
 import BentoSystems from '../components/BentoSystems.jsx';
 import HighTicketProof from '../components/HighTicketProof.jsx';
 import UtilityLab from '../components/UtilityLab.jsx';
-import ToolMarquee from '../components/ToolMarquee.astro';
 import CareerArchitecture from '../components/CareerArchitecture.jsx';
 ---
 
@@ -13,20 +13,20 @@ import CareerArchitecture from '../components/CareerArchitecture.jsx';
   <Navigation client:load />
   <main>
     <HeroNarrative client:load />
+    <ToolMarquee />
     <BentoSystems client:visible />
     <HighTicketProof client:visible />
     <UtilityLab client:visible />
-    <ToolMarquee />
     <CareerArchitecture client:visible />
 
     <section id="contact" class="section-wrap border-t border-stone-200 bg-white">
       <div class="mx-auto max-w-5xl px-6 text-center">
-        <p class="eyebrow mb-4">Contact</p>
-        <h2 class="section-title-sm mx-auto max-w-3xl">Let’s map the workflow.</h2>
-        <p class="section-copy mx-auto mt-5 max-w-2xl">
+        <p class="eyebrow mb-5">Contact</p>
+        <h2 class="section-title mx-auto max-w-3xl">Let’s map the workflow.</h2>
+        <p class="section-copy mx-auto mt-6 max-w-2xl">
           If your marketing stack depends on manual research, disconnected CRM data, unclear attribution, or slow lead handling, I can help think through a cleaner system.
         </p>
-        <div class="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
+        <div class="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
           <a class="btn btn-primary" href="mailto:nrajpk@outlook.com">Start a Conversation</a>
           <a class="btn btn-secondary" href="#work">View Built Work</a>
         </div>

@@ -10,6 +10,13 @@
   --color-ink: #15130f;
   --color-accent: #ff4f00;
   --color-accent-soft: #fff1e8;
+
+  --animate-marquee: marquee 38s linear infinite;
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
 }
 
 :root {
@@ -40,10 +47,10 @@ body::before {
   inset: 0;
   z-index: 80;
   pointer-events: none;
-  opacity: 0.24;
+  opacity: 0.32;
   background:
-    radial-gradient(circle at 18% 10%, rgba(255, 79, 0, 0.05), transparent 30%),
-    radial-gradient(circle at 90% 0%, rgba(28, 25, 23, 0.04), transparent 30%);
+    radial-gradient(circle at 20% 15%, rgba(255, 79, 0, 0.06), transparent 30%),
+    radial-gradient(circle at 85% 10%, rgba(28, 25, 23, 0.05), transparent 28%);
 }
 
 a {
@@ -55,21 +62,26 @@ section {
 }
 
 .dot-grid {
-  background-image: radial-gradient(rgba(28, 25, 23, 0.11) 0.7px, transparent 0.7px);
-  background-size: 28px 28px;
+  background-image: radial-gradient(rgba(28, 25, 23, 0.13) 0.8px, transparent 0.8px);
+  background-size: 26px 26px;
 }
 
 .section-wrap {
-  padding: 6rem 0;
+  padding: 7.5rem 0;
 }
 
-.section-kicker {
-  font-family: "JetBrains Mono", ui-monospace, monospace;
-  font-size: 0.68rem;
-  font-weight: 800;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
-  color: #ff4f00;
+.section-title {
+  font-size: clamp(2.6rem, 7vw, 5.7rem);
+  font-weight: 900;
+  line-height: 0.96;
+  letter-spacing: -0.055em;
+  color: #15130f;
+}
+
+.section-copy {
+  font-size: clamp(1rem, 1.6vw, 1.18rem);
+  line-height: 1.8;
+  color: #615d56;
 }
 
 .eyebrow {
@@ -81,45 +93,17 @@ section {
   color: #ff4f00;
 }
 
-.section-title {
-  font-size: clamp(2.25rem, 5vw, 4.35rem);
-  font-weight: 900;
-  line-height: 0.98;
-  letter-spacing: -0.05em;
-  color: #15130f;
-}
-
-.section-title-sm {
-  font-size: clamp(2rem, 3.8vw, 3.25rem);
-  font-weight: 900;
-  line-height: 1;
-  letter-spacing: -0.045em;
-  color: #15130f;
-}
-
-.section-copy {
-  font-size: clamp(1rem, 1.35vw, 1.12rem);
-  line-height: 1.75;
-  color: #615d56;
-}
-
-.card-copy {
-  font-size: 0.95rem;
-  line-height: 1.7;
-  color: #615d56;
-}
-
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  min-height: 2.9rem;
+  min-height: 3rem;
   border-radius: 999px;
-  padding: 0.82rem 1.18rem;
-  font-size: 0.68rem;
+  padding: 0.9rem 1.3rem;
+  font-size: 0.72rem;
   font-weight: 900;
-  letter-spacing: 0.17em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   transition: transform 180ms ease, background 180ms ease, border-color 180ms ease, color 180ms ease, box-shadow 180ms ease;
 }
@@ -159,33 +143,13 @@ section {
   color: #ffffff;
 }
 
-.pill {
-  display: inline-flex;
-  align-items: center;
-  border-radius: 999px;
-  border: 1px solid rgba(28, 25, 23, 0.12);
-  background: rgba(255, 255, 255, 0.72);
-  padding: 0.35rem 0.65rem;
-  font-family: "JetBrains Mono", ui-monospace, monospace;
-  font-size: 0.56rem;
-  font-weight: 800;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: #6f6960;
-}
-
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
 
 @media (max-width: 768px) {
   .section-wrap {
-    padding: 4.5rem 0;
-  }
-
-  .section-title {
-    font-size: clamp(2.25rem, 12vw, 3.35rem);
-    letter-spacing: -0.055em;
+    padding: 5.5rem 0;
   }
 
   .btn {

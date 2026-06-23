@@ -8,34 +8,55 @@ import UtilityLab from '../components/UtilityLab.jsx';
 import CreativeStudio from '../components/CreativeStudio.jsx';
 import HighTicketProof from '../components/HighTicketProof.jsx';
 import CareerArchitecture from '../components/CareerArchitecture.jsx';
+
+const pageTitle = 'Nikhil Raj PK | GTM Engineer & Marketing Operations Builder';
+const pageDescription =
+  'I help B2B and B2G teams connect marketing, sales, CRM, automation, reporting, and lead generation into practical GTM systems.';
 ---
 
-<Layout title="Nikhil Raj PK | Systems Led Growth Architect">
-  {/* Global Progress Bar / Accent Line */}
+<Layout title={pageTitle} description={pageDescription}>
   <div class="fixed top-0 left-0 h-1 bg-zapier z-[60]" id="pb"></div>
-  
+
   <Navigation client:load />
-  
+
   <main class="relative">
     <HeroNarrative client:load />
+
     <ToolMarquee />
+
+    <div id="systems" class="scroll-mt-28"></div>
     <BentoSystems client:visible />
+
+    <div id="services" class="scroll-mt-28"></div>
     <UtilityLab client:only="react" />
+
+    <div id="projects" class="scroll-mt-28"></div>
     <CreativeStudio client:visible />
-    
-    {/* The Climax: Deep Stone-950 */}
+
+    <div id="gtm-engineer" class="scroll-mt-28"></div>
     <HighTicketProof client:visible />
 
-    {/* The Archive: Back to Clean Paper/White */}
+    <div id="experience" class="scroll-mt-28"></div>
     <CareerArchitecture client:visible />
 
-    {/* The Hard CTA before the Footer */}
-    <section id="fit" class="pt-32 pb-20 px-6 text-center bg-white border-t border-stone-100">
+    <section id="contact" class="py-40 px-6 text-center bg-white border-t border-stone-100 scroll-mt-28">
       <div class="max-w-3xl mx-auto">
-        <h2 class="text-[64px] leading-[0.9] font-bold mb-12 tracking-tighter italic font-serif text-stone-900">
-          Ready to scale?
+        <p class="font-mono text-[10px] font-bold uppercase tracking-[0.3em] text-zapier mb-6">
+          Systems Conversation
+        </p>
+
+        <h2 class="text-5xl md:text-6xl font-bold mb-8 tracking-tighter italic font-serif text-stone-900">
+          Ready to fix the systems behind your growth?
         </h2>
-        <a href="mailto:nrajpk@outlook.com" class="bg-zapier text-white px-12 py-5 rounded-md font-bold uppercase tracking-widest text-xs shadow-2xl hover:bg-stone-900 transition-all">
+
+        <p class="text-lg md:text-xl text-stone-500 leading-relaxed max-w-2xl mx-auto mb-12">
+          Tell me what is messy: CRM, lead flow, reporting, campaign tracking, automation, or manual GTM work.
+        </p>
+
+        <a
+          href="mailto:nrajpk@outlook.com"
+          class="bg-zapier text-white px-12 py-5 rounded-full font-bold uppercase tracking-widest text-xs shadow-2xl hover:bg-stone-900 transition-all inline-flex"
+        >
           Start a Conversation
         </a>
       </div>

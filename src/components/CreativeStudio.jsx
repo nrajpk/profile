@@ -248,7 +248,7 @@ export default function CreativeStudio() {
                 <span className="text-stone-500 text-4xl md:text-6xl">engineered for action.</span>
               </h2>
               <p className="text-stone-400 text-lg leading-relaxed max-w-xl">
-                 The interface is part of the GTM system. I use visual hierarchy, landing page structure and production detail to make complex B2B offers easier to understand, trust and act on.
+                 The interface is part of the GTM system. I use visual hierarchy, landing page structure, proof placement and production detail to make complex B2B offers easier to understand, trust and act on.
               </p>
            </div>
 
@@ -271,7 +271,7 @@ export default function CreativeStudio() {
               </div>
               <h3 className="text-3xl md:text-4xl font-bold text-stone-900 tracking-tight mb-4">Visual Asset Systems.</h3>
               <p className="text-stone-500 mb-6 leading-relaxed max-w-md">
-                Controlled visual workflows for turning technical products and industrial complexity into credible campaign assets.
+                Controlled visual workflows for turning technical products and industrial complexity into credible campaign assets, launch visuals and sales-supporting media.
               </p>
               <VideoGradingEngine />
             </div>
@@ -306,7 +306,7 @@ export default function CreativeStudio() {
                    Landing pages and campaign interfaces work best when message, hierarchy, proof and form logic are aligned. This layer connects design decisions with marketing operations and lead flow.
                 </p>
                 <div className="flex gap-2">
-                   {['Figma', 'Form Logic', 'Clarity Review', 'Landing Pages'].map(t => (
+                   {['Figma', 'HTML/CSS', 'Form Logic', 'Clarity Review', 'AI Asset Direction'].map(t => (
                      <span key={t} className="px-4 py-2 bg-white border border-stone-200 rounded-lg font-mono text-[9px] font-bold text-stone-500 uppercase tracking-widest">{t}</span>
                    ))}
                 </div>

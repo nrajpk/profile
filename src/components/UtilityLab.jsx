@@ -11,7 +11,6 @@ import {
   Bot,
   BellRing,
   ScanSearch,
-  Github,
   FileText,
   ExternalLink,
   CheckCircle2,
@@ -42,7 +41,9 @@ const AssetIcon = ({ type }) => {
 
   switch (type) {
     case "repo":
-      return <Github className={className} />;
+      return <Code2 className={className} />;
+    case "code":
+      return <Code2 className={className} />;
     case "workflow":
       return <Route className={className} />;
     case "backend":
@@ -295,18 +296,19 @@ const labProjects = [
   {
     id: "enrichment-waterfall",
     title: "Custom Enrichment Waterfall",
-    desc: "A Python-based workflow for testing fallback logic across multiple enrichment sources.",
+    desc: "A Python-based workflow for testing fallback logic across multiple enrichment and verification sources.",
     status: "Building",
-    tech: "Python / REST APIs / CSV",
+    tech: "Python / REST APIs / CSV + JSON",
     icon: <Database size={20} />,
-    proof: "Code log, fallback diagram, terminal output and sample enriched CSV.",
+    proof: "Fallback script, API handler, input schema, output parser and terminal run proof.",
     systemLine:
-      "Shows how raw prospect records move through provider checks, fallback logic, and clean output generation.",
+      "Shows how raw prospect records move through provider checks, fallback logic, verification steps and clean output generation.",
     workflow: [
       "Read raw contact CSV",
       "Query Provider A",
       "Check response quality",
       "Route missing records to Provider B",
+      "Run verification step",
       "Export enriched record with source tag"
     ],
     assets: {
@@ -318,22 +320,46 @@ const labProjects = [
           note: "Clean README, setup steps, sample script and .env example."
         },
         {
-          label: "Python Fallback Script",
+          label: "Provider Fallback Script",
           type: "backend",
           status: "building",
-          note: "Provider routing logic and output writer."
+          note: "Python routing logic for moving from one provider to the next."
         },
         {
-          label: "Sample Input CSV",
+          label: "REST API Response Handler",
+          type: "backend",
+          status: "building",
+          note: "Normalizes provider responses and handles missing fields safely."
+        },
+        {
+          label: "CSV Input Schema",
           type: "data",
           status: "available",
-          note: "Small anonymized dataset for local testing."
+          note: "Small anonymized dataset with name, company and domain fields."
         },
         {
-          label: "Sample Output CSV",
+          label: "JSON Output Parser",
           type: "data",
           status: "planned",
-          note: "Enriched output with provider source tag."
+          note: "Structured output for enriched records and provider metadata."
+        },
+        {
+          label: "Source Tagging Logic",
+          type: "workflow",
+          status: "planned",
+          note: "Tags which provider returned the usable contact data."
+        },
+        {
+          label: "Verification Step",
+          type: "proof",
+          status: "planned",
+          note: "ZeroBounce / MillionVerifier-style validation layer before export."
+        },
+        {
+          label: "Rate Limit Notes",
+          type: "proof",
+          status: "planned",
+          note: "Basic safeguards for retries, delays and provider limits."
         },
         {
           label: "Waterfall Architecture Diagram",
@@ -347,7 +373,13 @@ const labProjects = [
           label: "Terminal Run",
           type: "terminal",
           status: "planned",
-          note: "Screen capture showing fallback routing."
+          note: "Screen capture showing fallback routing and export."
+        },
+        {
+          label: "Clean Output CSV",
+          type: "data",
+          status: "planned",
+          note: "Enriched output with provider source tag and verification state."
         },
         {
           label: "Code Log",
@@ -372,14 +404,14 @@ const labProjects = [
     status: "Building",
     tech: "Python / Apify / n8n / CRM Prep",
     icon: <ScanSearch size={20} />,
-    proof: "Source map, extraction log, sanitized output structure and workflow screenshot.",
+    proof: "Source map, extraction log, CRM-ready schema, n8n workflow draft and sanitized output structure.",
     systemLine:
       "Maps public source monitoring, extraction, normalization and CRM-ready output into one visible build trail.",
     workflow: [
       "Monitor public sources",
       "Extract signal payload",
       "Normalize source data",
-      "Prepare CRM-ready record",
+      "Map fields to CRM schema",
       "Log proof output"
     ],
     assets: {
@@ -391,22 +423,34 @@ const labProjects = [
           note: "Project README, source map, parser and sample output."
         },
         {
-          label: "n8n Workflow",
+          label: "Source Map CSV",
+          type: "data",
+          status: "available",
+          note: "List of public sources, keywords and monitoring notes."
+        },
+        {
+          label: "Public Signal Extractor",
           type: "workflow",
-          status: "planned",
-          note: "Scheduled trigger, source monitor, parser and output node."
+          status: "building",
+          note: "Apify or scraper layer for retrieving public signal records."
         },
         {
           label: "Python Parser",
           type: "backend",
           status: "building",
-          note: "Payload cleanup and field normalization."
+          note: "Payload cleanup, field normalization and schema prep."
         },
         {
-          label: "Source Map CSV",
+          label: "n8n Workflow Draft",
+          type: "workflow",
+          status: "planned",
+          note: "Scheduled trigger, source monitor, parser and output node."
+        },
+        {
+          label: "CRM-Ready Record Schema",
           type: "data",
-          status: "available",
-          note: "List of public sources and keywords to monitor."
+          status: "planned",
+          note: "Company, source, signal type, region, status and owner fields."
         },
         {
           label: "Architecture Diagram",
@@ -421,6 +465,12 @@ const labProjects = [
           type: "terminal",
           status: "planned",
           note: "Sanitized run log from scraper or parser."
+        },
+        {
+          label: "Clean Output Sample",
+          type: "data",
+          status: "planned",
+          note: "Anonymized output table prepared for CRM import."
         },
         {
           label: "n8n Execution Screenshot",
@@ -445,15 +495,15 @@ const labProjects = [
     status: "Planned",
     tech: "Webhooks / n8n / Slack API",
     icon: <BellRing size={20} />,
-    proof: "Form demo, Slack alert screenshot, routing logic and CRM update view.",
+    proof: "Webhook listener, routing rules, Slack payload, CRM update schema and speed-to-lead demo.",
     systemLine:
-      "Makes speed-to-lead visible through form capture, rule-based routing and alert delivery.",
+      "Makes speed-to-lead visible through form capture, rule-based routing, CRM prep and alert delivery.",
     workflow: [
       "Capture web form payload",
       "Parse lead fields",
       "Apply routing rules",
-      "Send Slack alert",
-      "Prepare CRM update"
+      "Prepare CRM update",
+      "Send Slack alert"
     ],
     assets: {
       build: [
@@ -462,6 +512,12 @@ const labProjects = [
           type: "code",
           status: "planned",
           note: "Simple HTML form for triggering the workflow."
+        },
+        {
+          label: "Webhook Listener",
+          type: "workflow",
+          status: "planned",
+          note: "Entry point for receiving form payloads."
         },
         {
           label: "n8n Router Workflow",
@@ -473,18 +529,36 @@ const labProjects = [
           label: "Routing Rules JSON",
           type: "data",
           status: "planned",
-          note: "Region, company type and urgency mapping."
+          note: "Region, company type, urgency and owner mapping."
         },
         {
-          label: "Slack Alert Template",
+          label: "Assignment Logic",
+          type: "workflow",
+          status: "planned",
+          note: "Simple rule layer for deciding where the lead should go."
+        },
+        {
+          label: "CRM Update Schema",
+          type: "data",
+          status: "planned",
+          note: "Lead fields prepared for CRM create or update."
+        },
+        {
+          label: "Slack Alert Payload",
           type: "proof",
           status: "planned",
           note: "Formatted alert with lead and assignment details."
+        },
+        {
+          label: "Outbound Readiness Checklist",
+          type: "proof",
+          status: "planned",
+          note: "SPF, DKIM, DMARC, sender domain notes and campaign hygiene checks."
         }
       ],
       proof: [
         {
-          label: "Form Submission Demo",
+          label: "Speed-to-Lead Demo",
           type: "video",
           status: "planned",
           note: "Screen recording of form to alert flow."
@@ -512,15 +586,15 @@ const labProjects = [
     status: "Planned",
     tech: "OpenAI API / JSON / ICP Rules",
     icon: <Bot size={20} />,
-    proof: "Prompt constraints, JSON output, scoring rules and test dataset.",
+    proof: "Prompt spec, ICP rules, company inputs, JSON output and human review notes.",
     systemLine:
-      "Turns unstructured company information into a structured fit score with clear reasoning and qualification rules.",
+      "Turns unstructured company information into a structured fit score with clear reasoning, exclusion logic and qualification rules.",
     workflow: [
       "Input company profile",
       "Apply ICP rule prompt",
       "Call GPT-4o API",
       "Parse JSON response",
-      "Output score and reason"
+      "Output score and review note"
     ],
     assets: {
       build: [
@@ -531,22 +605,40 @@ const labProjects = [
           note: "System prompt, scoring criteria and exclusion rules."
         },
         {
-          label: "Python API Script",
+          label: "ICP Rule Set",
+          type: "data",
+          status: "building",
+          note: "Fit rules, disqualification rules and buying signal criteria."
+        },
+        {
+          label: "Company Profile Input",
+          type: "data",
+          status: "planned",
+          note: "Structured company description or website text for scoring."
+        },
+        {
+          label: "GPT-4o API Script",
           type: "backend",
           status: "planned",
           note: "CSV reader, API call and JSON parser."
         },
         {
-          label: "Test Dataset",
+          label: "JSON Score Output",
           type: "data",
           status: "planned",
-          note: "Small sample of company profiles for scoring."
+          note: "Fit score, reason, rule matches and exclusion flags."
         },
         {
-          label: "Scoring Output JSON",
-          type: "data",
+          label: "Human Review Notes",
+          type: "proof",
           status: "planned",
-          note: "Fit score, reason and rule matches."
+          note: "Manual review field so the system does not pretend to predict revenue."
+        },
+        {
+          label: "Exclusion Criteria",
+          type: "data",
+          status: "building",
+          note: "Rules for rejecting poor-fit titles, markets or signals."
         }
       ],
       proof: [

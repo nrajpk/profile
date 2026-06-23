@@ -7,25 +7,25 @@ const deployments = [
     icon: <Globe size={30} />,
     title: "B2G Procurement Data Extraction Workflow",
     desc: "Automated workflows for sourcing and structuring defense and procurement-related contact data from public sources.",
-    flow: ["Identify target sources", "Run Python/Apify extraction", "Clean records", "Prepare for CRM or outbound"],
+    flow: ["Identify target sources", "Run Python/Apify extraction", "Clean fields", "Prepare CRM-ready output", "Campaign handoff"],
     tools: ["Python", "Apify", "LinkedIn Ads", "CRM Workflows"],
-    proof: "Architecture diagram, sanitized extraction log and cleaned output sample."
+    proof: "Architecture diagram, sanitized extraction log, source map and cleaned output sample."
   },
   {
     icon: <Share2 size={30} />,
     title: "Custom CRM Product Ownership",
     desc: "Structured CRM logic and dashboards for long-cycle global sales activity across B2B and B2G markets.",
-    flow: ["Map sales stages", "Define CRM fields", "Align pipeline views", "Support management reporting"],
+    flow: ["Map sales stages", "Define custom fields", "Align lifecycle views", "Support pipeline reporting", "Management dashboard"],
     tools: ["Custom CRM", "Salesforce", "Zoho", "Power BI"],
-    proof: "Sanitized CRM workflow map and pipeline visibility structure."
+    proof: "Sanitized CRM workflow map, lifecycle structure and pipeline reporting view."
   },
   {
     icon: <LineChart size={30} />,
     title: "Ads, Analytics & Attribution Setup",
     desc: "Campaign tracking and reporting workflows connecting paid acquisition activity with performance visibility.",
-    flow: ["Configure GTM events", "Set up GA4 tracking", "Review campaign data", "Build reporting views"],
+    flow: ["Configure GTM events", "Set up GA4 conversions", "Map campaign sources", "Build reporting views", "Review acquisition quality"],
     tools: ["Google Ads", "GA4", "GTM", "MS Power BI"],
-    proof: "Blurred reporting dashboard, tracking structure and campaign performance view."
+    proof: "Blurred reporting dashboard, tracking structure, source mapping and campaign performance view."
   }
 ];
 
@@ -112,7 +112,7 @@ export default function HighTicketArchitecture() {
               </div>
               <h3 className="text-4xl md:text-5xl font-bold tracking-tight mb-6 italic font-serif">The work is the system.</h3>
               <p className="text-stone-500 text-lg leading-relaxed mb-8">
-                My strongest lane is not making marketing louder. It is making the operating layer cleaner: source data, CRM logic, tracking, dashboards and campaign handoffs.
+                My strongest lane is not making marketing louder. It is making the operating layer cleaner: source data, CRM logic, tracking, reporting views, API-ready handoffs and campaign operations.
               </p>
               <a href="#lab" className="inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-stone-900 hover:text-zapier transition-colors">
                 See the lab layer <ArrowUpRight size={14} />

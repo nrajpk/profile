@@ -1,32 +1,66 @@
 ---
-const tools = [
-  'Python', 'Apify', 'Salesforce', 'Zoho', 'Custom CRM', 'GA4', 'Google Tag Manager',
-  'Google Ads', 'LinkedIn Campaign Manager', 'Meta Ads', 'MS Power BI', 'MS Clarity',
-  'Figma', 'HTML/CSS', 'GPT-4o', 'Midjourney', 'GitHub', 'SQL'
+const stackGroups = [
+  {
+    title: 'Production Stack',
+    note: 'Tools already used across marketing operations, CRM, analytics, campaign execution and asset workflows.',
+    tools: [
+      'Python', 'Apify', 'Salesforce', 'Zoho', 'Custom CRM', 'GA4', 'Google Tag Manager',
+      'Google Ads', 'LinkedIn Campaign Manager', 'Meta Ads', 'MS Power BI', 'MS Clarity',
+      'Figma', 'HTML/CSS', 'GPT-4o', 'Midjourney', 'GitHub', 'SQL'
+    ]
+  },
+  {
+    title: 'Lab Stack',
+    note: 'Tools and patterns being used in portfolio systems, demos and proof trails.',
+    tools: [
+      'n8n', 'REST APIs', 'Webhooks', 'OpenAI API', 'Slack API', 'CSV/JSON Workflows',
+      'Enrichment Logic', 'Routing Rules', 'Prompt Specs', 'CRM Payloads'
+    ]
+  },
+  {
+    title: 'GTM Ecosystem Map',
+    note: 'The broader tool landscape I design around, evaluate or build compatible workflows for.',
+    tools: [
+      'Clay', 'Apollo', 'HubSpot', 'Smartlead', 'Instantly', 'ZoomInfo', 'Clearbit',
+      'Make', 'Zapier', '6sense', 'Bombora', 'Gong', 'Snowflake', 'BigQuery'
+    ]
+  }
 ];
 ---
 
-<div class="py-12 border-y border-stone-100 bg-white/35 overflow-hidden group">
-  <div class="flex w-fit animate-marquee pause-hover">
-    <div class="flex items-center gap-16 px-8">
-      {tools.map((tool) => (
-        <span class="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-stone-400 hover:text-zapier transition-colors cursor-default whitespace-nowrap">
-          {tool}
+<section id="stack" class="py-20 px-6 border-y border-stone-100 bg-white/45 overflow-hidden">
+  <div class="max-w-6xl mx-auto">
+    <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-10">
+      <div>
+        <span class="font-mono text-[10px] font-bold text-zapier uppercase tracking-[0.35em] mb-4 block">
+          GTM Stack Map
         </span>
-      ))}
+        <h2 class="text-4xl md:text-5xl font-bold tracking-tight text-stone-900 italic font-serif">
+          Tools matter less than the handoffs.
+        </h2>
+      </div>
+      <p class="max-w-xl text-stone-500 leading-relaxed">
+        The operating layer is how data is sourced, cleaned, scored, routed, tracked and reported across the systems where teams actually work.
+      </p>
     </div>
-    <div class="flex items-center gap-16 px-8" aria-hidden="true">
-      {tools.map((tool) => (
-        <span class="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-stone-400 hover:text-zapier transition-colors cursor-default whitespace-nowrap">
-          {tool}
-        </span>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
+      {stackGroups.map((group) => (
+        <article class="bg-white border border-stone-200 rounded-[32px] p-7 shadow-sm hover:border-zapier/40 hover:shadow-xl hover:shadow-orange-500/5 transition-all duration-500">
+          <div class="flex items-center justify-between gap-4 mb-5">
+            <h3 class="font-bold text-stone-900 text-xl tracking-tight">{group.title}</h3>
+            <span class="h-2 w-2 rounded-full bg-zapier animate-pulse"></span>
+          </div>
+          <p class="text-stone-500 text-sm leading-relaxed mb-7 min-h-[64px]">{group.note}</p>
+          <div class="flex flex-wrap gap-2">
+            {group.tools.map((tool) => (
+              <span class="font-mono text-[8px] font-bold uppercase tracking-[0.18em] text-stone-500 bg-paper border border-stone-200 rounded-lg px-3 py-2 hover:text-zapier hover:border-zapier/30 transition-colors cursor-default">
+                {tool}
+              </span>
+            ))}
+          </div>
+        </article>
       ))}
     </div>
   </div>
-</div>
-
-<style>
-  .pause-hover:hover {
-    animation-play-state: paused;
-  }
-</style>
+</section>

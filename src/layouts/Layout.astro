@@ -1,23 +1,35 @@
 ---
-import Footer from '../components/Footer.jsx';
 import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'Nikhil Raj PK | GTM Engineer & Marketing Operations Builder',
+  description = 'I help B2B and B2G teams connect marketing, sales, CRM, automation, reporting, and lead generation into practical GTM systems.'
+} = Astro.props;
 ---
+
 <!doctype html>
 <html lang="en" class="scroll-smooth">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<title>Nikhil Raj PK | Systems Led Growth Architect</title>
-	</head>
-	<body class="dot-grid font-sans bg-paper text-stone-900 antialiased">
-		
-        {/* Main content from index.astro injected here */}
-        <main>
-            <slot />
-        </main>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
 
-        {/* The Global Footer injected at the bottom of every page */}
-        <Footer client:visible />
-        
-	</body>
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+  </head>
+
+  <body class="dot-grid font-sans bg-paper text-stone-900 antialiased selection:bg-orange-100 selection:text-orange-900">
+    <slot />
+  </body>
 </html>

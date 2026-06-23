@@ -1,6 +1,6 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { BellRing, Bot, Filter, GitBranch, Radar } from 'lucide-react';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { BellRing, Bot, ChevronRight, Filter, GitBranch, Radar } from 'lucide-react';
 
 const labProjects = [
   {
@@ -8,20 +8,22 @@ const labProjects = [
     icon: GitBranch,
     title: 'Custom Multi-Provider Enrichment Waterfall',
     status: 'Currently Building',
-    description: 'A Python workflow for testing fallback logic across multiple enrichment sources.',
-    workflow: ['Read CSV', 'Query source A', 'Fallback source B', 'Export enriched record'],
-    tools: ['Python', 'REST APIs', 'CSV', 'GitHub'],
-    proof: 'Code log, terminal output, fallback diagram, sample enriched CSV.'
+    description: 'A Python-based workflow for testing fallback logic across multiple enrichment sources.',
+    problem: 'Relying on one data source often leaves gaps in prospect records. A waterfall approach helps test multiple sources in sequence.',
+    workflow: ['Read raw CSV', 'Query Provider A', 'Check response quality', 'Route missing records to Provider B', 'Output enriched record with source tag'],
+    tools: ['Python', 'REST APIs', 'CSV processing', 'GitHub'],
+    proof: 'Code snippet, terminal output, fallback logic diagram, sample enriched CSV.'
   },
   {
     id: 'router',
     icon: BellRing,
     title: 'Real-Time Inbound Signal Router',
     status: 'Planned',
-    description: 'A webhook workflow that routes form submissions and sends instant sales alerts.',
-    workflow: ['Capture form', 'Parse payload', 'Apply rules', 'Send Slack alert'],
+    description: 'A webhook-based workflow for routing inbound form submissions and sending instant alerts.',
+    problem: 'Inbound leads lose value when they sit unassigned or unnoticed after submission.',
+    workflow: ['Capture form submission', 'Parse JSON payload', 'Apply routing logic', 'Create or update CRM record', 'Send Slack alert'],
     tools: ['Webhooks', 'Python or n8n', 'Slack API', 'HTML/CSS'],
-    proof: 'Form demo, Slack alert screenshot, routing logic, CRM record update.'
+    proof: 'Form submission demo, Slack alert screenshot, routing logic, CRM record update.'
   },
   {
     id: 'scoring',
@@ -29,8 +31,9 @@ const labProjects = [
     title: 'LLM-Assisted Account Qualification Engine',
     status: 'Planned',
     description: 'A GPT-4o API workflow for scoring company profiles against defined ICP rules.',
-    workflow: ['Input profile', 'Apply ICP prompt', 'Parse JSON', 'Output score'],
-    tools: ['Python', 'OpenAI API', 'Prompting', 'JSON'],
+    problem: 'Sales teams often qualify accounts manually using inconsistent judgment. This workflow applies structured criteria for first-pass account review.',
+    workflow: ['Input company profile', 'Apply ICP rules through structured prompt', 'Call GPT-4o API', 'Parse JSON response', 'Output score and qualification reason'],
+    tools: ['Python', 'OpenAI API', 'Prompt engineering', 'JSON parsing'],
     proof: 'Prompt constraints, sample JSON output, scoring criteria, test dataset.'
   },
   {
@@ -38,9 +41,10 @@ const labProjects = [
     icon: Radar,
     title: 'Automated B2B Procurement Signal Harvester',
     status: 'Building',
-    description: 'A portfolio version of public procurement signal monitoring and structured output.',
-    workflow: ['Monitor sources', 'Extract records', 'Apply filters', 'Prepare CRM export'],
-    tools: ['Python', 'Apify', 'Public sources', 'CRM import'],
+    description: 'A portfolio version of procurement signal monitoring using public sources and structured output.',
+    problem: 'Teams in niche B2B markets need earlier visibility into relevant public signals without building a manual research habit.',
+    workflow: ['Monitor public sources', 'Extract relevant records', 'Normalize fields', 'Apply fit filters', 'Prepare CRM-ready export'],
+    tools: ['Python', 'Apify', 'Public sources', 'CRM import logic'],
     proof: 'Architecture map, sanitized run log, sample structured output.'
   },
   {
@@ -48,82 +52,110 @@ const labProjects = [
     icon: Filter,
     title: 'Closed-Loop Ads Attribution Engine',
     status: 'Planned',
-    description: 'A workflow concept for connecting CRM outcomes back to ad performance reporting.',
-    workflow: ['Export CRM data', 'Map identifiers', 'Format payload', 'Report limits'],
+    description: 'A workflow concept for connecting CRM revenue outcomes back to ad performance reporting.',
+    problem: 'Ad reporting can overvalue cheap form fills when it is not connected to downstream opportunity quality.',
+    workflow: ['Export CRM outcome data', 'Map lead source and click identifiers', 'Format conversion payload', 'Test offline conversion logic', 'Report limitations clearly'],
     tools: ['Google Ads API', 'Python', 'CRM data', 'CSV testing'],
     proof: 'Data loop diagram, dummy GCLID CSV, upload payload example.'
   }
 ];
 
-function statusClasses(status) {
-  if (status === 'Currently Building') return 'border-accent/30 bg-accent/10 text-accent';
-  if (status === 'Building') return 'border-stone-300 bg-white text-stone-950';
-  return 'border-stone-200 bg-white text-stone-500';
-}
-
 export default function UtilityLab() {
+  const [activeId, setActiveId] = useState(labProjects[0].id);
+  const active = labProjects.find((project) => project.id === activeId) ?? labProjects[0];
+  const Icon = active.icon;
+
   return (
     <section id="lab" className="section-wrap border-y border-stone-200 bg-white">
       <div className="mx-auto max-w-6xl px-6">
-        <div className="mb-10 grid gap-5 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
+        <div className="mb-14 grid gap-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
           <div>
-            <p className="eyebrow mb-4">GTM Systems Lab</p>
-            <h2 className="section-title-sm max-w-2xl">Projects being turned into proof.</h2>
+            <p className="eyebrow mb-5">GTM Systems Lab</p>
+            <h2 className="section-title">Building the next proof layer.</h2>
           </div>
           <p className="section-copy lg:max-w-xl">
-            Active and planned portfolio builds around enrichment logic, routing, qualification, procurement signals, and attribution. Status labels are intentional, planned is not claimed as completed.
+            Active portfolio projects focused on enrichment logic, routing, qualification, procurement signals, and attribution. The status labels are intentional: building means in progress, planned means not claimed as completed.
           </p>
         </div>
 
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {labProjects.map((project, index) => {
-            const Icon = project.icon;
-            return (
-              <motion.article
+        <div className="grid gap-6 lg:grid-cols-[0.85fr_1.15fr]">
+          <div className="space-y-3">
+            {labProjects.map((project) => (
+              <button
                 key={project.id}
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.18 }}
-                transition={{ duration: 0.45, delay: index * 0.035, ease: [0.16, 1, 0.3, 1] }}
-                className="rounded-[28px] border border-stone-200 bg-paper p-6 transition duration-300 hover:-translate-y-1 hover:border-stone-300 hover:bg-white hover:shadow-xl hover:shadow-stone-900/5"
+                onClick={() => setActiveId(project.id)}
+                className={`w-full rounded-3xl border p-5 text-left transition duration-300 ${
+                  activeId === project.id
+                    ? 'border-stone-950 bg-stone-950 text-white shadow-xl shadow-stone-900/10'
+                    : 'border-stone-200 bg-paper text-stone-950 hover:border-stone-300 hover:bg-white'
+                }`}
               >
-                <div className="mb-5 flex items-start justify-between gap-4">
-                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-white text-stone-950 shadow-sm">
-                    <Icon size={19} />
+                <div className="flex items-center justify-between gap-4">
+                  <div>
+                    <p className={`font-mono text-[9px] font-bold uppercase tracking-[0.2em] ${activeId === project.id ? 'text-accent' : 'text-stone-400'}`}>
+                      {project.status}
+                    </p>
+                    <p className="mt-2 font-bold tracking-tight">{project.title}</p>
                   </div>
-                  <span className={`rounded-full border px-3 py-1 font-mono text-[9px] font-bold uppercase tracking-widest ${statusClasses(project.status)}`}>
-                    {project.status}
-                  </span>
+                  <ChevronRight size={18} className={activeId === project.id ? 'text-accent' : 'text-stone-300'} />
                 </div>
+              </button>
+            ))}
+          </div>
 
-                <h3 className="text-xl font-black leading-tight tracking-tight text-stone-950">{project.title}</h3>
-                <p className="mt-3 card-copy">{project.description}</p>
-
-                <div className="mt-6 rounded-2xl border border-stone-200 bg-white p-4">
-                  <p className="mb-3 font-mono text-[9px] font-bold uppercase tracking-widest text-stone-400">Workflow</p>
-                  <div className="grid gap-2">
-                    {project.workflow.map((step, stepIndex) => (
-                      <div key={step} className="flex items-center gap-3 text-sm font-semibold text-stone-800">
-                        <span className="font-mono text-[9px] font-bold text-accent">0{stepIndex + 1}</span>
-                        <span>{step}</span>
-                      </div>
-                    ))}
-                  </div>
+          <AnimatePresence mode="wait">
+            <motion.article
+              key={active.id}
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+              className="rounded-[36px] border border-stone-200 bg-paper p-7 md:p-9"
+            >
+              <div className="mb-8 flex items-start justify-between gap-5">
+                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-white text-stone-950 shadow-sm">
+                  <Icon size={22} />
                 </div>
+                <span className="rounded-full border border-stone-200 bg-white px-3 py-1 font-mono text-[9px] font-bold uppercase tracking-widest text-stone-500">
+                  {active.status}
+                </span>
+              </div>
 
-                <div className="mt-5">
-                  <p className="mb-2 font-mono text-[9px] font-bold uppercase tracking-widest text-stone-400">Proof target</p>
-                  <p className="text-sm leading-6 text-stone-600">{project.proof}</p>
+              <h3 className="text-3xl font-black tracking-tight text-stone-950 md:text-4xl">{active.title}</h3>
+              <p className="mt-4 text-base leading-8 text-stone-600">{active.description}</p>
+
+              <div className="mt-8 grid gap-5 md:grid-cols-2">
+                <div className="rounded-3xl border border-stone-200 bg-white p-5">
+                  <p className="mb-2 font-mono text-[9px] font-bold uppercase tracking-widest text-stone-400">Problem</p>
+                  <p className="text-sm leading-7 text-stone-600">{active.problem}</p>
                 </div>
+                <div className="rounded-3xl border border-stone-200 bg-white p-5">
+                  <p className="mb-2 font-mono text-[9px] font-bold uppercase tracking-widest text-stone-400">Proof to show</p>
+                  <p className="text-sm leading-7 text-stone-600">{active.proof}</p>
+                </div>
+              </div>
 
-                <div className="mt-5 flex flex-wrap gap-2">
-                  {project.tools.map((tool) => (
-                    <span key={tool} className="pill bg-white">{tool}</span>
+              <div className="mt-8 rounded-3xl border border-stone-200 bg-white p-5">
+                <p className="mb-4 font-mono text-[9px] font-bold uppercase tracking-widest text-stone-400">Workflow</p>
+                <div className="grid gap-3 md:grid-cols-5">
+                  {active.workflow.map((step, index) => (
+                    <div key={step} className="rounded-2xl bg-stone-50 p-4">
+                      <p className="font-mono text-[9px] font-bold uppercase tracking-widest text-accent">0{index + 1}</p>
+                      <p className="mt-2 text-sm font-semibold leading-6 text-stone-900">{step}</p>
+                    </div>
                   ))}
                 </div>
-              </motion.article>
-            );
-          })}
+              </div>
+
+              <div className="mt-7 flex flex-wrap gap-2">
+                {active.tools.map((tool) => (
+                  <span key={tool} className="rounded-full border border-stone-200 bg-white px-3 py-1 font-mono text-[9px] font-bold uppercase tracking-widest text-stone-500">
+                    {tool}
+                  </span>
+                ))}
+              </div>
+            </motion.article>
+          </AnimatePresence>
         </div>
       </div>
     </section>

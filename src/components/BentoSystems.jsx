@@ -8,35 +8,35 @@ const capabilities = [
     title: 'Data Extraction',
     kicker: 'Sourcing layer',
     copy: 'Python and Apify workflows for sourcing, cleaning, and structuring public B2B and B2G data.',
-    points: ['Public source mapping', 'Structured output', 'CRM-ready records']
+    points: ['Public source mapping', 'Structured CSV output', 'CRM-ready records']
   },
   {
     icon: Workflow,
     title: 'CRM & Pipeline Operations',
     kicker: 'Operating layer',
     copy: 'Salesforce, Zoho, and custom CRM workflows for tracking long-cycle sales activity with less manual drift.',
-    points: ['Pipeline views', 'Field logic', 'Handoff clarity']
+    points: ['Pipeline views', 'Field logic', 'Sales handoff clarity']
   },
   {
     icon: LineChart,
     title: 'Analytics & Attribution',
     kicker: 'Visibility layer',
     copy: 'GA4, Google Tag Manager, MS Clarity, and Power BI for tracking campaign performance and conversion paths.',
-    points: ['Event tracking', 'Dashboards', 'Performance diagnosis']
+    points: ['Event tracking', 'Dashboard views', 'Performance diagnosis']
   },
   {
     icon: Megaphone,
     title: 'Paid Acquisition',
     kicker: 'Demand layer',
     copy: 'Google Ads, LinkedIn Campaign Manager, and Meta Ads execution across acquisition and lead generation campaigns.',
-    points: ['Search intent', 'Audience logic', 'Reporting']
+    points: ['Search intent', 'Audience logic', 'Campaign reporting']
   },
   {
     icon: Bot,
     title: 'AI-Assisted Workflows',
     kicker: 'Research layer',
     copy: 'GPT-4o and Midjourney for research support, content workflows, visual assets, and faster marketing operations.',
-    points: ['Prompted research', 'Asset support', 'Acceleration']
+    points: ['Prompted research', 'Asset support', 'Workflow acceleration']
   },
   {
     icon: PanelsTopLeft,
@@ -51,13 +51,13 @@ export default function BentoSystems() {
   return (
     <section id="capabilities" className="section-wrap bg-paper">
       <div className="mx-auto max-w-6xl px-6">
-        <div className="mb-10 grid gap-5 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
+        <div className="mb-14 grid gap-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
           <div>
-            <p className="eyebrow mb-4">Core Systems</p>
-            <h2 className="section-title-sm max-w-2xl">The operating layer beneath campaigns.</h2>
+            <p className="eyebrow mb-5">Core Systems</p>
+            <h2 className="section-title">Practical layers behind cleaner growth work.</h2>
           </div>
           <p className="section-copy lg:max-w-xl">
-            Campaigns become useful when sourcing, CRM logic, tracking, handoff, and reporting work as one system. These are the layers I focus on.
+            The work is not only campaigns. It is the tracking, CRM logic, data flow, source quality, and handoff structure that decide whether campaigns become useful pipeline.
           </p>
         </div>
 
@@ -67,23 +67,25 @@ export default function BentoSystems() {
             return (
               <motion.article
                 key={item.title}
-                initial={{ opacity: 0, y: 16 }}
+                initial={{ opacity: 0, y: 18 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.2 }}
-                transition={{ duration: 0.45, delay: index * 0.035, ease: [0.16, 1, 0.3, 1] }}
-                className="group rounded-[26px] border border-stone-200 bg-white p-6 shadow-sm transition duration-300 hover:-translate-y-1 hover:border-stone-300 hover:shadow-xl hover:shadow-stone-900/5"
+                transition={{ duration: 0.55, delay: index * 0.04, ease: [0.16, 1, 0.3, 1] }}
+                className="group rounded-[28px] border border-stone-200 bg-white p-7 shadow-sm transition duration-300 hover:-translate-y-1 hover:border-stone-300 hover:shadow-xl hover:shadow-stone-900/5"
               >
-                <div className="mb-6 flex items-center justify-between gap-4">
-                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-stone-950 text-white transition-colors group-hover:bg-accent">
-                    <Icon size={19} />
+                <div className="mb-8 flex items-center justify-between">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-stone-950 text-white transition-colors group-hover:bg-accent">
+                    <Icon size={20} />
                   </div>
-                  <span className="font-mono text-[9px] font-bold uppercase tracking-[0.18em] text-stone-400">{item.kicker}</span>
+                  <span className="font-mono text-[9px] font-bold uppercase tracking-[0.2em] text-stone-400">{item.kicker}</span>
                 </div>
-                <h3 className="text-xl font-black tracking-tight text-stone-950">{item.title}</h3>
-                <p className="mt-3 card-copy">{item.copy}</p>
-                <div className="mt-5 flex flex-wrap gap-2">
+                <h3 className="text-2xl font-bold tracking-tight text-stone-950">{item.title}</h3>
+                <p className="mt-4 text-sm leading-7 text-stone-600">{item.copy}</p>
+                <div className="mt-7 flex flex-wrap gap-2">
                   {item.points.map((point) => (
-                    <span key={point} className="pill bg-stone-50">{point}</span>
+                    <span key={point} className="rounded-full border border-stone-200 bg-stone-50 px-3 py-1 font-mono text-[9px] font-bold uppercase tracking-widest text-stone-500">
+                      {point}
+                    </span>
                   ))}
                 </div>
               </motion.article>

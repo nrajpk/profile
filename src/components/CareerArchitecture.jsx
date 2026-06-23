@@ -1,183 +1,113 @@
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { ChevronRight, Database, Globe, Cpu, Layout, Code2, Terminal } from "lucide-react";
+import React from 'react';
+import { motion } from 'framer-motion';
+import { Code2, Terminal } from 'lucide-react';
 
-const deployments = [
+const roles = [
   {
-    id: "deployment-04",
-    period: "2023 — PRESENT",
-    role: "Marketing & Digital Transformation Manager",
-    company: "Mahindra Emirates Vehicle Armouring",
-    location: "UAE (Global Markets)",
-    environment: "B2B / B2G Defense Solutions",
-    core: "Building the Growth Operating Model that connects global demand to production reality.",
-    stack: ["Python", "Salesforce", "API Integrations", "Power BI"],
-    metrics: ["100% Pipeline Visibility", "Multi-Market Sync"],
-    highlights: [
-      "Virtual Product Owner for custom-built CRM infrastructure.",
-      "Automating data tasks and workflows using Python scripting.",
-      "Leading digital roadmaps for Middle East, Africa, and European markets."
-    ]
+    period: '2023 to Present',
+    role: 'Marketing & Digital Transformation Manager',
+    company: 'Mahindra Emirates Vehicle Armouring',
+    context: 'B2B and B2G defense solutions',
+    summary: 'Marketing operations, CRM workflows, digital roadmaps, lead generation, and technical systems for high-consideration markets.',
+    stack: ['Python', 'Apify', 'Salesforce', 'Power BI', 'LinkedIn Ads'],
+    highlights: ['Data sourcing', 'CRM visibility', 'Market development']
   },
   {
-    id: "deployment-03",
-    period: "2022 — 2023",
-    role: "Digital Marketing Consultant",
-    company: "Coach2Reach Inc.",
-    location: "Global (Remote)",
-    environment: "B2C EdTech",
-    core: "Designing end-to-end Google Ads strategy and performance scaling roadmaps.",
-    stack: ["Google Ads", "GA4", "GTM", "Advanced Bidding"],
-    metrics: ["Global Scaling", "Quality Score Optimization"],
-    highlights: [
-      "Owned end-to-end Google Ads strategy and budget management.",
-      "Established conversion tracking and performance reporting logic.",
-      "Translated campaign data into actionable scaling insights."
-    ]
+    period: '2022 to 2023',
+    role: 'Digital Marketing Consultant',
+    company: 'Coach2Reach Inc.',
+    context: 'B2C EdTech',
+    summary: 'Paid acquisition, conversion tracking, and performance analysis for a global education platform.',
+    stack: ['Google Ads', 'GA4', 'GTM', 'Analytics'],
+    highlights: ['Paid acquisition', 'Tracking', 'Performance review']
   },
   {
-    id: "deployment-02",
-    period: "2020 — 2021",
-    role: "Social Media Specialist",
-    company: "ChalksnSlate Media",
-    location: "India (Hybrid)",
-    environment: "B2B Media Agency",
-    core: "Developing cross-platform creative direction and ROI-focused strategies.",
-    stack: ["Adobe Suite", "Creative Strategy", "Meta Ads"],
-    metrics: ["Creative Iteration", "ROI Growth"],
-    highlights: [
-      "Defined creative direction and enforced content best practices.",
-      "Managed outputs to align with diverse client campaign objectives.",
-      "Implemented continuous optimization for creative performance."
-    ]
+    period: '2020 to 2021',
+    role: 'Social Media Specialist',
+    company: 'ChalksnSlate Media',
+    context: 'B2B media agency',
+    summary: 'Creative operations, campaign execution, and performance improvement across client marketing work.',
+    stack: ['Meta Ads', 'Creative Strategy', 'Content Systems', 'Reporting'],
+    highlights: ['Campaign execution', 'Creative ops', 'Reporting']
   },
   {
-    id: "deployment-01",
-    period: "2016 — 2020",
-    role: "Sr. Digital Marketing Associate",
-    company: "Markon Strategy Consulting",
-    location: "India (Hybrid)",
-    environment: "B2B Marketing Startup",
-    core: "FE/UI/UX development and marketing automation implementation.",
-    stack: ["HTML/CSS", "Wireframing", "Automation Tools", "UI/UX"],
-    metrics: ["Funnel Efficiency", "Lead-to-Conversion"],
-    highlights: [
-      "Wireframed and developed conversion-driven landing pages.",
-      "Implemented automation systems to streamline workflow efficiency.",
-      "Executed campaigns focused on brand awareness and lead goals."
-    ]
+    period: '2016 to 2020',
+    role: 'Sr. Digital Marketing Associate',
+    company: 'Markon Strategy Consulting',
+    context: 'B2B marketing startup',
+    summary: 'Landing pages, UI/UX, campaign execution, and workflow automation across early digital marketing systems.',
+    stack: ['HTML/CSS', 'Wireframing', 'Automation Tools', 'UI/UX'],
+    highlights: ['Landing pages', 'Workflow support', 'Technical implementation']
   }
 ];
 
 export default function CareerArchitecture() {
-  const [activeId, setActiveId] = useState("deployment-04");
-
   return (
-    <section id="experience" className="pt-20 pb-32 px-6 bg-paper border-t border-stone-100">
-      <div className="max-w-6xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
-          
-          {/* Left Column: The Selector */}
-          <div className="lg:col-span-5">
-            <div className="mb-12">
-              <span className="font-mono text-[10px] font-bold text-stone-400 uppercase tracking-[0.4em] mb-4 block">Archive</span>
-              <h2 className="text-[56px] leading-[0.92] font-bold tracking-tight text-stone-900 italic font-serif">Deployment History.</h2>
-            </div>
-
-            <div className="space-y-2">
-              {deployments.map((job) => (
-                <button
-                  key={job.id}
-                  onClick={() => setActiveId(job.id)}
-                  className={`w-full p-6 rounded-2xl text-left transition-all duration-500 border flex items-center justify-between group ${
-                    activeId === job.id 
-                    ? "bg-white border-zapier shadow-xl shadow-orange-500/5 translate-x-2" 
-                    : "bg-transparent border-transparent text-stone-400 hover:text-stone-600"
-                  }`}
-                >
-                  <div>
-                    <p className="font-mono text-[8px] font-bold uppercase tracking-widest mb-1">{job.id} // {job.period}</p>
-                    <p className={`font-bold transition-colors ${activeId === job.id ? "text-stone-900" : "text-inherit"}`}>
-                      {job.company}
-                    </p>
-                  </div>
-                  <ChevronRight className={`w-4 h-4 transition-transform duration-500 ${activeId === job.id ? "rotate-0 text-zapier" : "-rotate-90 opacity-0 group-hover:opacity-100"}`} />
-                </button>
-              ))}
-            </div>
-
-            {/* Educational Foundation */}
-            <div className="mt-16 p-8 bg-stone-900 rounded-xl text-white relative overflow-hidden group">
-               <div className="relative z-10">
-                <Terminal className="text-zapier mb-4" size={20} />
-                <p className="font-mono text-[9px] text-stone-500 uppercase tracking-widest mb-1">Root Foundation</p>
-                <p className="font-bold text-lg leading-tight">B.Tech Computer Science Engineering</p>
-                <p className="text-stone-400 text-xs mt-2 italic">Mar Athanasius College of Engineering</p>
-               </div>
-               <Code2 className="absolute -right-4 -bottom-4 text-white/5 w-32 h-32 rotate-12 transition-transform group-hover:scale-110" />
-            </div>
+    <section id="background" className="section-wrap bg-paper">
+      <div className="mx-auto max-w-6xl px-6">
+        <div className="mb-10 grid gap-5 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
+          <div>
+            <p className="eyebrow mb-4">Background</p>
+            <h2 className="section-title-sm max-w-2xl">A marketing path with a technical base.</h2>
           </div>
+          <p className="section-copy lg:max-w-xl">
+            The common thread is operational: campaigns, websites, CRM systems, tracking, reporting, and workflows that make visible marketing work function better.
+          </p>
+        </div>
 
-          {/* Right Column: The "System View" (Expanded Content) */}
-          <div className="lg:col-span-7">
-            <AnimatePresence mode="wait">
-              {deployments.map((job) => job.id === activeId && (
-                <motion.div
-                  key={job.id}
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -20 }}
-                  transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                  className="bg-white border border-stone-200 rounded-xl p-10 md:p-16 shadow-sm h-full flex flex-col"
-                >
-                  <div className="flex flex-wrap gap-3 mb-8">
-                    <span className="px-3 py-1 bg-stone-50 border border-stone-100 rounded-full font-mono text-[9px] font-bold text-stone-400 uppercase tracking-widest">
-                      {job.location}
+        <div className="grid gap-4 lg:grid-cols-2">
+          {roles.map((role, index) => (
+            <motion.article
+              key={`${role.company}-${role.period}`}
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.45, delay: index * 0.035, ease: [0.16, 1, 0.3, 1] }}
+              className="rounded-[28px] border border-stone-200 bg-white p-6 shadow-sm"
+            >
+              <div className="mb-5 flex flex-wrap items-center gap-2">
+                <span className="pill bg-stone-50">{role.period}</span>
+                <span className="rounded-full border border-accent/30 bg-accent/10 px-3 py-1 font-mono text-[9px] font-bold uppercase tracking-widest text-accent">
+                  {role.context}
+                </span>
+              </div>
+
+              <h3 className="text-2xl font-black leading-tight tracking-tight text-stone-950">{role.role}</h3>
+              <p className="mt-2 text-base font-bold text-stone-500">{role.company}</p>
+              <p className="mt-4 card-copy">{role.summary}</p>
+
+              <div className="mt-5 flex flex-wrap gap-2">
+                {role.highlights.map((item) => (
+                  <span key={item} className="pill bg-stone-50">{item}</span>
+                ))}
+              </div>
+
+              <div className="mt-5 border-t border-stone-200 pt-5">
+                <div className="flex flex-wrap gap-2">
+                  {role.stack.map((tool) => (
+                    <span key={tool} className="rounded-full bg-stone-950 px-3 py-1 font-mono text-[9px] font-bold uppercase tracking-widest text-white">
+                      {tool}
                     </span>
-                    <span className="px-3 py-1 bg-stone-50 border border-stone-100 rounded-full font-mono text-[9px] font-bold text-zapier uppercase tracking-widest">
-                      {job.environment}
-                    </span>
-                  </div>
+                  ))}
+                </div>
+              </div>
+            </motion.article>
+          ))}
+        </div>
 
-                  <h3 className="text-3xl md:text-4xl font-bold text-stone-900 mb-6 leading-tight tracking-tight">
-                    {job.role}
-                  </h3>
-                  
-                  <p className="text-stone-500 text-lg leading-relaxed mb-10 italic font-serif">
-                    "{job.core}"
-                  </p>
-
-                  <div className="grid grid-cols-2 gap-8 mb-12">
-                     {job.metrics.map(m => (
-                       <div key={m}>
-                          <p className="text-2xl font-bold text-stone-900 tracking-tighter">{m}</p>
-                          <p className="font-mono text-[9px] text-stone-400 uppercase tracking-widest mt-1">Key Outcome</p>
-                       </div>
-                     ))}
-                  </div>
-
-                  <div className="space-y-4 mb-12 flex-1">
-                    <p className="font-mono text-[10px] font-bold text-stone-900 uppercase tracking-widest mb-4">Technical Highlights:</p>
-                    {job.highlights.map((point, i) => (
-                      <div key={i} className="flex gap-4 items-start">
-                        <div className="mt-1.5 h-1.5 w-1.5 rounded-full bg-zapier flex-shrink-0" />
-                        <p className="text-stone-500 text-sm leading-relaxed">{point}</p>
-                      </div>
-                    ))}
-                  </div>
-
-                  <div className="pt-8 border-t border-stone-100 flex flex-wrap gap-2">
-                    {job.stack.map(s => (
-                      <span key={s} className="px-3 py-1 bg-stone-900 text-white font-mono text-[8px] font-bold uppercase tracking-widest rounded-md">
-                        {s}
-                      </span>
-                    ))}
-                  </div>
-                </motion.div>
-              ))}
-            </AnimatePresence>
+        <div className="mt-4 grid gap-4 md:grid-cols-[0.85fr_1.15fr]">
+          <div className="rounded-[28px] border border-stone-800 bg-stone-950 p-6 text-white">
+            <Terminal className="mb-4 text-accent" size={20} />
+            <p className="font-mono text-[9px] font-bold uppercase tracking-widest text-stone-500">Education</p>
+            <p className="mt-2 text-2xl font-black tracking-tight">B.Tech in Computer Science</p>
+            <p className="mt-3 text-sm leading-7 text-stone-400">The technical foundation behind how I approach marketing systems, automation, and data flow.</p>
           </div>
-
+          <div className="rounded-[28px] border border-stone-200 bg-white p-6">
+            <Code2 className="mb-4 text-accent" size={22} />
+            <p className="font-mono text-[9px] font-bold uppercase tracking-widest text-stone-400">Current direction</p>
+            <p className="mt-2 text-2xl font-black tracking-tight text-stone-950">Building toward practical GTM Engineering.</p>
+            <p className="mt-3 text-sm leading-7 text-stone-600">The next layer is proof: enrichment logic, lead routing, account qualification, procurement signal detection, and attribution workflows that can be shown through demos, code logs, and sanitized outputs.</p>
+          </div>
         </div>
       </div>
     </section>

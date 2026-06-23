@@ -1,95 +1,133 @@
-import { motion } from "framer-motion";
+import React from 'react';
+import { motion } from 'framer-motion';
+import { ArrowUpRight, Database, LineChart, Workflow } from 'lucide-react';
+
+const smoothEase = [0.16, 1, 0.3, 1];
+
+const proofPoints = [
+  { label: 'Foundation', value: 'B.Tech Computer Science' },
+  { label: 'Operating zone', value: 'CRM, analytics, lead gen' },
+  { label: 'Current focus', value: 'Practical GTM systems' }
+];
+
+const systemRows = [
+  { icon: Workflow, title: 'Lead source', value: 'Captured and structured' },
+  { icon: Database, title: 'CRM record', value: 'Routed into pipeline view' },
+  { icon: LineChart, title: 'Performance', value: 'Measured with reporting layer' }
+];
 
 export default function HeroNarrative() {
-  const titleWords =
-    "I build GTM systems that turn campaigns, leads, CRM data, and sales activity into one working growth engine.".split(" ");
-
-  const smoothEase = [0.16, 1, 0.3, 1];
-
   return (
-    <section className="min-h-screen flex flex-col justify-center px-6 pt-28 md:pt-32 max-w-6xl mx-auto">
-      <motion.div
-        initial={{ opacity: 0, x: -10 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 1, delay: 0.2, ease: smoothEase }}
-        className="flex items-center gap-5 mb-12"
-      >
-        <div className="relative group">
-          <img
-            src="/dp.jpeg"
-            alt="Nikhil Raj PK"
-            className="h-14 w-14 rounded-full object-cover border border-stone-200 grayscale group-hover:grayscale-0 transition-all duration-700 ease-out shadow-sm"
-          />
-
-          <div className="absolute bottom-0 right-0 h-3 w-3 rounded-full bg-paper border-2 border-paper">
-            <div className="h-full w-full rounded-full bg-zapier animate-pulse" />
-          </div>
-        </div>
-
-        <div className="flex flex-col">
-          <span className="font-mono text-[11px] font-bold text-stone-900 uppercase tracking-widest">
-            Nikhil Raj PK
-          </span>
-          <span className="font-mono text-[9px] text-stone-400 uppercase tracking-[0.2em] mt-0.5">
-            GTM Engineer & Marketing Operations Builder
-          </span>
-        </div>
-      </motion.div>
-
-      <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold leading-[0.95] tracking-tight mb-10 text-stone-900">
-        {titleWords.map((word, i) => (
-          <motion.span
-            key={`${word}-${i}`}
-            initial={{ opacity: 0, y: 15, filter: "blur(4px)" }}
-            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-            transition={{
-              delay: i * 0.055 + 0.3,
-              duration: 0.8,
-              ease: smoothEase,
-            }}
-            className="inline-block mr-[0.25em]"
+    <section className="relative flex min-h-[92vh] items-center overflow-hidden px-6 pb-16 pt-28 md:pt-34">
+      <div className="mx-auto grid max-w-6xl gap-12 lg:grid-cols-[1.02fr_0.98fr] lg:items-center">
+        <div>
+          <motion.div
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: smoothEase }}
+            className="mb-7 flex items-center gap-4"
           >
-            {word === "engine." ? (
-              <span className="font-serif italic font-normal text-stone-400">
-                {word}
-              </span>
-            ) : (
-              word
-            )}
-          </motion.span>
-        ))}
-      </h1>
+            <img
+              src="/dp.jpeg"
+              alt="Nikhil Raj PK"
+              className="h-13 w-13 rounded-full border border-stone-200 bg-white object-cover grayscale transition duration-500 hover:grayscale-0"
+            />
+            <div>
+              <p className="text-sm font-bold text-stone-950">Nikhil Raj PK</p>
+              <p className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-stone-500">
+                Marketing Operations & GTM Systems Builder
+              </p>
+            </div>
+          </motion.div>
 
-      <motion.p
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1, duration: 1, ease: smoothEase }}
-        className="text-xl md:text-2xl text-stone-500 font-medium max-w-3xl leading-relaxed"
-      >
-        I help B2B and B2G teams clean up fragmented marketing operations, automate reporting,
-        improve lead visibility, and build workflows that make revenue execution easier to manage.
-      </motion.p>
+          <motion.p
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.08, ease: smoothEase }}
+            className="eyebrow mb-5"
+          >
+            CRM. Analytics. Automation. Lead generation.
+          </motion.p>
 
-      <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1.15, duration: 1, ease: smoothEase }}
-        className="mt-10 flex flex-col sm:flex-row gap-4"
-      >
-        <a
-          href="#systems"
-          className="inline-flex items-center justify-center bg-stone-900 text-white px-7 py-4 rounded-full font-bold uppercase tracking-widest text-[10px] hover:bg-zapier transition-all shadow-xl shadow-stone-900/10 active:scale-95"
+          <motion.h1
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.15, ease: smoothEase }}
+            className="max-w-3xl text-5xl font-black leading-[0.98] tracking-[-0.055em] text-stone-950 sm:text-6xl lg:text-[5.8rem]"
+          >
+            Connecting marketing execution with technical infrastructure.
+          </motion.h1>
+
+          <motion.p
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.25, ease: smoothEase }}
+            className="mt-7 max-w-2xl text-base leading-8 text-stone-600 sm:text-lg"
+          >
+            With a B.Tech in Computer Science and hands-on experience across B2B and B2G marketing, CRM systems, websites, analytics, Python workflows, and AI-assisted operations, I build practical systems that make lead generation, tracking, and pipeline visibility cleaner.
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.35, ease: smoothEase }}
+            className="mt-9 flex flex-col gap-4 sm:flex-row"
+          >
+            <a href="#work" className="btn btn-primary">
+              View My Work <ArrowUpRight size={15} />
+            </a>
+            <a href="#lab" className="btn btn-secondary">
+              See What I’m Building
+            </a>
+          </motion.div>
+        </div>
+
+        <motion.div
+          initial={{ opacity: 0, scale: 0.96 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.9, delay: 0.25, ease: smoothEase }}
+          className="relative"
         >
-          See the Systems
-        </a>
+          <div className="rounded-[30px] border border-stone-200 bg-white p-4 shadow-xl shadow-stone-900/5">
+            <div className="rounded-[24px] border border-stone-200 bg-stone-950 p-5 text-white md:p-6">
+              <div className="mb-6 flex items-center justify-between border-b border-white/10 pb-5">
+                <div>
+                  <p className="font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-stone-500">System view</p>
+                  <p className="mt-2 text-lg font-semibold">Marketing stack health</p>
+                </div>
+                <span className="rounded-full bg-accent/15 px-3 py-1 font-mono text-[9px] font-bold uppercase tracking-widest text-accent">live logic</span>
+              </div>
 
-        <a
-          href="#gtm-engineer"
-          className="inline-flex items-center justify-center border border-stone-200 bg-white/50 text-stone-700 px-7 py-4 rounded-full font-bold uppercase tracking-widest text-[10px] hover:border-zapier hover:text-zapier transition-all active:scale-95"
-        >
-          What is GTM Engineering?
-        </a>
-      </motion.div>
+              <div className="space-y-3">
+                {systemRows.map((item) => {
+                  const Icon = item.icon;
+                  return (
+                    <div key={item.title} className="flex items-center gap-4 rounded-2xl border border-white/10 bg-white/[0.04] p-4">
+                      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white text-stone-950">
+                        <Icon size={18} />
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <p className="text-sm font-semibold text-white">{item.title}</p>
+                        <p className="text-xs text-stone-500">{item.value}</p>
+                      </div>
+                      <div className="h-2 w-2 shrink-0 rounded-full bg-accent" />
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-4 grid gap-3 sm:grid-cols-3">
+            {proofPoints.map((point) => (
+              <div key={point.label} className="rounded-2xl border border-stone-200 bg-white/85 p-4 backdrop-blur">
+                <p className="font-mono text-[9px] font-bold uppercase tracking-widest text-stone-400">{point.label}</p>
+                <p className="mt-2 text-sm font-semibold leading-5 text-stone-900">{point.value}</p>
+              </div>
+            ))}
+          </div>
+        </motion.div>
+      </div>
     </section>
   );
 }

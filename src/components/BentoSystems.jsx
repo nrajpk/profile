@@ -1,255 +1,94 @@
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import {
-  Workflow,
-  Target,
-  TrendingUp,
-  ChevronRight,
-  Zap,
-  ShieldCheck,
-} from "lucide-react";
+import React from 'react';
+import { motion } from 'framer-motion';
+import { Bot, Database, LineChart, Megaphone, PanelsTopLeft, Workflow } from 'lucide-react';
+
+const capabilities = [
+  {
+    icon: Database,
+    title: 'Data Extraction',
+    kicker: 'Sourcing layer',
+    copy: 'Python and Apify workflows for sourcing, cleaning, and structuring public B2B and B2G data.',
+    points: ['Public source mapping', 'Structured output', 'CRM-ready records']
+  },
+  {
+    icon: Workflow,
+    title: 'CRM & Pipeline Operations',
+    kicker: 'Operating layer',
+    copy: 'Salesforce, Zoho, and custom CRM workflows for tracking long-cycle sales activity with less manual drift.',
+    points: ['Pipeline views', 'Field logic', 'Handoff clarity']
+  },
+  {
+    icon: LineChart,
+    title: 'Analytics & Attribution',
+    kicker: 'Visibility layer',
+    copy: 'GA4, Google Tag Manager, MS Clarity, and Power BI for tracking campaign performance and conversion paths.',
+    points: ['Event tracking', 'Dashboards', 'Performance diagnosis']
+  },
+  {
+    icon: Megaphone,
+    title: 'Paid Acquisition',
+    kicker: 'Demand layer',
+    copy: 'Google Ads, LinkedIn Campaign Manager, and Meta Ads execution across acquisition and lead generation campaigns.',
+    points: ['Search intent', 'Audience logic', 'Reporting']
+  },
+  {
+    icon: Bot,
+    title: 'AI-Assisted Workflows',
+    kicker: 'Research layer',
+    copy: 'GPT-4o and Midjourney for research support, content workflows, visual assets, and faster marketing operations.',
+    points: ['Prompted research', 'Asset support', 'Acceleration']
+  },
+  {
+    icon: PanelsTopLeft,
+    title: 'Conversion Experience',
+    kicker: 'Interface layer',
+    copy: 'Website and landing page execution that supports trust, clarity, tracking, and campaign performance.',
+    points: ['Page structure', 'CTA hierarchy', 'Tracking-ready layouts']
+  }
+];
 
 export default function BentoSystems() {
-  const [view, setView] = useState("data");
-  const [statIndex, setStatIndex] = useState(0);
-
-  const content = {
-    intent: {
-      title: "Capturing signal before the spend.",
-      desc: "Demand isn't just volume; it's qualified intent. I map paid acquisition to actual buyer psychology to ensure zero-waste growth.",
-      stats: [
-        {
-          value: "4.2x",
-          label: "Pipeline Velocity",
-          icon: <Target className="w-5 h-5" />,
-        },
-        {
-          value: "65%",
-          label: "CPL Reduction",
-          icon: <Zap className="w-5 h-5" />,
-        },
-      ],
-      insights: [
-        {
-          title: "Psychological Mapping",
-          detail: "Aligning ad copy to high-intent search behavior.",
-        },
-        {
-          title: "Funnel Integrity",
-          detail: "Removing low-intent friction points from the lead flow.",
-        },
-      ],
-    },
-    data: {
-      title: "Architecting systems that survive scale.",
-      desc: "I bridge marketing execution with technical infrastructure. Most systems break because the logic is fragmented—I build the glue.",
-      stats: [
-        {
-          value: "98%",
-          label: "Attribution Accuracy",
-          icon: <Workflow className="w-5 h-5" />,
-        },
-        {
-          value: "Zero",
-          label: "Data Drift",
-          icon: <ShieldCheck className="w-5 h-5" />,
-        },
-      ],
-      insights: [
-        {
-          title: "Unified Tracking",
-          detail: "Global definitions that stay consistent across regions.",
-        },
-        {
-          title: "CRM Orchestration",
-          detail: "Automating the handoff between marketing and sales.",
-        },
-      ],
-    },
-    revenue: {
-      title: "Turning infrastructure into a financial asset.",
-      desc: "When systems are reliable, growth becomes a predictable decision. I align sales and marketing under one source of truth.",
-      stats: [
-        {
-          value: "100%",
-          label: "Revenue Visibility",
-          icon: <TrendingUp className="w-5 h-5" />,
-        },
-        {
-          value: "22%",
-          label: "ACV Increase",
-          icon: <TrendingUp className="w-5 h-5" />,
-        },
-      ],
-      insights: [
-        {
-          title: "Predictable Scaling",
-          detail: "Confidence to double down on what truly drives revenue.",
-        },
-        {
-          title: "Sales Alignment",
-          detail: "Higher lead quality leads to higher contract values.",
-        },
-      ],
-    },
-  };
-
-  const active = content[view];
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setStatIndex((prev) => (prev + 1) % active.stats.length);
-    }, 5000);
-
-    return () => clearInterval(timer);
-  }, [view, active.stats.length]);
-
-  useEffect(() => {
-    setStatIndex(0);
-  }, [view]);
-
   return (
-    <section
-      id="expertise"
-      className="pt-16 pb-32 px-4 sm:px-5 md:px-6 bg-paper"
-    >
-      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6">
-        
-        {/* LEFT: THE STRATEGY ENGINE */}
-        {/* FIX: Removed md:row-span-2 and added md:min-h-[480px] to ensure the right side has enough room to stack cleanly */}
-        <div className="md:col-span-8 p-6 sm:p-7 md:p-12 bg-white border border-stone-200 rounded-xl flex flex-col justify-between relative overflow-hidden min-h-[360px] md:min-h-[480px]">
-          <div className="relative z-10">
-            <span className="font-mono text-[9px] sm:text-[10px] text-zapier font-bold uppercase mb-4 md:mb-6 block tracking-[0.22em]">
-              Growth Architecture
-            </span>
-
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={view}
-                initial={{ opacity: 0, x: -16 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: 8 }}
-                transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-              >
-                <h3 className="text-[30px] sm:text-[34px] md:text-[56px] md:leading-[0.92] font-bold leading-[1.04] text-stone-900 tracking-tight max-w-lg text-balance">
-                  {active.title}
-                </h3>
-
-                <p className="text-stone-500 text-[15px] sm:text-base md:text-lg mt-4 sm:mt-5 md:mt-8 max-w-md leading-7 md:leading-relaxed">
-                  {active.desc}
-                </p>
-              </motion.div>
-            </AnimatePresence>
+    <section id="capabilities" className="section-wrap bg-paper">
+      <div className="mx-auto max-w-6xl px-6">
+        <div className="mb-10 grid gap-5 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
+          <div>
+            <p className="eyebrow mb-4">Core Systems</p>
+            <h2 className="section-title-sm max-w-2xl">The operating layer beneath campaigns.</h2>
           </div>
-
-          {/* MOBILE/ALL NAV */}
-          <div className="relative z-10 mt-8 md:mt-10">
-            <div className="-mx-1 px-1 overflow-x-auto no-scrollbar">
-              <div className="flex items-center gap-2 md:gap-3 font-mono text-[9px] md:text-[10px] font-bold uppercase w-max min-w-full pb-1">
-                {["intent", "data", "revenue"].map((item) => (
-                  <button
-                    key={item}
-                    onClick={() => setView(item)}
-                    className={`px-4 sm:px-4.5 md:px-5 py-2.5 md:py-2.5 rounded-full transition-all duration-300 border whitespace-nowrap shrink-0 ${
-                      view === item
-                        ? "bg-stone-900 text-white border-stone-900 shadow-md"
-                        : "bg-paper text-stone-500 border-stone-200"
-                    }`}
-                  >
-                    {item}
-                  </button>
-                ))}
-              </div>
-            </div>
-          </div>
+          <p className="section-copy lg:max-w-xl">
+            Campaigns become useful when sourcing, CRM logic, tracking, handoff, and reporting work as one system. These are the layers I focus on.
+          </p>
         </div>
 
-        {/* RIGHT: MOBILE SWIPE / DESKTOP STACK */}
-        {/* FIX: Added `flex flex-col` to the wrapper so it passes the stretched height down */}
-        <div className="md:col-span-4 flex flex-col">
-          <div className="flex md:flex-col gap-4 md:gap-6 overflow-x-auto md:overflow-visible snap-x snap-mandatory md:snap-none no-scrollbar -mx-4 px-4 md:mx-0 md:px-0 pb-1 md:pb-0 md:flex-1">
-            
-            {/* ROI STATS CARD */}
-            {/* FIX: Replaced md:h-full with md:h-auto and md:flex-1 so the two cards split 50/50 */}
-            <div className="min-w-[84%] sm:min-w-[78%] md:min-w-0 snap-center md:snap-align-none h-[240px] sm:h-[250px] md:h-auto md:flex-1 shrink-0 flex flex-col">
-              <div className="flex-1 bg-stone-900 text-white rounded-xl p-6 sm:p-7 md:p-8 flex flex-col justify-between relative overflow-hidden">
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={`${view}-${statIndex}`}
-                    initial={{ y: 16, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    exit={{ y: -16, opacity: 0 }}
-                    transition={{ duration: 0.35 }}
-                    className="h-full flex flex-col justify-between"
-                  >
-                    <div className="text-zapier">
-                      {active.stats[statIndex].icon}
-                    </div>
-
-                    <div>
-                      <p className="text-[42px] sm:text-[48px] md:text-[64px] font-bold tracking-tighter italic font-serif leading-none">
-                        {active.stats[statIndex].value}
-                      </p>
-                      <p className="font-mono text-[9px] sm:text-[10px] uppercase tracking-[0.18em] text-stone-400 mt-2 font-bold">
-                        {active.stats[statIndex].label}
-                      </p>
-                    </div>
-                  </motion.div>
-                </AnimatePresence>
-
-                <div className="absolute bottom-0 left-0 w-full h-1 bg-stone-800">
-                  <motion.div
-                    key={`${view}-${statIndex}`}
-                    initial={{ width: "0%" }}
-                    animate={{ width: "100%" }}
-                    transition={{ duration: 5, ease: "linear" }}
-                    className="h-full bg-zapier/40"
-                  />
-                </div>
-              </div>
-            </div>
-
-            {/* INSIGHT CARD */}
-            {/* FIX: Added flex-1 and converted button to take full height */}
-            <div className="min-w-[84%] sm:min-w-[78%] md:min-w-0 snap-center md:snap-align-none h-[240px] sm:h-[250px] md:h-auto md:flex-1 shrink-0 flex flex-col">
-              <button
-                type="button"
-                className="flex-1 w-full text-left bg-white border border-stone-200 rounded-xl p-6 sm:p-7 md:p-8 flex flex-col justify-between group transition-shadow hover:shadow-xl hover:border-stone-300"
-                onClick={() =>
-                  setStatIndex((prev) => (prev + 1) % active.insights.length)
-                }
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {capabilities.map((item, index) => {
+            const Icon = item.icon;
+            return (
+              <motion.article
+                key={item.title}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.45, delay: index * 0.035, ease: [0.16, 1, 0.3, 1] }}
+                className="group rounded-[26px] border border-stone-200 bg-white p-6 shadow-sm transition duration-300 hover:-translate-y-1 hover:border-stone-300 hover:shadow-xl hover:shadow-stone-900/5"
               >
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={`${view}-${statIndex}-insight`}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.3 }}
-                    className="h-full flex flex-col justify-between"
-                  >
-                    <div className="flex justify-between items-center">
-                      <div className="h-1.5 w-1.5 rounded-full bg-zapier" />
-                      <ChevronRight className="w-4 h-4 text-stone-300 md:group-hover:text-stone-900 transition-colors" />
-                    </div>
-
-                    <div>
-                      <p className="text-[10px] sm:text-xs font-mono font-bold text-stone-400 uppercase tracking-[0.18em] mb-2">
-                        Technical Insight
-                      </p>
-                      <p className="text-[20px] sm:text-[22px] md:text-xl font-bold leading-tight text-stone-900 mb-2">
-                        {active.insights[statIndex].title}
-                      </p>
-                      <p className="text-stone-500 text-[14px] sm:text-sm leading-6">
-                        {active.insights[statIndex].detail}
-                      </p>
-                    </div>
-                  </motion.div>
-                </AnimatePresence>
-              </button>
-            </div>
-
-          </div>
+                <div className="mb-6 flex items-center justify-between gap-4">
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-stone-950 text-white transition-colors group-hover:bg-accent">
+                    <Icon size={19} />
+                  </div>
+                  <span className="font-mono text-[9px] font-bold uppercase tracking-[0.18em] text-stone-400">{item.kicker}</span>
+                </div>
+                <h3 className="text-xl font-black tracking-tight text-stone-950">{item.title}</h3>
+                <p className="mt-3 card-copy">{item.copy}</p>
+                <div className="mt-5 flex flex-wrap gap-2">
+                  {item.points.map((point) => (
+                    <span key={point} className="pill bg-stone-50">{point}</span>
+                  ))}
+                </div>
+              </motion.article>
+            );
+          })}
         </div>
       </div>
     </section>

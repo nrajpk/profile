@@ -1,180 +1,130 @@
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { 
-  BarChart3, 
-  Mail, 
-  Database, 
-  Activity, 
-  ShieldCheck, 
-  Play, 
-  Code2,
-  ActivitySquare,
-  ChevronDown
-} from "lucide-react";
+import React from 'react';
+import { motion } from 'framer-motion';
+import { BellRing, Bot, Filter, GitBranch, Radar } from 'lucide-react';
 
-// --- MICRO-DEMOS ---
-const ExecutiveBriefDemo = () => {
-  const [active, setActive] = useState(false);
-  return (
-    <div className="bg-stone-950 p-4 rounded-xl font-mono text-[9px] mt-4 border border-stone-800">
-      <div className="flex justify-between items-center mb-3">
-        <span className="text-stone-500 uppercase tracking-tighter">CFO_Daily_Brief.py</span>
-        <button onClick={(e) => { e.stopPropagation(); setActive(!active); }} className="text-zapier p-1">
-          <Play size={12} fill={active ? "currentColor" : "none"}/>
-        </button>
-      </div>
-      <div className="h-12 overflow-hidden">
-        {active ? (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-blue-400 border-l border-blue-900/50 pl-2">
-            <p>&gt; YTD Performance: +18.4%</p>
-            <p className="text-green-400 font-bold">&gt; Dispatched to C-Suite</p>
-          </motion.div>
-        ) : (
-          <p className="text-stone-600 italic animate-pulse">&gt; waiting_for_init...</p>
-        )}
-      </div>
-    </div>
-  );
-};
+const labProjects = [
+  {
+    id: 'waterfall',
+    icon: GitBranch,
+    title: 'Custom Multi-Provider Enrichment Waterfall',
+    status: 'Currently Building',
+    description: 'A Python workflow for testing fallback logic across multiple enrichment sources.',
+    workflow: ['Read CSV', 'Query source A', 'Fallback source B', 'Export enriched record'],
+    tools: ['Python', 'REST APIs', 'CSV', 'GitHub'],
+    proof: 'Code log, terminal output, fallback diagram, sample enriched CSV.'
+  },
+  {
+    id: 'router',
+    icon: BellRing,
+    title: 'Real-Time Inbound Signal Router',
+    status: 'Planned',
+    description: 'A webhook workflow that routes form submissions and sends instant sales alerts.',
+    workflow: ['Capture form', 'Parse payload', 'Apply rules', 'Send Slack alert'],
+    tools: ['Webhooks', 'Python or n8n', 'Slack API', 'HTML/CSS'],
+    proof: 'Form demo, Slack alert screenshot, routing logic, CRM record update.'
+  },
+  {
+    id: 'scoring',
+    icon: Bot,
+    title: 'LLM-Assisted Account Qualification Engine',
+    status: 'Planned',
+    description: 'A GPT-4o API workflow for scoring company profiles against defined ICP rules.',
+    workflow: ['Input profile', 'Apply ICP prompt', 'Parse JSON', 'Output score'],
+    tools: ['Python', 'OpenAI API', 'Prompting', 'JSON'],
+    proof: 'Prompt constraints, sample JSON output, scoring criteria, test dataset.'
+  },
+  {
+    id: 'signals',
+    icon: Radar,
+    title: 'Automated B2B Procurement Signal Harvester',
+    status: 'Building',
+    description: 'A portfolio version of public procurement signal monitoring and structured output.',
+    workflow: ['Monitor sources', 'Extract records', 'Apply filters', 'Prepare CRM export'],
+    tools: ['Python', 'Apify', 'Public sources', 'CRM import'],
+    proof: 'Architecture map, sanitized run log, sample structured output.'
+  },
+  {
+    id: 'attribution',
+    icon: Filter,
+    title: 'Closed-Loop Ads Attribution Engine',
+    status: 'Planned',
+    description: 'A workflow concept for connecting CRM outcomes back to ad performance reporting.',
+    workflow: ['Export CRM data', 'Map identifiers', 'Format payload', 'Report limits'],
+    tools: ['Google Ads API', 'Python', 'CRM data', 'CSV testing'],
+    proof: 'Data loop diagram, dummy GCLID CSV, upload payload example.'
+  }
+];
 
-// --- GRAPHS / VISUALIZATIONS ---
-const PowerBIView = ({ metric }) => {
-  const data = { velocity: [32, 65, 42, 82], attribution: [88, 94, 91, 98], health: [70, 80, 90, 100] }[metric];
-  return (
-    <div className="flex items-end justify-between gap-2 h-32 w-full px-2">
-      {data.map((val, i) => (
-        <motion.div 
-          key={i}
-          initial={{ height: 0 }} 
-          animate={{ height: `${val}%` }} 
-          className="flex-1 bg-blue-500 rounded-t-sm shadow-[0_0_15px_rgba(59,130,246,0.3)]" 
-        />
-      ))}
-    </div>
-  );
-};
+function statusClasses(status) {
+  if (status === 'Currently Building') return 'border-accent/30 bg-accent/10 text-accent';
+  if (status === 'Building') return 'border-stone-300 bg-white text-stone-950';
+  return 'border-stone-200 bg-white text-stone-500';
+}
 
-// --- MAIN COMPONENT ---
 export default function UtilityLab() {
-  const [expandedIndex, setExpandedIndex] = useState(0); // Card 0 open by default
-  const [activeMetric, setActiveMetric] = useState("velocity");
-  const [activeTool, setActiveTool] = useState("powerbi");
-
-  const tools = [
-    { title: "Executive Nerve Center", desc: "Automated daily performance digests for C-Suite mapping.", tech: "Python / API", impact: "100% Clarity", icon: <BarChart3 size={20}/>, demo: <ExecutiveBriefDemo /> },
-    { title: "BDM Velocity Engine", desc: "Weekly hygiene reports tracking lead-to-proposal speed.", tech: "Automation / CRM", impact: "12hrs/mo Saved", icon: <Activity size={20}/>, demo: <div className="mt-4 p-4 bg-stone-950 rounded-xl flex items-center justify-center border border-stone-800 h-24 text-stone-500 font-mono text-[9px]">ENGINE_STANDBY</div> },
-    { title: "Pipeline Logic Layer", desc: "Refactoring Opportunity Status IDs into revenue models.", tech: "Data Engineering", impact: "Predictable Growth", icon: <Database size={20}/>, demo: <div className="mt-4 p-4 bg-stone-950 rounded-xl flex items-center justify-center border border-stone-800 h-24 text-stone-500 font-mono text-[9px]">LOGIC_GATE_ACTIVE</div> },
-    { title: "Omni-Channel Sync", desc: "Middleware normalizing payloads across LinkedIn and CRM.", tech: "Node / Webhooks", impact: "99.9% Integrity", icon: <ShieldCheck size={20}/>, demo: <div className="mt-4 p-4 bg-stone-950 rounded-xl flex items-center justify-center border border-stone-800 h-24 text-stone-500 font-mono text-[9px]">SYNC_LISTENING</div> }
-  ];
-
   return (
-    <section id="lab" className="pt-24 pb-16 px-6 bg-paper">
-      <div className="max-w-6xl mx-auto">
-        
-        {/* Header */}
-        <div className="mb-16 md:mb-24 flex flex-col md:flex-row justify-between items-start md:items-end">
-          <div className="max-w-xl">
-            <span className="font-mono text-[10px] font-bold text-stone-400 uppercase tracking-[0.3em] mb-4 block">The Operating Model</span>
-            <h2 className="text-5xl font-bold tracking-tight text-stone-900 italic font-serif">The Utility Lab.</h2>
+    <section id="lab" className="section-wrap border-y border-stone-200 bg-white">
+      <div className="mx-auto max-w-6xl px-6">
+        <div className="mb-10 grid gap-5 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
+          <div>
+            <p className="eyebrow mb-4">GTM Systems Lab</p>
+            <h2 className="section-title-sm max-w-2xl">Projects being turned into proof.</h2>
           </div>
-          <div className="hidden md:block px-4 py-2 bg-white border border-stone-100 rounded-md text-[9px] font-mono font-bold text-stone-400 uppercase">
-            System Status: 100% Operational
-          </div>
+          <p className="section-copy lg:max-w-xl">
+            Active and planned portfolio builds around enrichment logic, routing, qualification, procurement signals, and attribution. Status labels are intentional, planned is not claimed as completed.
+          </p>
         </div>
 
-        {/* --- THE INTERACTIVE WALLET STACK --- */}
-        <div className="flex flex-col md:grid md:grid-cols-2 lg:grid-cols-4 gap-2 md:gap-6">
-          {tools.map((tool, i) => {
-            const isExpanded = expandedIndex === i;
-            
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {labProjects.map((project, index) => {
+            const Icon = project.icon;
             return (
-              <motion.div
-                key={i}
-                layout
-                onClick={() => setExpandedIndex(isExpanded ? null : i)}
-                className={`
-                  relative overflow-hidden cursor-pointer
-                  bg-white border transition-all duration-500
-                  ${isExpanded ? 'border-zapier shadow-xl' : 'border-stone-200 hover:border-stone-400'}
-                  rounded-xl p-8
-                  flex flex-col
-                  /* Mobile Stack Logic: If not expanded, show only 80px peeking */
-                  ${!isExpanded ? 'h-[90px] md:h-[500px]' : 'h-[420px] md:h-[500px]'}
-                  /* Vertical overlap for mobile cards */
-                  ${i > 0 && !isExpanded ? '-mt-4 md:mt-0' : 'mt-0'}
-                `}
+              <motion.article
+                key={project.id}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.18 }}
+                transition={{ duration: 0.45, delay: index * 0.035, ease: [0.16, 1, 0.3, 1] }}
+                className="rounded-[28px] border border-stone-200 bg-paper p-6 transition duration-300 hover:-translate-y-1 hover:border-stone-300 hover:bg-white hover:shadow-xl hover:shadow-stone-900/5"
               >
-                {/* Card Header (Always visible) */}
-                <div className="flex justify-between items-start min-h-[40px]">
-                  <div className={`w-10 h-10 rounded-2xl flex items-center justify-center transition-colors ${isExpanded ? 'bg-zapier text-white' : 'bg-paper text-stone-400'}`}>
-                    {tool.icon}
+                <div className="mb-5 flex items-start justify-between gap-4">
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-white text-stone-950 shadow-sm">
+                    <Icon size={19} />
                   </div>
-                  <motion.div animate={{ rotate: isExpanded ? 180 : 0 }} className="md:hidden">
-                    <ChevronDown size={16} className="text-stone-300" />
-                  </motion.div>
-                  <Code2 className="hidden md:block w-4 h-4 text-stone-100" />
+                  <span className={`rounded-full border px-3 py-1 font-mono text-[9px] font-bold uppercase tracking-widest ${statusClasses(project.status)}`}>
+                    {project.status}
+                  </span>
                 </div>
 
-                {/* Card Body (Animate height for mobile) */}
-                <AnimatePresence>
-                  {(isExpanded || window.innerWidth >= 768) && (
-                    <motion.div 
-                      initial={{ opacity: 0 }} 
-                      animate={{ opacity: 1 }} 
-                      className="mt-6 flex-1 flex flex-col justify-between"
-                    >
-                      <div>
-                        <h4 className="font-bold text-stone-900 text-lg mb-2">{tool.title}</h4>
-                        <p className="text-stone-500 text-sm leading-relaxed mb-6">{tool.desc}</p>
-                        {tool.demo}
+                <h3 className="text-xl font-black leading-tight tracking-tight text-stone-950">{project.title}</h3>
+                <p className="mt-3 card-copy">{project.description}</p>
+
+                <div className="mt-6 rounded-2xl border border-stone-200 bg-white p-4">
+                  <p className="mb-3 font-mono text-[9px] font-bold uppercase tracking-widest text-stone-400">Workflow</p>
+                  <div className="grid gap-2">
+                    {project.workflow.map((step, stepIndex) => (
+                      <div key={step} className="flex items-center gap-3 text-sm font-semibold text-stone-800">
+                        <span className="font-mono text-[9px] font-bold text-accent">0{stepIndex + 1}</span>
+                        <span>{step}</span>
                       </div>
-                      <div className="mt-8 pt-6 border-t border-stone-50 flex justify-between text-[9px] font-mono font-bold uppercase tracking-widest">
-                        <span className="text-stone-400">{tool.tech}</span>
-                        <span className="text-zapier">{tool.impact}</span>
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </motion.div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="mt-5">
+                  <p className="mb-2 font-mono text-[9px] font-bold uppercase tracking-widest text-stone-400">Proof target</p>
+                  <p className="text-sm leading-6 text-stone-600">{project.proof}</p>
+                </div>
+
+                <div className="mt-5 flex flex-wrap gap-2">
+                  {project.tools.map((tool) => (
+                    <span key={tool} className="pill bg-white">{tool}</span>
+                  ))}
+                </div>
+              </motion.article>
             );
           })}
         </div>
-
-        {/* --- PERFORMANCE HUB (Full Width Below) --- */}
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          className="mt-12 p-8 md:p-12 bg-stone-900 rounded-xl text-white border border-white/5 relative overflow-hidden"
-        >
-          <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12">
-            <div className="lg:col-span-4">
-              <div className="flex items-center gap-3 mb-8">
-                <div className="p-2 rounded-lg bg-white/5 text-zapier"><ActivitySquare size={20} /></div>
-                <h4 className="font-bold text-xl uppercase tracking-tighter">Performance Hub</h4>
-              </div>
-              <div className="flex flex-col gap-2">
-                {["velocity", "attribution", "health"].map((m) => (
-                  <button 
-                    key={m} 
-                    onClick={() => setActiveMetric(m)} 
-                    className={`text-left px-5 py-3 rounded-xl font-mono text-[10px] font-bold uppercase transition-all ${activeMetric === m ? 'bg-white text-stone-900' : 'bg-white/5 text-stone-500'}`}
-                  >
-                    {m}
-                  </button>
-                ))}
-              </div>
-            </div>
-            
-            <div className="lg:col-span-8 bg-black/40 rounded-xl p-8 border border-white/5 h-[320px] flex flex-col justify-between">
-              <div className="flex justify-between items-center text-[9px] font-mono text-stone-500 uppercase tracking-widest">
-                <span>Active_Metric: {activeMetric}.pbix</span>
-                <span className="text-zapier animate-pulse">Live_Sync</span>
-              </div>
-              <PowerBIView metric={activeMetric} />
-            </div>
-          </div>
-        </motion.div>
-
       </div>
     </section>
   );

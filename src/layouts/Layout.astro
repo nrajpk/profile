@@ -1,35 +1,25 @@
 ---
 import '../styles/global.css';
 
-interface Props {
-  title?: string;
-  description?: string;
-}
-
 const {
-  title = 'Nikhil Raj PK | GTM Engineer & Marketing Operations Builder',
-  description = 'I help B2B and B2G teams connect marketing, sales, CRM, automation, reporting, and lead generation into practical GTM systems.'
+  title = 'Nikhil Raj PK | Marketing Operations & GTM Systems Builder',
+  description = 'Computer Science backed marketing operations builder working across CRM systems, analytics, automation, lead generation, and AI assisted GTM workflows.'
 } = Astro.props;
 ---
-
 <!doctype html>
 <html lang="en" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <title>{title}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
-
+    <meta name="theme-color" content="#f7f4ef" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
-
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={title} />
-    <meta name="twitter:description" content={description} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <title>{title}</title>
   </head>
-
-  <body class="dot-grid font-sans bg-paper text-stone-900 antialiased selection:bg-orange-100 selection:text-orange-900">
+  <body class="dot-grid bg-paper text-stone-950 antialiased selection:bg-accent-soft selection:text-accent">
     <slot />
   </body>
 </html>

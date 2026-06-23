@@ -1,96 +1,115 @@
-import { motion } from "framer-motion";
-import { ShieldCheck, Globe, Zap, Settings, Share2, Database } from "lucide-react";
+import React from 'react';
+import { motion } from 'framer-motion';
+import { BarChart3, DatabaseZap, LayoutDashboard } from 'lucide-react';
 
-export default function HighTicketArchitecture() {
-  const smoothEase = [0.16, 1, 0.3, 1];
+const builtWork = [
+  {
+    icon: DatabaseZap,
+    title: 'B2G Procurement Data Extraction Workflow',
+    status: 'Built, Mahindra Emirates Vehicle Armouring',
+    description: 'Automated workflows for sourcing and structuring defense and procurement-related contact data.',
+    workflow: ['Map public sources', 'Extract and clean records', 'Prepare CRM or campaign output'],
+    proof: ['Architecture diagram', 'Sanitized extraction log', 'Cleaned output sample'],
+    tools: ['Python', 'Apify', 'LinkedIn Ads', 'CRM workflows'],
+    cta: 'View workflow'
+  },
+  {
+    icon: BarChart3,
+    title: 'Ads, Analytics & Attribution Setup',
+    status: 'Built, Coach2Reach',
+    description: 'Campaign tracking and reporting workflows connecting paid acquisition activity with performance visibility.',
+    workflow: ['Configure tracking events', 'Set up GA4 and GTM', 'Build reporting views'],
+    proof: ['Blurred dashboard', 'Tracking structure', 'Campaign performance view'],
+    tools: ['Google Ads', 'GA4', 'Google Tag Manager', 'MS Power BI'],
+    cta: 'View tracking setup'
+  },
+  {
+    icon: LayoutDashboard,
+    title: 'Custom CRM Product Ownership',
+    status: 'Built, Enterprise CRM work',
+    description: 'CRM workflow and dashboard ownership for long-cycle sales visibility across regions.',
+    workflow: ['Map sales process', 'Structure fields and views', 'Improve pipeline visibility'],
+    proof: ['Pipeline structure', 'Dashboard wireframe', 'Workflow map'],
+    tools: ['Custom CRM', 'Salesforce', 'Zoho', 'Power BI'],
+    cta: 'View CRM work'
+  }
+];
 
+function MiniList({ label, items }) {
   return (
-    <section id="b2b-architecture" className="py-40 bg-stone-950 text-white overflow-hidden relative">
-      {/* Background Blueprint Grid */}
-      <div className="absolute inset-0 opacity-[0.03] pointer-events-none" 
-           style={{ backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)', backgroundSize: '60px 60px' }} />
-      
-      <div className="max-w-6xl mx-auto px-6 relative z-10">
-        
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start mb-24">
-          <div className="lg:col-span-8">
-            <motion.span initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} className="font-mono text-[10px] font-bold text-zapier uppercase tracking-[0.4em] mb-6 block">Expertise Vertical</motion.span>
-            <h2 className="text-[56px] md:text-[96px] font-bold tracking-tighter leading-[0.9] italic font-serif">High-Ticket <br/> B2B Architecture.</h2>
+    <div>
+      <p className="mb-2 font-mono text-[9px] font-bold uppercase tracking-widest text-stone-500">{label}</p>
+      <ul className="space-y-2">
+        {items.map((item) => (
+          <li key={item} className="flex gap-3 text-sm leading-6 text-stone-400">
+            <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
+            <span>{item}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+export default function HighTicketProof() {
+  return (
+    <section id="work" className="section-wrap bg-stone-950 text-white">
+      <div className="mx-auto max-w-6xl px-6">
+        <div className="mb-10 grid gap-5 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
+          <div>
+            <p className="eyebrow mb-4 text-accent">Built Work</p>
+            <h2 className="section-title-sm text-white">Proof from production roles.</h2>
           </div>
-          <div className="lg:col-span-4 lg:pt-12">
-            <p className="text-stone-500 text-lg leading-relaxed italic border-l border-stone-800 pl-8">
-              "When a single lead represents a quarter's revenue, the system cannot have blind spots. I engineer growth as a high-fidelity feedback loop."
-            </p>
-          </div>
+          <p className="section-copy text-stone-400 lg:max-w-xl">
+            Professional work and operating responsibilities from real roles. No invented metrics, no inflated case study claims, only systems that can be explained with sanitized proof.
+          </p>
         </div>
 
-        {/* The Growth Operating Model (Conceptual) */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          
-          <div className="p-10 bg-white/[0.03] border border-white/10 rounded-xl hover:border-zapier/50 transition-colors group">
-            <Globe className="text-zapier mb-8" size={32} />
-            <h4 className="text-2xl font-bold mb-4">Global Signal Sync</h4>
-            <p className="text-stone-500 text-sm leading-relaxed">
-              Managing demand signals across multi-continental markets, ensuring every regional touchpoint feeds back into a central source of truth.
-            </p>
-          </div>
+        <div className="grid gap-5 lg:grid-cols-3">
+          {builtWork.map((work, index) => {
+            const Icon = work.icon;
+            return (
+              <motion.article
+                key={work.title}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.18 }}
+                transition={{ duration: 0.45, delay: index * 0.04, ease: [0.16, 1, 0.3, 1] }}
+                className="flex min-h-full flex-col rounded-[28px] border border-white/10 bg-white/[0.045] p-6 transition duration-300 hover:-translate-y-1 hover:border-accent/50 hover:bg-white/[0.065]"
+              >
+                <div className="mb-6 flex items-center justify-between gap-4">
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-white text-stone-950">
+                    <Icon size={19} />
+                  </div>
+                  <span className="rounded-full border border-accent/30 bg-accent/10 px-3 py-1 font-mono text-[9px] font-bold uppercase tracking-widest text-accent">
+                    Built
+                  </span>
+                </div>
 
-          <div className="p-10 bg-white/[0.03] border border-white/10 rounded-xl hover:border-zapier/50 transition-colors">
-            <Share2 className="text-zapier mb-8" size={32} />
-            <h4 className="text-2xl font-bold mb-4">CRM Orchestration</h4>
-            <p className="text-stone-500 text-sm leading-relaxed">
-              Refactoring CRM logic (Salesforce/Zoho) to mirror complex B2G/B2B buying committees and 18-month conversion cycles.
-            </p>
-          </div>
+                <h3 className="text-xl font-black leading-tight tracking-tight text-white">{work.title}</h3>
+                <p className="mt-3 font-mono text-[9px] font-bold uppercase tracking-[0.17em] text-stone-500">{work.status}</p>
+                <p className="mt-4 text-sm leading-7 text-stone-400">{work.description}</p>
 
-          <div className="p-10 bg-white/[0.03] border border-white/10 rounded-xl hover:border-zapier/50 transition-colors">
-            <Database className="text-zapier mb-8" size={32} />
-            <h4 className="text-2xl font-bold mb-4">Governance Layer</h4>
-            <p className="text-stone-500 text-sm leading-relaxed">
-              Deploying Python-based hygiene scripts to prevent data drift and ensure 99.9% attribution accuracy at scale.
-            </p>
-          </div>
+                <div className="mt-6 grid gap-5">
+                  <MiniList label="Workflow" items={work.workflow} />
+                  <MiniList label="Proof to show" items={work.proof} />
+                </div>
 
+                <div className="mt-6 flex flex-wrap gap-2">
+                  {work.tools.map((tool) => (
+                    <span key={tool} className="rounded-full border border-white/10 bg-white/[0.05] px-3 py-1 font-mono text-[9px] font-bold uppercase tracking-widest text-stone-400">
+                      {tool}
+                    </span>
+                  ))}
+                </div>
+
+                <a href="mailto:nrajpk@outlook.com" className="mt-auto pt-7 text-xs font-black uppercase tracking-[0.18em] text-white transition-colors hover:text-accent">
+                  {work.cta}
+                </a>
+              </motion.article>
+            );
+          })}
         </div>
-
-        {/* Full Width Visualization of the Operating Model */}
-        <motion.div 
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          className="mt-12 p-12 bg-white rounded-xl text-stone-900 overflow-hidden relative group shadow-2xl"
-        >
-          <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-             <div>
-                <h3 className="text-4xl font-bold tracking-tight mb-6 italic font-serif">The Growth Operating Model</h3>
-                <p className="text-stone-500 text-lg leading-relaxed mb-8">
-                  My architecture bridges the gap between high-intent technical signals and actual production reality. It’s a system designed for accountability, not just volume.
-                </p>
-                <div className="flex gap-4">
-                   <div className="px-4 py-2 bg-stone-100 rounded-full font-mono text-[9px] font-bold uppercase tracking-widest text-stone-400">Systems-Led</div>
-                   <div className="px-4 py-2 bg-stone-100 rounded-full font-mono text-[9px] font-bold uppercase tracking-widest text-stone-400">Revenue-Focused</div>
-                </div>
-             </div>
-             
-             {/* Abstract System Topology Visual */}
-             <div className="bg-stone-50 rounded-xl p-8 border border-stone-200">
-                <div className="space-y-4">
-                   {[
-                     { l: "Intent Mapping", v: "Active" },
-                     { l: "CRM Pipeline Sync", v: "Operational" },
-                     { l: "Automated Reporting", v: "Live" }
-                   ].map(item => (
-                     <div key={item.l} className="flex justify-between items-center p-4 bg-white rounded-2xl border border-stone-100">
-                        <span className="font-mono text-[10px] font-bold text-stone-900 uppercase">{item.l}</span>
-                        <div className="flex items-center gap-2">
-                           <div className="w-1.5 h-1.5 rounded-full bg-zapier animate-pulse" />
-                           <span className="font-mono text-[8px] text-stone-400 font-bold uppercase">{item.v}</span>
-                        </div>
-                     </div>
-                   ))}
-                </div>
-             </div>
-          </div>
-        </motion.div>
       </div>
     </section>
   );

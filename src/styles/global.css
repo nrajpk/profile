@@ -1,119 +1,194 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,500&family=JetBrains+Mono:wght@400;600;700&display=swap');
 
-/* 1. FONTS - Fixed and Complete */
-@import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Instrument+Serif:ital,wght@0,400;1,400&family=JetBrains+Mono:wght@400;700&display=swap');
-
-/* 2. TAILWIND v4 THEME (Variables) */
 @theme {
   --font-sans: "Instrument Sans", sans-serif;
-  --font-serif: "Instrument Serif", serif;
   --font-mono: "JetBrains Mono", monospace;
 
-  /* Engineering-Grade Color Palette */
-  --color-paper: #F9F8F6;
-  --color-zapier: #FF4F00;
-  --color-surface: #FFFFFF;
-  
-  /* Animations for the "Operating Model" & Marquee */
-  --animate-spin-slow: spin 8s linear infinite;
-  
-  @keyframes marquee {
-    from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
-  }
-
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
+  --color-paper: #f7f4ef;
+  --color-surface: #ffffff;
+  --color-ink: #15130f;
+  --color-accent: #ff4f00;
+  --color-accent-soft: #fff1e8;
 }
 
-/* 3. UTILITIES */
-.animate-marquee {
-  animation: marquee 40s linear infinite;
-}
-
-.dot-grid {
-  background-image: radial-gradient(#d1d0cb 1px, transparent 1px);
-  background-size: 20px 20px;
-}
-
-/* Typographic scale — exact px values, clamp-responsive */
 :root {
-  --text-hero: clamp(72px, 9vw, 108px);
-  --text-h2: clamp(44px, 5.5vw, 64px);
-  --text-body: 17px;
-  --text-label: 9px;
+  color-scheme: light;
 }
 
-/* Shared utility tokens */
-.section-label {
-  font-family: var(--font-mono);
-  font-size: var(--text-label);
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.35em;
-  color: #78716c; /* stone-500 */
+* {
+  box-sizing: border-box;
 }
 
-.hairline {
-  border: 1px solid rgba(28, 25, 23, 0.10); /* stone-900 at 10% */
+html {
+  scroll-behavior: smooth;
 }
-
-.status-bar {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  font-family: var(--font-mono);
-  font-size: var(--text-label);
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
-  color: #a8a29e; /* stone-400 */
-  border-top: 1px solid rgba(28, 25, 23, 0.08);
-  padding-top: 0.75rem;
-  margin-top: 1rem;
-}
-
-.no-scrollbar::-webkit-scrollbar { 
-  display: none; 
-}
-
-/* 4. GLOBAL ELEMENTS (The "Architectural" Finish) */
 
 body {
-  background-color: var(--color-paper);
-  color: #1c1917; /* stone-900 */
+  margin: 0;
+  min-height: 100vh;
+  background: #f7f4ef;
+  color: #15130f;
+  font-family: "Instrument Sans", system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
-/* The Grain/Noise Overlay - Adds Industrial Texture */
 body::before {
   content: "";
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  opacity: 0.035;
-  z-index: 99;
+  inset: 0;
+  z-index: 80;
   pointer-events: none;
-  background-image: url("https://grainy-gradients.vercel.app/noise.svg");
-  filter: contrast(150%) brightness(1000%);
+  opacity: 0.24;
+  background:
+    radial-gradient(circle at 18% 10%, rgba(255, 79, 0, 0.05), transparent 30%),
+    radial-gradient(circle at 90% 0%, rgba(28, 25, 23, 0.04), transparent 30%);
 }
 
-/* Custom Selection for the "Systems-Led" Brand */
-::selection {
-  background-color: #ffede5; /* Light Zapier tint */
-  color: #FF4F00;
+a {
+  text-decoration: none;
 }
 
-/* Smooth reveal for the main entry */
-main {
-  animation: fadeIn 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-  position: relative;
+section {
+  scroll-margin-top: 96px;
 }
 
-/* Ensuring the Utility Lab bars have a default color fallback */
-.bg-zapier {
-  background-color: var(--color-zapier) !important;
+.dot-grid {
+  background-image: radial-gradient(rgba(28, 25, 23, 0.11) 0.7px, transparent 0.7px);
+  background-size: 28px 28px;
+}
+
+.section-wrap {
+  padding: 6rem 0;
+}
+
+.section-kicker {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: #ff4f00;
+}
+
+.eyebrow {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: #ff4f00;
+}
+
+.section-title {
+  font-size: clamp(2.25rem, 5vw, 4.35rem);
+  font-weight: 900;
+  line-height: 0.98;
+  letter-spacing: -0.05em;
+  color: #15130f;
+}
+
+.section-title-sm {
+  font-size: clamp(2rem, 3.8vw, 3.25rem);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.045em;
+  color: #15130f;
+}
+
+.section-copy {
+  font-size: clamp(1rem, 1.35vw, 1.12rem);
+  line-height: 1.75;
+  color: #615d56;
+}
+
+.card-copy {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: #615d56;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 2.9rem;
+  border-radius: 999px;
+  padding: 0.82rem 1.18rem;
+  font-size: 0.68rem;
+  font-weight: 900;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+  transition: transform 180ms ease, background 180ms ease, border-color 180ms ease, color 180ms ease, box-shadow 180ms ease;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+}
+
+.btn-primary {
+  border: 1px solid #15130f;
+  background: #15130f;
+  color: #ffffff;
+  box-shadow: 0 16px 38px rgba(21, 19, 15, 0.12);
+}
+
+.btn-primary:hover,
+.btn-dark:hover {
+  border-color: #ff4f00;
+  background: #ff4f00;
+  color: #ffffff;
+}
+
+.btn-secondary {
+  border: 1px solid rgba(28, 25, 23, 0.15);
+  background: rgba(255, 255, 255, 0.72);
+  color: #15130f;
+}
+
+.btn-secondary:hover {
+  border-color: #15130f;
+  background: #ffffff;
+}
+
+.btn-dark {
+  border: 1px solid #15130f;
+  background: #15130f;
+  color: #ffffff;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  border: 1px solid rgba(28, 25, 23, 0.12);
+  background: rgba(255, 255, 255, 0.72);
+  padding: 0.35rem 0.65rem;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 0.56rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #6f6960;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .section-wrap {
+    padding: 4.5rem 0;
+  }
+
+  .section-title {
+    font-size: clamp(2.25rem, 12vw, 3.35rem);
+    letter-spacing: -0.055em;
+  }
+
+  .btn {
+    width: 100%;
+  }
 }

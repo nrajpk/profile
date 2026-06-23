@@ -1,59 +1,47 @@
+import React from 'react';
 import { motion } from 'framer-motion';
 
-export default function Navigation() {
-  const navLinks = [
-    { name: 'Systems', href: '#systems' },
-    { name: 'Services', href: '#services' },
-    { name: 'GTM Engineer', href: '#gtm-engineer' },
-    { name: 'Projects', href: '#projects' },
-    { name: 'Experience', href: '#experience' },
-  ];
+const navLinks = [
+  { name: 'Systems', href: '#capabilities' },
+  { name: 'Work', href: '#work' },
+  { name: 'Lab', href: '#lab' },
+  { name: 'Stack', href: '#stack' },
+  { name: 'Background', href: '#background' }
+];
 
+export default function Navigation() {
   return (
     <motion.header
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-      className="fixed top-0 w-full z-50 bg-paper/80 backdrop-blur-md border-b border-stone-200/50"
+      initial={{ y: -80, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+      className="fixed inset-x-0 top-0 z-50 border-b border-stone-200/70 bg-paper/88 backdrop-blur-xl"
     >
-      <div className="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
-        <div className="flex items-center gap-8">
-          <a href="#" className="font-bold text-xl tracking-tighter text-stone-900 group">
-            nrajpk<span className="text-zapier group-hover:opacity-50 transition-opacity">_</span>
-          </a>
+      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
+        <a href="#" className="group flex items-center gap-3" aria-label="Nikhil Raj PK home">
+          <span className="flex h-9 w-9 items-center justify-center rounded-full border border-stone-200 bg-white text-xs font-black tracking-tight text-stone-950 shadow-sm">
+            NR
+          </span>
+          <span className="hidden text-sm font-bold tracking-tight text-stone-950 sm:block">
+            nrajpk<span className="text-accent">.</span>com
+          </span>
+        </a>
 
-          <div className="hidden lg:flex items-center gap-2.5 px-3 py-1.5 bg-stone-100/50 border border-stone-200/50 rounded-full">
-            <div className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
-            </div>
-            <span className="font-mono text-[9px] font-bold text-stone-500 uppercase tracking-tight">
-              Currently: UAE / Building GTM Systems
-            </span>
-          </div>
-        </div>
-
-        <nav className="hidden md:flex gap-10">
+        <nav className="hidden items-center gap-6 lg:flex" aria-label="Primary navigation">
           {navLinks.map((link) => (
             <a
               key={link.name}
               href={link.href}
-              className="relative text-xs font-bold uppercase tracking-widest text-stone-400 hover:text-stone-900 transition-colors group"
+              className="text-[10px] font-bold uppercase tracking-[0.2em] text-stone-500 transition-colors hover:text-stone-950"
             >
               {link.name}
-              <span className="absolute -bottom-1 left-0 w-0 h-px bg-zapier transition-all duration-300 group-hover:w-full"></span>
             </a>
           ))}
         </nav>
 
-        <div className="flex items-center gap-4">
-          <a
-            href="#contact"
-            className="text-[10px] font-bold uppercase tracking-widest text-white bg-stone-900 px-6 py-3 rounded-full hover:bg-zapier transition-all shadow-xl shadow-stone-900/10 active:scale-95"
-          >
-            Contact
-          </a>
-        </div>
+        <a href="mailto:nrajpk@outlook.com" className="btn btn-dark min-h-0 px-4 py-2 text-[10px]">
+          Contact
+        </a>
       </div>
     </motion.header>
   );

@@ -1,112 +1,145 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { BarChart3, DatabaseZap, LayoutDashboard } from 'lucide-react';
+import React from "react";
+import { motion } from "framer-motion";
+import { Globe, Share2, Database, LineChart, ShieldCheck, ArrowUpRight } from "lucide-react";
 
-const builtWork = [
+const deployments = [
   {
-    icon: DatabaseZap,
-    title: 'B2G Procurement Data Extraction Workflow',
-    status: 'Built, Mahindra Emirates Vehicle Armouring',
-    description: 'Automated workflows for sourcing and structuring defense and procurement-related contact data.',
-    problem: 'Manual sourcing of niche B2B and B2G contacts is slow, inconsistent, and difficult to scale.',
-    workflow: 'Identify target sources, run Python and Apify extraction workflow, clean records, prepare structured data for CRM import or outbound campaigns.',
-    tools: ['Python', 'Apify', 'LinkedIn Ads', 'CRM workflows'],
-    proof: 'Architecture diagram, sanitized extraction log, cleaned output sample.',
-    cta: 'View Workflow'
+    icon: <Globe size={30} />,
+    title: "B2G Procurement Data Extraction Workflow",
+    desc: "Automated workflows for sourcing and structuring defense and procurement-related contact data from public sources.",
+    flow: ["Identify target sources", "Run Python/Apify extraction", "Clean records", "Prepare for CRM or outbound"],
+    tools: ["Python", "Apify", "LinkedIn Ads", "CRM Workflows"],
+    proof: "Architecture diagram, sanitized extraction log and cleaned output sample."
   },
   {
-    icon: BarChart3,
-    title: 'Ads, Analytics & Attribution Setup',
-    status: 'Built, Coach2Reach',
-    description: 'Campaign tracking and reporting workflows connecting paid acquisition activity with performance visibility.',
-    problem: 'Marketing teams often track clicks and leads without enough clarity on which campaigns are producing qualified opportunities.',
-    workflow: 'Configure tracking events, set up GA4 and GTM measurement, monitor campaign performance, build reporting views for acquisition and conversion analysis.',
-    tools: ['Google Ads', 'GA4', 'Google Tag Manager', 'MS Power BI'],
-    proof: 'Blurred reporting dashboard, tracking structure, campaign performance view.',
-    cta: 'View Tracking Setup'
+    icon: <Share2 size={30} />,
+    title: "Custom CRM Product Ownership",
+    desc: "Structured CRM logic and dashboards for long-cycle global sales activity across B2B and B2G markets.",
+    flow: ["Map sales stages", "Define CRM fields", "Align pipeline views", "Support management reporting"],
+    tools: ["Custom CRM", "Salesforce", "Zoho", "Power BI"],
+    proof: "Sanitized CRM workflow map and pipeline visibility structure."
   },
   {
-    icon: LayoutDashboard,
-    title: 'Custom CRM Product Ownership',
-    status: 'Built, Enterprise CRM work',
-    description: 'CRM workflow and dashboard ownership for long-cycle sales visibility across regions.',
-    problem: 'Fragmented pipeline data makes it harder to understand active opportunities, handoffs, and sales movement.',
-    workflow: 'Map sales process, structure fields and views, coordinate dashboard requirements, improve pipeline visibility for management review.',
-    tools: ['Custom CRM', 'Salesforce', 'Zoho', 'Power BI'],
-    proof: 'Sanitized pipeline structure, dashboard wireframe, workflow map.',
-    cta: 'View CRM Work'
+    icon: <LineChart size={30} />,
+    title: "Ads, Analytics & Attribution Setup",
+    desc: "Campaign tracking and reporting workflows connecting paid acquisition activity with performance visibility.",
+    flow: ["Configure GTM events", "Set up GA4 tracking", "Review campaign data", "Build reporting views"],
+    tools: ["Google Ads", "GA4", "GTM", "MS Power BI"],
+    proof: "Blurred reporting dashboard, tracking structure and campaign performance view."
   }
 ];
 
-export default function HighTicketProof() {
+export default function HighTicketArchitecture() {
   return (
-    <section id="work" className="section-wrap bg-stone-950 text-white">
-      <div className="mx-auto max-w-6xl px-6">
-        <div className="mb-14 grid gap-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
-          <div>
-            <p className="eyebrow mb-5 text-accent">Built Work</p>
-            <h2 className="section-title text-white">Production work, kept factual.</h2>
+    <section id="proof" className="py-36 md:py-40 bg-stone-950 text-white overflow-hidden relative">
+      <div className="absolute inset-0 opacity-[0.035] pointer-events-none" style={{ backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)', backgroundSize: '60px 60px' }} />
+      <div className="absolute -left-32 top-20 w-96 h-96 bg-zapier/10 rounded-full blur-3xl pointer-events-none" />
+      
+      <div className="max-w-6xl mx-auto px-6 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-14 items-start mb-20">
+          <div className="lg:col-span-8">
+            <motion.span initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} className="font-mono text-[10px] font-bold text-zapier uppercase tracking-[0.4em] mb-6 block">
+              Built Work // Production Systems
+            </motion.span>
+            <h2 className="text-5xl md:text-7xl font-bold tracking-tighter leading-[0.95] italic font-serif">
+              Production work, <br/><span className="text-stone-500">kept factual.</span>
+            </h2>
           </div>
-          <p className="section-copy text-stone-400 lg:max-w-xl">
-            These are professional deployments and operating responsibilities from real roles. No invented metrics, no inflated case study claims, only the systems and workflows that can be shown with sanitized proof.
-          </p>
+          <div className="lg:col-span-4 lg:pt-10">
+            <p className="text-stone-400 text-lg leading-relaxed border-l border-stone-800 pl-8">
+              Real work across data extraction, CRM workflows, paid acquisition and reporting. No fake metrics, no invented outcomes, only systems that can be explained and shown with sanitized proof.
+            </p>
+          </div>
         </div>
 
-        <div className="grid gap-5 lg:grid-cols-3">
-          {builtWork.map((work, index) => {
-            const Icon = work.icon;
-            return (
-              <motion.article
-                key={work.title}
-                initial={{ opacity: 0, y: 18 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.2 }}
-                transition={{ duration: 0.55, delay: index * 0.05, ease: [0.16, 1, 0.3, 1] }}
-                className="flex min-h-full flex-col rounded-[32px] border border-white/10 bg-white/[0.04] p-7 transition duration-300 hover:-translate-y-1 hover:border-accent/50 hover:bg-white/[0.06]"
-              >
-                <div className="mb-8 flex items-center justify-between gap-4">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-stone-950">
-                    <Icon size={20} />
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {deployments.map((item, index) => (
+            <motion.article
+              key={item.title}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ delay: index * 0.08, duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+              className="p-8 md:p-9 bg-white/[0.035] border border-white/10 rounded-[36px] hover:border-zapier/45 transition-all duration-500 group flex flex-col min-h-[440px]"
+            >
+              <div className="flex items-start justify-between mb-8">
+                <div className="text-zapier group-hover:scale-110 transition-transform duration-500">{item.icon}</div>
+                <div className="flex items-center gap-2 font-mono text-[8px] font-bold uppercase tracking-widest text-stone-500">
+                  <span className="h-1.5 w-1.5 rounded-full bg-zapier animate-pulse" /> Built
+                </div>
+              </div>
+
+              <h3 className="text-2xl font-bold leading-tight mb-4 text-white">{item.title}</h3>
+              <p className="text-stone-400 text-sm leading-relaxed mb-8">{item.desc}</p>
+
+              <div className="space-y-3 mb-8 flex-1">
+                {item.flow.map((step, i) => (
+                  <div key={step} className="flex items-center gap-3 text-sm text-stone-300">
+                    <span className="font-mono text-[8px] text-stone-600 w-5">0{i + 1}</span>
+                    <span className="h-px w-5 bg-stone-800" />
+                    <span>{step}</span>
                   </div>
-                  <span className="rounded-full border border-accent/30 bg-accent/10 px-3 py-1 font-mono text-[9px] font-bold uppercase tracking-widest text-accent">
-                    Built
+                ))}
+              </div>
+
+              <div className="mb-7">
+                <p className="font-mono text-[8px] uppercase tracking-widest text-stone-600 mb-3 font-bold">Proof to show</p>
+                <p className="text-xs leading-relaxed text-stone-500">{item.proof}</p>
+              </div>
+
+              <div className="pt-6 border-t border-white/10 flex flex-wrap gap-2">
+                {item.tools.map((tool) => (
+                  <span key={tool} className="px-3 py-1 bg-white/5 border border-white/10 rounded-md font-mono text-[8px] font-bold uppercase tracking-widest text-stone-400">
+                    {tool}
                   </span>
-                </div>
-
-                <h3 className="text-2xl font-bold tracking-tight text-white">{work.title}</h3>
-                <p className="mt-3 font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-stone-500">{work.status}</p>
-                <p className="mt-5 text-sm leading-7 text-stone-400">{work.description}</p>
-
-                <div className="mt-7 space-y-5 text-sm leading-7 text-stone-400">
-                  <div>
-                    <p className="mb-1 font-mono text-[9px] font-bold uppercase tracking-widest text-stone-500">Problem</p>
-                    <p>{work.problem}</p>
-                  </div>
-                  <div>
-                    <p className="mb-1 font-mono text-[9px] font-bold uppercase tracking-widest text-stone-500">Workflow</p>
-                    <p>{work.workflow}</p>
-                  </div>
-                  <div>
-                    <p className="mb-1 font-mono text-[9px] font-bold uppercase tracking-widest text-stone-500">Proof to show</p>
-                    <p>{work.proof}</p>
-                  </div>
-                </div>
-
-                <div className="mt-7 flex flex-wrap gap-2">
-                  {work.tools.map((tool) => (
-                    <span key={tool} className="rounded-full border border-white/10 bg-white/[0.05] px-3 py-1 font-mono text-[9px] font-bold uppercase tracking-widest text-stone-400">
-                      {tool}
-                    </span>
-                  ))}
-                </div>
-
-                <a href="mailto:nrajpk@outlook.com" className="mt-8 inline-flex text-xs font-bold uppercase tracking-[0.2em] text-white transition-colors hover:text-accent">
-                  {work.cta}
-                </a>
-              </motion.article>
-            );
-          })}
+                ))}
+              </div>
+            </motion.article>
+          ))}
         </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mt-12 p-10 md:p-12 bg-white rounded-[48px] text-stone-900 overflow-hidden relative group shadow-2xl"
+        >
+          <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <div className="flex items-center gap-3 mb-5">
+                <ShieldCheck className="text-zapier" size={22} />
+                <span className="font-mono text-[9px] font-bold text-stone-400 uppercase tracking-widest">Operating Model</span>
+              </div>
+              <h3 className="text-4xl md:text-5xl font-bold tracking-tight mb-6 italic font-serif">The work is the system.</h3>
+              <p className="text-stone-500 text-lg leading-relaxed mb-8">
+                My strongest lane is not making marketing louder. It is making the operating layer cleaner: source data, CRM logic, tracking, dashboards and campaign handoffs.
+              </p>
+              <a href="#lab" className="inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-stone-900 hover:text-zapier transition-colors">
+                See the lab layer <ArrowUpRight size={14} />
+              </a>
+            </div>
+
+            <div className="bg-stone-50 rounded-[36px] p-7 border border-stone-200">
+              <div className="space-y-4">
+                {[
+                  { l: "Signal Sourcing", v: "Structured" },
+                  { l: "CRM Workflow", v: "Mapped" },
+                  { l: "Analytics Review", v: "Traceable" },
+                  { l: "Human Approval", v: "Preserved" },
+                ].map(item => (
+                  <div key={item.l} className="flex justify-between items-center p-4 bg-white rounded-2xl border border-stone-100 shadow-sm">
+                    <span className="font-mono text-[10px] font-bold text-stone-900 uppercase">{item.l}</span>
+                    <div className="flex items-center gap-2">
+                      <div className="w-1.5 h-1.5 rounded-full bg-zapier animate-pulse" />
+                      <span className="font-mono text-[8px] text-stone-400 font-bold uppercase">{item.v}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+          <Database className="absolute -right-10 -bottom-10 text-stone-100 w-56 h-56 rotate-12 transition-transform duration-700 group-hover:scale-110" />
+        </motion.div>
       </div>
     </section>
   );

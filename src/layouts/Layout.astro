@@ -1,9 +1,8 @@
 ---
 import '../styles/global.css';
-
 const {
   title = 'Nikhil Raj PK | Marketing Operations & GTM Systems Builder',
-  description = 'Computer Science backed marketing operations builder working across CRM systems, analytics, automation, lead generation, and AI assisted GTM workflows.'
+  description = 'Nikhil Raj PK builds practical GTM systems across marketing operations, CRM workflows, analytics, automation, lead generation and AI-assisted workflows.'
 } = Astro.props;
 ---
 <!doctype html>
@@ -12,14 +11,10 @@ const {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
-    <meta name="theme-color" content="#f7f4ef" />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
-    <meta property="og:type" content="website" />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#F9F8F6" />
     <title>{title}</title>
   </head>
-  <body class="dot-grid bg-paper text-stone-950 antialiased selection:bg-accent-soft selection:text-accent">
+  <body class="dot-grid font-sans bg-paper text-stone-900 antialiased selection:bg-orange-100 selection:text-orange-900">
     <slot />
   </body>
 </html>

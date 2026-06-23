@@ -1,17 +1,31 @@
-import React from 'react';
+import React from "react";
+import { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 
-export default function MagneticButton({ href = '#contact', children = 'Start a Conversation', variant = 'primary' }) {
-  const className = variant === 'secondary' ? 'btn btn-secondary' : 'btn btn-primary';
+export default function MagneticButton({ children, className }) {
+  const mouseRef = useRef(null);
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+
+  const handleMouse = (e) => {
+    const { clientX, clientY } = e;
+    const { height, width, left, top } = mouseRef.current.getBoundingClientRect();
+    const middleX = clientX - (left + width / 2);
+    const middleY = clientY - (top + height / 2);
+    setPosition({ x: middleX * 0.3, y: middleY * 0.3 });
+  };
+
+  const reset = () => setPosition({ x: 0, y: 0 });
 
   return (
-    <motion.a
-      href={href}
-      whileHover={{ y: -2 }}
-      whileTap={{ scale: 0.98 }}
+    <motion.button
+      ref={mouseRef}
+      onMouseMove={handleMouse}
+      onMouseLeave={reset}
+      animate={{ x: position.x, y: position.y }}
+      transition={{ type: "spring", stiffness: 150, damping: 15, mass: 0.1 }}
       className={className}
     >
       {children}
-    </motion.a>
+    </motion.button>
   );
 }

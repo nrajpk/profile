@@ -1,158 +1,82 @@
 @import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,500&family=JetBrains+Mono:wght@400;600;700&display=swap');
 
+/* 1. FONTS - Fixed and Complete */
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Instrument+Serif:ital,wght@0,400;1,400&family=JetBrains+Mono:wght@400;700&display=swap');
+
+/* 2. TAILWIND v4 THEME (Variables) */
 @theme {
   --font-sans: "Instrument Sans", sans-serif;
+  --font-serif: "Instrument Serif", serif;
   --font-mono: "JetBrains Mono", monospace;
 
-  --color-paper: #f7f4ef;
-  --color-surface: #ffffff;
-  --color-ink: #15130f;
-  --color-accent: #ff4f00;
-  --color-accent-soft: #fff1e8;
-
-  --animate-marquee: marquee 38s linear infinite;
-
+  /* Engineering-Grade Color Palette */
+  --color-paper: #F9F8F6;
+  --color-zapier: #FF4F00;
+  --color-surface: #FFFFFF;
+  
+  /* Animations for the "Operating Model" & Marquee */
+  --animate-spin-slow: spin 8s linear infinite;
+  
   @keyframes marquee {
     from { transform: translateX(0); }
     to { transform: translateX(-50%); }
   }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
 }
 
-:root {
-  color-scheme: light;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  margin: 0;
-  min-height: 100vh;
-  background: #f7f4ef;
-  color: #15130f;
-  font-family: "Instrument Sans", system-ui, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-}
-
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: 80;
-  pointer-events: none;
-  opacity: 0.32;
-  background:
-    radial-gradient(circle at 20% 15%, rgba(255, 79, 0, 0.06), transparent 30%),
-    radial-gradient(circle at 85% 10%, rgba(28, 25, 23, 0.05), transparent 28%);
-}
-
-a {
-  text-decoration: none;
-}
-
-section {
-  scroll-margin-top: 96px;
+/* 3. UTILITIES */
+.animate-marquee {
+  animation: marquee 40s linear infinite;
 }
 
 .dot-grid {
-  background-image: radial-gradient(rgba(28, 25, 23, 0.13) 0.8px, transparent 0.8px);
-  background-size: 26px 26px;
+  background-image: radial-gradient(#d1d0cb 0.8px, transparent 0.8px);
+  background-size: 24px 24px;
 }
 
-.section-wrap {
-  padding: 7.5rem 0;
+.no-scrollbar::-webkit-scrollbar { 
+  display: none; 
 }
 
-.section-title {
-  font-size: clamp(2.6rem, 7vw, 5.7rem);
-  font-weight: 900;
-  line-height: 0.96;
-  letter-spacing: -0.055em;
-  color: #15130f;
+/* 4. GLOBAL ELEMENTS (The "Architectural" Finish) */
+
+body {
+  background-color: var(--color-paper);
+  color: #1c1917; /* stone-900 */
+  -webkit-font-smoothing: antialiased;
 }
 
-.section-copy {
-  font-size: clamp(1rem, 1.6vw, 1.18rem);
-  line-height: 1.8;
-  color: #615d56;
+/* The Grain/Noise Overlay - Adds Industrial Texture */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  opacity: 0.035;
+  z-index: 99;
+  pointer-events: none;
+  background-image: url("https://grainy-gradients.vercel.app/noise.svg");
+  filter: contrast(150%) brightness(1000%);
 }
 
-.eyebrow {
-  font-family: "JetBrains Mono", ui-monospace, monospace;
-  font-size: 0.68rem;
-  font-weight: 800;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
-  color: #ff4f00;
+/* Custom Selection for the GTM systems brand */
+::selection {
+  background-color: #ffede5; /* Light Zapier tint */
+  color: #FF4F00;
 }
 
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  min-height: 3rem;
-  border-radius: 999px;
-  padding: 0.9rem 1.3rem;
-  font-size: 0.72rem;
-  font-weight: 900;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  transition: transform 180ms ease, background 180ms ease, border-color 180ms ease, color 180ms ease, box-shadow 180ms ease;
+/* Smooth reveal for the main entry */
+main {
+  animation: fadeIn 1.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.btn:hover {
-  transform: translateY(-1px);
-}
-
-.btn-primary {
-  border: 1px solid #15130f;
-  background: #15130f;
-  color: #ffffff;
-  box-shadow: 0 16px 38px rgba(21, 19, 15, 0.12);
-}
-
-.btn-primary:hover,
-.btn-dark:hover {
-  border-color: #ff4f00;
-  background: #ff4f00;
-  color: #ffffff;
-}
-
-.btn-secondary {
-  border: 1px solid rgba(28, 25, 23, 0.15);
-  background: rgba(255, 255, 255, 0.72);
-  color: #15130f;
-}
-
-.btn-secondary:hover {
-  border-color: #15130f;
-  background: #ffffff;
-}
-
-.btn-dark {
-  border: 1px solid #15130f;
-  background: #15130f;
-  color: #ffffff;
-}
-
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
-}
-
-@media (max-width: 768px) {
-  .section-wrap {
-    padding: 5.5rem 0;
-  }
-
-  .btn {
-    width: 100%;
-  }
+/* Ensuring the Utility Lab bars have a default color fallback */
+.bg-zapier {
+  background-color: var(--color-zapier) !important;
 }

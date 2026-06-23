@@ -1,155 +1,182 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronRight, Code2, Terminal } from 'lucide-react';
+import React from "react";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ChevronRight, Code2, Terminal } from "lucide-react";
 
-const roles = [
+const deployments = [
   {
-    id: 'role-04',
-    period: '2023 to Present',
-    role: 'Marketing & Digital Transformation Manager',
-    company: 'Mahindra Emirates Vehicle Armouring',
-    location: 'UAE, global markets',
-    context: 'B2B and B2G defense solutions',
-    summary: 'Marketing operations, CRM workflows, digital roadmaps, lead generation, and technical systems for high-consideration markets.',
-    stack: ['Python', 'Apify', 'Salesforce', 'Power BI', 'LinkedIn Ads'],
+    id: "deployment-04",
+    period: "2023 - PRESENT",
+    role: "Marketing & Digital Transformation",
+    company: "Mahindra Emirates Vehicle Armouring",
+    location: "UAE (Global Markets)",
+    environment: "B2B / B2G Defense Solutions",
+    core: "Working across digital marketing, CRM workflows, data extraction and global campaign operations for high-consideration markets.",
+    stack: ["Python", "Apify", "CRM", "Power BI"],
+    metrics: ["B2G Lead Sourcing", "CRM Workflow Support"],
     highlights: [
-      'Worked across digital marketing, CRM visibility, and market development workflows.',
-      'Used Python and extraction workflows to support public data sourcing and campaign preparation.',
-      'Supported systems that connect marketing activity with sales visibility.'
+      "Worked with custom CRM workflows and pipeline visibility requirements.",
+      "Used Python and extraction workflows to support targeted lead sourcing.",
+      "Supported digital campaigns and assets for Middle East, Africa and global market activity."
     ]
   },
   {
-    id: 'role-03',
-    period: '2022 to 2023',
-    role: 'Digital Marketing Consultant',
-    company: 'Coach2Reach Inc.',
-    location: 'Global, remote',
-    context: 'B2C EdTech',
-    summary: 'Paid acquisition, conversion tracking, and performance analysis for a global education platform.',
-    stack: ['Google Ads', 'GA4', 'GTM', 'Analytics'],
+    id: "deployment-03",
+    period: "2022 - 2023",
+    role: "Digital Marketing Consultant",
+    company: "Coach2Reach Inc.",
+    location: "Global (Remote)",
+    environment: "B2C EdTech",
+    core: "Managed acquisition and tracking workflows across Google Ads, analytics and performance review loops.",
+    stack: ["Google Ads", "GA4", "GTM", "Performance Tracking"],
+    metrics: ["Paid Acquisition", "Tracking Setup"],
     highlights: [
-      'Managed Google Ads execution and campaign performance review.',
-      'Configured conversion tracking and measurement workflows.',
-      'Translated acquisition data into practical scaling and optimization decisions.'
+      "Managed Google Ads execution and optimization roadmap.",
+      "Configured conversion tracking and analytics review structures.",
+      "Translated campaign data into practical acquisition insights."
     ]
   },
   {
-    id: 'role-02',
-    period: '2020 to 2021',
-    role: 'Social Media Specialist',
-    company: 'ChalksnSlate Media',
-    location: 'India, hybrid',
-    context: 'B2B media agency',
-    summary: 'Creative operations, campaign execution, and performance improvement across client marketing work.',
-    stack: ['Meta Ads', 'Creative Strategy', 'Content Systems', 'Reporting'],
+    id: "deployment-02",
+    period: "2020 - 2021",
+    role: "Social Media Specialist",
+    company: "ChalksnSlate Media",
+    location: "India (Hybrid)",
+    environment: "B2B Media Agency",
+    core: "Built creative and campaign execution discipline across social channels, assets and reporting cycles.",
+    stack: ["Creative Strategy", "Meta Ads", "Adobe Suite", "Campaign Ops"],
+    metrics: ["Content Systems", "Campaign Iteration"],
     highlights: [
-      'Worked on social media execution, creative direction, and campaign improvement.',
-      'Aligned content output with client objectives and audience behavior.',
-      'Built an early foundation in the operational side of marketing delivery.'
+      "Developed campaign creative direction and content workflows.",
+      "Managed outputs aligned to client campaign objectives.",
+      "Supported ongoing optimization through performance review."
     ]
   },
   {
-    id: 'role-01',
-    period: '2016 to 2020',
-    role: 'Sr. Digital Marketing Associate',
-    company: 'Markon Strategy Consulting',
-    location: 'India, hybrid',
-    context: 'B2B marketing startup',
-    summary: 'Landing pages, UI/UX, campaign execution, and workflow automation across early digital marketing systems.',
-    stack: ['HTML/CSS', 'Wireframing', 'Automation Tools', 'UI/UX'],
+    id: "deployment-01",
+    period: "2016 - 2020",
+    role: "Sr. Digital Marketing Associate",
+    company: "Markon Strategy Consulting",
+    location: "India (Hybrid)",
+    environment: "B2B Marketing Startup",
+    core: "Built the early foundation across websites, UI/UX, campaign execution and marketing automation support.",
+    stack: ["HTML/CSS", "Wireframing", "Automation Tools", "UI/UX"],
+    metrics: ["Landing Pages", "Workflow Support"],
     highlights: [
-      'Built and refined conversion-focused landing page experiences.',
-      'Supported automation and workflow improvements for campaign delivery.',
-      'Worked close to both creative execution and technical implementation.'
+      "Wireframed and developed conversion-focused landing pages.",
+      "Supported automation workflows to reduce repetitive campaign tasks.",
+      "Executed campaigns across brand awareness and lead generation goals."
     ]
   }
 ];
 
 export default function CareerArchitecture() {
-  const [activeId, setActiveId] = useState(roles[0].id);
-  const active = roles.find((role) => role.id === activeId) ?? roles[0];
+  const [activeId, setActiveId] = useState("deployment-04");
 
   return (
-    <section id="background" className="section-wrap bg-paper">
-      <div className="mx-auto max-w-6xl px-6">
-        <div className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr]">
-          <div>
-            <p className="eyebrow mb-5">Background</p>
-            <h2 className="section-title">A marketing path with a technical base.</h2>
-            <p className="section-copy mt-6">
-              The common thread is operational: campaigns, websites, CRM systems, tracking, reporting, and workflows that make the visible marketing work function better.
-            </p>
+    <section id="experience" className="py-36 md:py-40 px-6 bg-paper border-t border-stone-100">
+      <div className="max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-14 lg:gap-16 items-start">
+          <div className="lg:col-span-5">
+            <div className="mb-12">
+              <span className="font-mono text-[10px] font-bold text-stone-400 uppercase tracking-[0.4em] mb-4 block">Background</span>
+              <h2 className="text-5xl md:text-6xl font-bold tracking-tight text-stone-900 italic font-serif">A marketing path with a technical base.</h2>
+              <p className="text-stone-500 leading-relaxed mt-6 max-w-md">
+                The career thread is consistent: campaigns, websites, CRM, analytics and systems work moving closer to GTM Engineering.
+              </p>
+            </div>
 
-            <div className="mt-10 space-y-3">
-              {roles.map((item) => (
+            <div className="space-y-2">
+              {deployments.map((job) => (
                 <button
-                  key={item.id}
-                  onClick={() => setActiveId(item.id)}
-                  className={`w-full rounded-3xl border p-5 text-left transition duration-300 ${
-                    activeId === item.id
-                      ? 'border-stone-950 bg-white shadow-xl shadow-stone-900/5'
-                      : 'border-transparent bg-transparent text-stone-500 hover:border-stone-200 hover:bg-white/60'
+                  key={job.id}
+                  onClick={() => setActiveId(job.id)}
+                  className={`w-full p-5 md:p-6 rounded-2xl text-left transition-all duration-500 border flex items-center justify-between group ${
+                    activeId === job.id
+                    ? "bg-white border-zapier shadow-xl shadow-orange-500/5 translate-x-0 md:translate-x-2"
+                    : "bg-transparent border-transparent text-stone-400 hover:text-stone-600"
                   }`}
                 >
-                  <div className="flex items-center justify-between gap-4">
-                    <div>
-                      <p className="font-mono text-[9px] font-bold uppercase tracking-widest text-stone-400">{item.period}</p>
-                      <p className={`mt-2 font-bold ${activeId === item.id ? 'text-stone-950' : 'text-stone-600'}`}>{item.company}</p>
-                    </div>
-                    <ChevronRight size={18} className={activeId === item.id ? 'text-accent' : 'text-stone-300'} />
+                  <div>
+                    <p className="font-mono text-[8px] font-bold uppercase tracking-widest mb-1">{job.id} // {job.period}</p>
+                    <p className={`font-bold transition-colors ${activeId === job.id ? "text-stone-900" : "text-inherit"}`}>
+                      {job.company}
+                    </p>
                   </div>
+                  <ChevronRight className={`w-4 h-4 transition-transform duration-500 ${activeId === job.id ? "rotate-0 text-zapier" : "-rotate-90 opacity-0 group-hover:opacity-100"}`} />
                 </button>
               ))}
             </div>
 
-            <div className="mt-8 rounded-[30px] border border-stone-800 bg-stone-950 p-7 text-white">
-              <Terminal className="mb-4 text-accent" size={20} />
-              <p className="font-mono text-[9px] font-bold uppercase tracking-widest text-stone-500">Education</p>
-              <p className="mt-2 text-xl font-bold">B.Tech in Computer Science</p>
-              <p className="mt-2 text-sm leading-6 text-stone-400">The technical foundation behind the way I approach marketing systems, automation, and data flow.</p>
+            <div className="mt-12 p-8 bg-stone-900 rounded-[32px] text-white relative overflow-hidden group">
+              <div className="relative z-10">
+                <Terminal className="text-zapier mb-4" size={20} />
+                <p className="font-mono text-[9px] text-stone-500 uppercase tracking-widest mb-1">Root Foundation</p>
+                <p className="font-bold text-lg leading-tight">B.Tech Computer Science Engineering</p>
+                <p className="text-stone-400 text-xs mt-2 italic">Mar Athanasius College of Engineering</p>
+              </div>
+              <Code2 className="absolute -right-4 -bottom-4 text-white/5 w-32 h-32 rotate-12 transition-transform group-hover:scale-110" />
             </div>
           </div>
 
-          <AnimatePresence mode="wait">
-            <motion.article
-              key={active.id}
-              initial={{ opacity: 0, x: 16 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -12 }}
-              transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-              className="rounded-[40px] border border-stone-200 bg-white p-8 shadow-sm md:p-10"
-            >
-              <div className="mb-7 flex flex-wrap gap-2">
-                <span className="rounded-full border border-stone-200 bg-stone-50 px-3 py-1 font-mono text-[9px] font-bold uppercase tracking-widest text-stone-500">{active.location}</span>
-                <span className="rounded-full border border-accent/30 bg-accent/10 px-3 py-1 font-mono text-[9px] font-bold uppercase tracking-widest text-accent">{active.context}</span>
-              </div>
-
-              <p className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-stone-400">{active.period}</p>
-              <h3 className="mt-3 text-3xl font-black tracking-tight text-stone-950 md:text-4xl">{active.role}</h3>
-              <p className="mt-2 text-lg font-semibold text-stone-500">{active.company}</p>
-              <p className="mt-7 max-w-2xl text-base leading-8 text-stone-600">{active.summary}</p>
-
-              <div className="mt-9 space-y-4">
-                <p className="font-mono text-[9px] font-bold uppercase tracking-widest text-stone-400">Role signals</p>
-                {active.highlights.map((point) => (
-                  <div key={point} className="flex gap-4 rounded-2xl bg-stone-50 p-4">
-                    <div className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
-                    <p className="text-sm leading-7 text-stone-600">{point}</p>
+          <div className="lg:col-span-7">
+            <AnimatePresence mode="wait">
+              {deployments.map((job) => job.id === activeId && (
+                <motion.div
+                  key={job.id}
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -20 }}
+                  transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                  className="bg-white border border-stone-200 rounded-[40px] p-8 md:p-12 shadow-sm flex flex-col min-h-[620px]"
+                >
+                  <div className="flex flex-wrap gap-3 mb-8">
+                    <span className="px-3 py-1 bg-stone-50 border border-stone-100 rounded-full font-mono text-[9px] font-bold text-stone-400 uppercase tracking-widest">
+                      {job.location}
+                    </span>
+                    <span className="px-3 py-1 bg-stone-50 border border-stone-100 rounded-full font-mono text-[9px] font-bold text-zapier uppercase tracking-widest">
+                      {job.environment}
+                    </span>
                   </div>
-                ))}
-              </div>
 
-              <div className="mt-9 flex flex-wrap gap-2 border-t border-stone-200 pt-7">
-                {active.stack.map((tool) => (
-                  <span key={tool} className="rounded-full bg-stone-950 px-3 py-1 font-mono text-[9px] font-bold uppercase tracking-widest text-white">
-                    {tool}
-                  </span>
-                ))}
-              </div>
+                  <h3 className="text-3xl md:text-4xl font-bold text-stone-900 mb-6 leading-tight tracking-tight">
+                    {job.role}
+                  </h3>
+                  
+                  <p className="text-stone-500 text-lg leading-relaxed mb-10 italic font-serif">
+                    “{job.core}”
+                  </p>
 
-              <Code2 className="mt-10 text-stone-200" size={34} />
-            </motion.article>
-          </AnimatePresence>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-10">
+                    {job.metrics.map(m => (
+                      <div key={m} className="p-5 bg-stone-50 rounded-2xl border border-stone-100">
+                        <p className="text-xl font-bold text-stone-900 tracking-tighter">{m}</p>
+                        <p className="font-mono text-[9px] text-stone-400 uppercase tracking-widest mt-1">Focus Area</p>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="space-y-4 mb-10 flex-1">
+                    <p className="font-mono text-[10px] font-bold text-stone-900 uppercase tracking-widest mb-4">Relevant Work:</p>
+                    {job.highlights.map((point, i) => (
+                      <div key={i} className="flex gap-4 items-start">
+                        <div className="mt-1.5 h-1.5 w-1.5 rounded-full bg-zapier flex-shrink-0" />
+                        <p className="text-stone-500 text-sm leading-relaxed">{point}</p>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="pt-8 border-t border-stone-100 flex flex-wrap gap-2">
+                    {job.stack.map(s => (
+                      <span key={s} className="px-3 py-1 bg-stone-900 text-white font-mono text-[8px] font-bold uppercase tracking-widest rounded-md">
+                        {s}
+                      </span>
+                    ))}
+                  </div>
+                </motion.div>
+              ))}
+            </AnimatePresence>
+          </div>
         </div>
       </div>
     </section>

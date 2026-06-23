@@ -1,131 +1,105 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { ArrowUpRight, Database, LineChart, Workflow } from 'lucide-react';
-
-const smoothEase = [0.16, 1, 0.3, 1];
-
-const proofPoints = [
-  { label: 'Computer Science', value: 'B.Tech foundation' },
-  { label: 'Operating zone', value: 'Marketing ops, CRM, analytics' },
-  { label: 'Current focus', value: 'Practical GTM systems' }
-];
+import React from "react";
+import { motion } from "framer-motion";
+import { ArrowUpRight, Activity, Database, Workflow } from "lucide-react";
 
 export default function HeroNarrative() {
+  const titleWords = "Marketing works better when the systems behind it are clean.".split(" ");
+  const smoothEase = [0.16, 1, 0.3, 1];
+
   return (
-    <section className="relative flex min-h-screen items-center overflow-hidden px-6 pb-20 pt-32">
-      <div className="mx-auto grid max-w-6xl gap-14 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
-        <div>
-          <motion.div
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease: smoothEase }}
-            className="mb-8 flex items-center gap-4"
-          >
-            <img
-              src="/dp.jpeg"
-              alt="Nikhil Raj PK"
-              className="h-14 w-14 rounded-full border border-stone-200 bg-white object-cover grayscale transition duration-500 hover:grayscale-0"
-            />
-            <div>
-              <p className="text-sm font-bold text-stone-950">Nikhil Raj PK</p>
-              <p className="font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-stone-500">
-                Marketing Operations & GTM Systems Builder
-              </p>
-            </div>
-          </motion.div>
+    <section className="min-h-screen flex flex-col justify-center px-6 max-w-6xl mx-auto relative overflow-hidden pt-24">
+      <div className="absolute right-0 top-1/4 hidden lg:block opacity-70 pointer-events-none">
+        <motion.div
+          animate={{ rotate: 360 }}
+          transition={{ duration: 28, repeat: Infinity, ease: "linear" }}
+          className="w-64 h-64 rounded-full border border-stone-200 border-dashed"
+        />
+        <div className="absolute inset-10 rounded-full border border-stone-200/80" />
+        <div className="absolute inset-24 bg-zapier/10 rounded-full blur-2xl" />
+      </div>
 
-          <motion.p
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.08, ease: smoothEase }}
-            className="eyebrow mb-6"
-          >
-            CRM. Analytics. Automation. Lead generation.
-          </motion.p>
-
-          <motion.h1
-            initial={{ opacity: 0, y: 18 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.15, ease: smoothEase }}
-            className="max-w-4xl text-5xl font-black leading-[0.98] tracking-[-0.055em] text-stone-950 sm:text-6xl lg:text-7xl"
-          >
-            Connecting marketing execution with technical infrastructure.
-          </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.25, ease: smoothEase }}
-            className="mt-8 max-w-2xl text-lg leading-8 text-stone-600 sm:text-xl"
-          >
-            With a B.Tech in Computer Science and hands-on experience across B2B and B2G marketing, CRM systems, websites, analytics, Python workflows, and AI-assisted operations, I build practical systems that make lead generation, tracking, and pipeline visibility cleaner.
-          </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.35, ease: smoothEase }}
-            className="mt-10 flex flex-col gap-4 sm:flex-row"
-          >
-            <a href="#work" className="btn btn-primary">
-              View My Work <ArrowUpRight size={16} />
-            </a>
-            <a href="#lab" className="btn btn-secondary">
-              See What I’m Building
-            </a>
-          </motion.div>
+      <motion.div
+        initial={{ opacity: 0, x: -10 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 1, delay: 0.2, ease: smoothEase }}
+        className="flex items-center gap-5 mb-12 relative z-10"
+      >
+        <div className="relative group">
+          <img
+            src="/dp.jpeg"
+            alt="Nikhil Raj PK"
+            className="h-14 w-14 rounded-full object-cover border border-stone-200 grayscale group-hover:grayscale-0 transition-all duration-700 ease-out shadow-sm"
+          />
+          <div className="absolute bottom-0 right-0 h-3 w-3 rounded-full bg-paper border-2 border-paper">
+            <div className="h-full w-full rounded-full bg-zapier animate-pulse" />
+          </div>
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, scale: 0.96 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.9, delay: 0.25, ease: smoothEase }}
-          className="relative"
-        >
-          <div className="rounded-[36px] border border-stone-200 bg-white p-5 shadow-xl shadow-stone-900/5">
-            <div className="rounded-[28px] border border-stone-200 bg-stone-950 p-6 text-white">
-              <div className="mb-8 flex items-center justify-between border-b border-white/10 pb-5">
-                <div>
-                  <p className="font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-stone-500">System view</p>
-                  <p className="mt-2 text-lg font-semibold">Marketing stack health</p>
-                </div>
-                <span className="rounded-full bg-accent/15 px-3 py-1 font-mono text-[9px] font-bold uppercase tracking-widest text-accent">live logic</span>
-              </div>
+        <div className="flex flex-col">
+          <span className="font-mono text-[11px] font-bold text-stone-900 uppercase tracking-widest">
+            Nikhil Raj PK
+          </span>
+          <span className="font-mono text-[9px] text-stone-400 uppercase tracking-[0.2em] mt-0.5">
+            Marketing Operations & GTM Systems Builder
+          </span>
+        </div>
+      </motion.div>
 
-              <div className="space-y-3">
-                {[
-                  { icon: Workflow, title: 'Lead source', value: 'Captured and structured' },
-                  { icon: Database, title: 'CRM record', value: 'Routed into pipeline view' },
-                  { icon: LineChart, title: 'Performance', value: 'Measured with reporting layer' }
-                ].map((item) => {
-                  const Icon = item.icon;
-                  return (
-                    <div key={item.title} className="flex items-center gap-4 rounded-2xl border border-white/10 bg-white/[0.04] p-4">
-                      <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white text-stone-950">
-                        <Icon size={18} />
-                      </div>
-                      <div className="min-w-0 flex-1">
-                        <p className="text-sm font-semibold text-white">{item.title}</p>
-                        <p className="text-xs text-stone-500">{item.value}</p>
-                      </div>
-                      <div className="h-2 w-2 rounded-full bg-accent" />
-                    </div>
-                  );
-                })}
+      <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold leading-[0.95] tracking-tight mb-10 text-stone-900 max-w-5xl relative z-10">
+        {titleWords.map((word, i) => (
+          <motion.span
+            key={i}
+            initial={{ opacity: 0, y: 15, filter: "blur(4px)" }}
+            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            transition={{ delay: i * 0.065 + 0.3, duration: 0.8, ease: smoothEase }}
+            className="inline-block mr-[0.24em]"
+          >
+            {word === "clean." || word === "systems" ? (
+              <span className="font-serif italic font-normal text-stone-400">{word}</span>
+            ) : (
+              word
+            )}
+          </motion.span>
+        ))}
+      </h1>
+
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1, duration: 1, ease: smoothEase }}
+        className="relative z-10"
+      >
+        <p className="text-xl md:text-2xl text-stone-500 font-medium max-w-2xl leading-relaxed mb-10">
+          I connect websites, campaigns, CRM workflows, analytics, data extraction and AI-assisted operations into practical systems that make growth work easier to track and scale.
+        </p>
+
+        <div className="flex flex-col sm:flex-row gap-4 mb-12">
+          <a href="#proof" className="inline-flex items-center justify-center gap-2 bg-stone-900 text-white px-7 py-4 rounded-full font-bold uppercase tracking-widest text-[10px] hover:bg-zapier transition-all active:scale-95">
+            View Built Work <ArrowUpRight size={14} />
+          </a>
+          <a href="#lab" className="inline-flex items-center justify-center gap-2 bg-white border border-stone-200 text-stone-700 px-7 py-4 rounded-full font-bold uppercase tracking-widest text-[10px] hover:border-zapier hover:text-zapier transition-all active:scale-95">
+            See GTM Lab
+          </a>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 max-w-3xl">
+          {[
+            { icon: <Database size={14} />, label: "Data extraction", value: "Python / Apify" },
+            { icon: <Workflow size={14} />, label: "Ops layer", value: "CRM / Analytics" },
+            { icon: <Activity size={14} />, label: "Current focus", value: "GTM Engineering" },
+          ].map((item) => (
+            <div key={item.label} className="bg-white/70 border border-stone-200 rounded-2xl p-4 flex items-center gap-3 shadow-sm backdrop-blur-sm">
+              <div className="h-8 w-8 rounded-xl bg-paper flex items-center justify-center text-zapier border border-stone-100">
+                {item.icon}
+              </div>
+              <div>
+                <p className="font-mono text-[8px] uppercase tracking-widest text-stone-400 font-bold">{item.label}</p>
+                <p className="text-sm font-bold text-stone-900">{item.value}</p>
               </div>
             </div>
-          </div>
-
-          <div className="mt-5 grid gap-3 sm:grid-cols-3">
-            {proofPoints.map((point) => (
-              <div key={point.label} className="rounded-2xl border border-stone-200 bg-white/80 p-4 backdrop-blur">
-                <p className="font-mono text-[9px] font-bold uppercase tracking-widest text-stone-400">{point.label}</p>
-                <p className="mt-2 text-sm font-semibold text-stone-900">{point.value}</p>
-              </div>
-            ))}
-          </div>
-        </motion.div>
-      </div>
+          ))}
+        </div>
+      </motion.div>
     </section>
   );
 }

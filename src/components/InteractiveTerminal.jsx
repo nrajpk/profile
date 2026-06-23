@@ -1,27 +1,38 @@
-import React from 'react';
-const lines = [
-  { key: 'source', value: 'public_source.csv loaded' },
-  { key: 'normalize', value: 'fields cleaned and tagged' },
-  { key: 'route', value: 'records prepared for CRM workflow' },
-  { key: 'status', value: 'ready for review' }
-];
+import React from "react";
+import { motion } from 'framer-motion';
 
 export default function InteractiveTerminal() {
+  const logs = [
+    "> initializing_gtm_system_layer...",
+    "> crm_context: mapped",
+    "> tracking_events: reviewed",
+    "> status: ready_for_human_review",
+  ];
+
   return (
-    <div className="rounded-[28px] border border-stone-800 bg-stone-950 p-5 font-mono text-xs text-stone-400 shadow-xl shadow-stone-900/10">
-      <div className="mb-5 flex gap-2">
-        <span className="h-2.5 w-2.5 rounded-full bg-red-400" />
-        <span className="h-2.5 w-2.5 rounded-full bg-yellow-400" />
-        <span className="h-2.5 w-2.5 rounded-full bg-green-400" />
+    <div className="bg-stone-950 p-6 rounded-2xl border border-stone-800 shadow-2xl font-mono text-[10px] md:text-xs">
+      <div className="flex gap-1.5 mb-4">
+        <div className="w-2.5 h-2.5 rounded-full bg-stone-800" />
+        <div className="w-2.5 h-2.5 rounded-full bg-stone-800" />
+        <div className="w-2.5 h-2.5 rounded-full bg-stone-800" />
       </div>
-      <div className="space-y-3">
-        {lines.map((line) => (
-          <p key={line.key}>
-            <span className="text-accent">{line.key}</span>
-            <span className="text-stone-600"> / </span>
-            <span>{line.value}</span>
-          </p>
+      <div className="space-y-2">
+        {logs.map((log, i) => (
+          <motion.p
+            key={i}
+            initial={{ opacity: 0, x: -5 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ delay: i * 0.2, duration: 0.5 }}
+            className={i === logs.length - 1 ? "text-zapier" : "text-stone-500"}
+          >
+            {log}
+          </motion.p>
         ))}
+        <motion.div
+          animate={{ opacity: [0, 1, 0] }}
+          transition={{ repeat: Infinity, duration: 0.8 }}
+          className="w-2 h-4 bg-zapier inline-block align-middle ml-1"
+        />
       </div>
     </div>
   );

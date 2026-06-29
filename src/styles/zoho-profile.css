@@ -8,7 +8,7 @@
   --zoho-paper: #fbfaf7;
   --zoho-line: #e7e2d8;
   --zoho-card: #ffffff;
-  --zoho-soft: #f3efe7;
+  --zoho-soft: #f6efec;
   min-height: 100vh;
   background:
     radial-gradient(circle at 12% 8%, rgba(226, 37, 39, 0.06), transparent 28rem),
@@ -17,9 +17,9 @@
   color: var(--zoho-ink);
 }
 
-.zoho-profile-page * {
-  box-sizing: border-box;
-}
+.zoho-profile-page * { box-sizing: border-box; }
+.zoho-profile-page button { font: inherit; cursor: pointer; }
+.zoho-profile-page a { color: inherit; }
 
 .zoho-progress {
   position: fixed;
@@ -37,7 +37,7 @@
   left: 0;
   right: 0;
   z-index: 900;
-  background: rgba(251, 250, 247, 0.92);
+  background: rgba(251, 250, 247, 0.93);
   backdrop-filter: blur(18px);
   border-bottom: 1px solid rgba(231, 226, 216, 0.85);
 }
@@ -62,7 +62,7 @@
 
 .zoho-brand-row { gap: 14px; }
 .zoho-actions { gap: 12px; }
-.zoho-nav-links { gap: 30px; }
+.zoho-nav-links { gap: 28px; }
 
 .zoho-brand {
   font-size: 23px;
@@ -100,9 +100,7 @@
 }
 
 .zoho-nav-links a:hover,
-.zoho-login:hover {
-  color: var(--zoho-red);
-}
+.zoho-login:hover { color: var(--zoho-red); }
 
 .zoho-signup,
 .zoho-primary-btn,
@@ -257,41 +255,49 @@
 .zoho-hero {
   max-width: 1180px;
   margin: 0 auto;
-  padding: 150px 24px 72px;
+  padding: 152px 24px 72px;
   display: grid;
-  grid-template-columns: minmax(0, 1.08fr) minmax(340px, 0.92fr);
+  grid-template-columns: minmax(0, 1.02fr) minmax(360px, 0.78fr);
+  gap: 54px;
   align-items: center;
-  gap: 58px;
 }
 
-.zoho-eyebrow,
-.zoho-section-head span,
-.zoho-drawer-eyebrow,
-.zoho-lab-left > span {
-  display: block;
-  color: var(--zoho-red);
-  font-size: 10px;
-  font-weight: 950;
-  letter-spacing: 0.26em;
+.zoho-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 22px;
+  color: #8a8174;
+  font-size: 11px;
   text-transform: uppercase;
-  margin-bottom: 16px;
+  font-weight: 900;
+  letter-spacing: 0.22em;
+}
+
+.zoho-kicker span,
+.zoho-live-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 999px;
+  background: var(--zoho-red);
+  box-shadow: 0 0 0 6px rgba(226, 37, 39, 0.12);
 }
 
 .zoho-hero h1 {
-  font-size: clamp(48px, 7vw, 88px);
-  line-height: 0.94;
+  font-size: clamp(3.4rem, 8vw, 7.9rem);
+  line-height: 0.88;
+  max-width: 800px;
   letter-spacing: -0.075em;
   font-weight: 950;
-  max-width: 760px;
   margin: 0;
 }
 
-.zoho-hero-copy p {
-  max-width: 690px;
-  margin: 28px 0 0;
+.zoho-hero-copy > p {
+  max-width: 640px;
   color: var(--zoho-muted);
-  font-size: 20px;
+  font-size: clamp(1.08rem, 2vw, 1.35rem);
   line-height: 1.65;
+  margin: 28px 0 0;
   font-weight: 520;
 }
 
@@ -302,272 +308,531 @@
   margin-top: 34px;
 }
 
-.zoho-hero-statrow {
-  margin-top: 36px;
+.zoho-hero-stats {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 12px;
+  margin-top: 34px;
+  max-width: 680px;
 }
 
-.zoho-hero-statrow div {
-  background: rgba(255,255,255,0.78);
-  border: 1px solid var(--zoho-line);
-  border-radius: 22px;
-  padding: 18px;
-}
-
-.zoho-hero-statrow strong,
-.zoho-hero-statrow span {
-  display: block;
-}
-
-.zoho-hero-statrow strong {
-  font-size: 18px;
-  font-weight: 950;
-}
-
-.zoho-hero-statrow span {
-  color: var(--zoho-muted);
-  font-size: 11px;
-  font-weight: 850;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  margin-top: 5px;
-}
-
-.zoho-hero-panel {
-  background: #fff;
-  border: 1px solid var(--zoho-line);
-  border-radius: 42px;
-  padding: 26px;
-  box-shadow: 0 30px 90px rgba(17, 24, 39, 0.12);
-  position: relative;
-  overflow: hidden;
-}
-
-.zoho-hero-panel::before {
-  content: '';
-  position: absolute;
-  right: -80px;
-  top: -80px;
-  width: 220px;
-  height: 220px;
-  border-radius: 999px;
-  background: conic-gradient(from 180deg, var(--zoho-red), var(--zoho-blue), var(--zoho-green), var(--zoho-yellow), var(--zoho-red));
-  opacity: 0.12;
-}
-
-.zoho-panel-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 18px;
-  color: #8a8174;
-  font-size: 10px;
-  font-weight: 900;
-  text-transform: uppercase;
-  letter-spacing: 0.16em;
-}
-
-.zoho-live-dot {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.zoho-live-dot::before {
-  content: '';
-  width: 7px;
-  height: 7px;
-  border-radius: 999px;
-  background: var(--zoho-green);
-  box-shadow: 0 0 0 5px rgba(8, 153, 73, 0.1);
-}
-
-.zoho-flow-card {
-  display: flex;
-  gap: 14px;
-  align-items: flex-start;
-  padding: 18px;
-  border: 1px solid var(--zoho-line);
-  border-radius: 24px;
-  margin-top: 12px;
-  position: relative;
-  z-index: 1;
-  background: #fff;
-}
-
-.zoho-flow-card.active {
-  border-color: rgba(226, 37, 39, 0.26);
-  background: #fff8f5;
-}
-
-.zoho-flow-card svg { color: var(--zoho-red); flex: 0 0 auto; }
-.zoho-flow-card strong { display: block; font-size: 16px; font-weight: 950; }
-.zoho-flow-card span { display: block; color: var(--zoho-muted); font-size: 13px; margin-top: 3px; line-height: 1.45; }
-
-.zoho-mini-console {
-  margin-top: 16px;
-  background: var(--zoho-ink);
-  color: #b6beca;
-  border-radius: 22px;
-  padding: 16px;
-  display: grid;
-  gap: 7px;
-  font-family: var(--font-mono, monospace);
-  font-size: 10px;
-}
-
-.zoho-mini-console span:last-child { color: #fff; }
-
-.zoho-mapping,
-.zoho-trust,
-.zoho-systems,
-.zoho-lab,
-.zoho-faq,
-.zoho-final-cta {
-  max-width: 1180px;
-  margin: 0 auto;
-  padding-left: 24px;
-  padding-right: 24px;
-}
-
-.zoho-mapping {
-  padding-top: 22px;
-  padding-bottom: 52px;
-}
-
-.zoho-mapping-head {
-  display: inline-flex;
-  align-items: center;
-  gap: 9px;
-  padding: 9px 12px;
-  border-radius: 999px;
-  background: #fff;
-  border: 1px solid var(--zoho-line);
-  color: var(--zoho-red);
-  font-size: 10px;
-  font-weight: 950;
-  text-transform: uppercase;
-  letter-spacing: 0.16em;
-  margin-bottom: 14px;
-}
-
-.zoho-mapping-grid {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 10px;
-}
-
-.zoho-mapping-grid div {
+.zoho-hero-stats div {
   background: #fff;
   border: 1px solid var(--zoho-line);
   border-radius: 20px;
-  padding: 16px;
+  padding: 18px;
+  box-shadow: 0 10px 30px rgba(17, 24, 39, 0.035);
 }
 
-.zoho-mapping-grid small,
-.zoho-mapping-grid strong {
-  display: block;
+.zoho-hero-stats strong,
+.zoho-hero-stats span { display: block; }
+.zoho-hero-stats strong { font-size: 18px; font-weight: 950; letter-spacing: -0.04em; }
+.zoho-hero-stats span { margin-top: 4px; font-size: 11px; font-weight: 850; color: #8a8174; text-transform: uppercase; letter-spacing: 0.12em; }
+
+.zoho-hero-card {
+  background: #fff;
+  border: 1px solid var(--zoho-line);
+  border-radius: 38px;
+  padding: 28px;
+  box-shadow: 0 28px 90px rgba(17, 24, 39, 0.10);
+  position: relative;
+  overflow: hidden;
 }
 
-.zoho-mapping-grid small {
+.zoho-hero-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(rgba(226, 37, 39, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(226, 37, 39, 0.05) 1px, transparent 1px);
+  background-size: 22px 22px;
+  pointer-events: none;
+}
+
+.zoho-card-topline,
+.zoho-profile-chip,
+.zoho-mini-flow,
+.zoho-hero-console { position: relative; z-index: 1; }
+
+.zoho-card-topline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   color: #8a8174;
   font-size: 10px;
-  line-height: 1.4;
+  font-weight: 900;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-bottom: 28px;
 }
 
-.zoho-mapping-grid strong {
-  margin-top: 7px;
-  font-size: 13px;
-  line-height: 1.35;
-}
-
-.zoho-trust {
-  padding-top: 20px;
-  padding-bottom: 20px;
-  display: grid;
-  grid-template-columns: 150px minmax(0, 1fr);
+.zoho-profile-chip {
+  display: flex;
   align-items: center;
-  gap: 18px;
-  border-top: 1px solid var(--zoho-line);
-  border-bottom: 1px solid var(--zoho-line);
+  gap: 15px;
+  padding: 15px;
+  background: rgba(251, 250, 247, 0.78);
+  border: 1px solid var(--zoho-line);
+  border-radius: 24px;
+}
+
+.zoho-profile-chip img {
+  width: 56px;
+  height: 56px;
+  border-radius: 18px;
+  object-fit: cover;
+  filter: grayscale(1);
+}
+
+.zoho-profile-chip strong,
+.zoho-profile-chip span { display: block; }
+.zoho-profile-chip strong { font-size: 17px; font-weight: 950; }
+.zoho-profile-chip span { color: var(--zoho-muted); font-size: 12px; margin-top: 3px; }
+
+.zoho-mini-flow {
+  display: grid;
+  gap: 12px;
+  margin: 22px 0;
+}
+
+.zoho-mini-step {
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  column-gap: 14px;
+  padding: 16px;
+  background: #fff;
+  border: 1px solid var(--zoho-line);
+  border-radius: 20px;
+}
+
+.zoho-mini-step span {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: #fff3f0;
+  color: var(--zoho-red);
+  font-size: 10px;
+  font-weight: 950;
+  grid-row: span 2;
+}
+
+.zoho-mini-step strong { font-weight: 950; }
+.zoho-mini-step small { color: var(--zoho-muted); font-size: 12px; margin-top: 2px; }
+
+.zoho-hero-console {
+  padding: 16px;
+  border-radius: 18px;
+  background: #111827;
+  color: #fff;
+  font-family: var(--font-mono, monospace);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 11px;
+}
+
+.zoho-hero-console span { color: #9ca3af; }
+.zoho-hero-console strong { color: #8cffc2; }
+
+.zoho-trust-strip {
+  background: #fff;
+  border-block: 1px solid var(--zoho-line);
+  padding: 18px 0;
   overflow: hidden;
+  display: grid;
+  grid-template-columns: minmax(160px, 260px) 1fr;
+  align-items: center;
 }
 
 .zoho-trust-title {
+  padding-left: max(24px, calc((100vw - 1180px) / 2 + 24px));
   color: #8a8174;
   font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
   font-weight: 950;
-  text-transform: uppercase;
-  letter-spacing: 0.18em;
 }
 
-.zoho-trust-window {
-  overflow: hidden;
-  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
-}
-
-.zoho-trust-track {
+.zoho-marquee-wrap { overflow: hidden; }
+.zoho-marquee-track {
   display: flex;
+  gap: 12px;
   width: max-content;
-  animation: zohoMarquee 42s linear infinite;
+  animation: zohoMarquee 38s linear infinite;
 }
 
-.zoho-trust-track span {
-  display: inline-flex;
-  margin-right: 10px;
-  padding: 10px 14px;
+.zoho-marquee-track span {
   border: 1px solid var(--zoho-line);
+  background: var(--zoho-paper);
   border-radius: 999px;
-  background: #fff;
-  color: #535b66;
-  font-size: 11px;
-  font-weight: 900;
+  padding: 10px 16px;
+  font-size: 10px;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.16em;
+  font-weight: 900;
+  color: #5d6672;
   white-space: nowrap;
 }
 
 @keyframes zohoMarquee {
-  from { transform: translateX(0); }
   to { transform: translateX(-50%); }
 }
 
 .zoho-section-head {
-  max-width: 790px;
-  margin-bottom: 38px;
+  max-width: 1180px;
+  margin: 0 auto 34px;
+  padding: 0 24px;
 }
 
-.zoho-section-head.light { color: #fff; }
+.zoho-section-head.centered { max-width: 850px; text-align: center; }
+.zoho-section-head.light h2 { color: #fff; }
+.zoho-section-head.light p { color: #a3a3a3; }
 
-.zoho-section-head h2,
-.zoho-lab-left h2,
-.zoho-final-cta h2 {
-  font-size: clamp(36px, 5vw, 62px);
-  line-height: 0.98;
-  letter-spacing: -0.055em;
+.zoho-section-head > span,
+.zoho-panel-eyebrow {
+  display: block;
+  color: var(--zoho-red);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.26em;
   font-weight: 950;
+  margin-bottom: 14px;
+}
+
+.zoho-section-head h2 {
   margin: 0;
+  max-width: 900px;
+  font-size: clamp(2.5rem, 5vw, 5.2rem);
+  line-height: 0.98;
+  letter-spacing: -0.065em;
+  font-weight: 950;
 }
 
-.zoho-section-head p,
-.zoho-lab-left p,
-.zoho-final-cta p {
+.zoho-section-head.centered h2 { margin-inline: auto; }
+.zoho-section-head p {
+  max-width: 690px;
+  margin: 18px 0 0;
   color: var(--zoho-muted);
+  line-height: 1.7;
   font-size: 17px;
-  line-height: 1.62;
-  margin-top: 18px;
+}
+.zoho-section-head.centered p { margin-inline: auto; }
+
+.zoho-journey-section {
+  padding: 92px 0 70px;
+  background: linear-gradient(180deg, #fff 0%, var(--zoho-paper) 100%);
 }
 
-.zoho-section-head.light p { color: #a8afba; }
+.zoho-jump-links {
+  display: flex;
+  justify-content: center;
+  gap: 0;
+  margin: 0 auto 44px;
+  position: sticky;
+  top: 86px;
+  z-index: 30;
+}
 
-.zoho-systems { padding-top: 92px; padding-bottom: 102px; }
+.zoho-jump-links button {
+  background: #fff;
+  border: 1px solid var(--zoho-line);
+  border-right: 0;
+  padding: 13px 28px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  font-weight: 950;
+  color: #8a8174;
+  min-width: 150px;
+}
+
+.zoho-jump-links button:first-child { border-radius: 999px 0 0 999px; }
+.zoho-jump-links button:last-child { border-radius: 0 999px 999px 0; border-right: 1px solid var(--zoho-line); }
+.zoho-jump-links button.active { background: var(--zoho-ink); color: #fff; border-color: var(--zoho-ink); }
+
+.zoho-journey-canvas {
+  width: min(1120px, calc(100% - 32px));
+  min-height: 930px;
+  margin: 40px auto 0;
+  position: relative;
+  overflow: hidden;
+  border-radius: 46px;
+  background: #fff9f7;
+  border: 1px solid #f1ded8;
+  box-shadow: 0 26px 80px rgba(226, 37, 39, 0.08);
+}
+
+.zoho-canvas-grid {
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(rgba(226, 37, 39, 0.055) 1px, transparent 1px), linear-gradient(90deg, rgba(226, 37, 39, 0.055) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+.zoho-journey-spine {
+  position: absolute;
+  top: 120px;
+  bottom: 78px;
+  left: 50%;
+  width: 2px;
+  transform: translateX(-50%);
+  background: #ddc8c2;
+}
+
+.zoho-hand-note {
+  position: absolute;
+  z-index: 8;
+  font-family: 'Segoe Print', 'Bradley Hand', 'Comic Sans MS', cursive;
+  font-size: 25px;
+  font-weight: 650;
+  color: #111;
+  transform: rotate(-8deg);
+  pointer-events: none;
+}
+.zoho-hand-note svg {
+  display: block;
+  width: 90px;
+  height: 58px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.note-left { left: 82px; top: 270px; }
+.note-right { right: 100px; top: 435px; transform: rotate(-5deg); }
+.note-bottom { left: 92px; bottom: 145px; transform: rotate(-7deg); }
+
+.journey-pill {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 4;
+  background: #fff;
+  border: 2px solid #f0dfda;
+  border-radius: 999px;
+  min-width: 370px;
+  text-align: center;
+  padding: 20px 34px;
+  top: 62px;
+  font-size: 20px;
+  font-weight: 950;
+  letter-spacing: -0.04em;
+}
+
+.journey-avatar {
+  position: absolute;
+  top: 158px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 6;
+  width: 76px;
+  height: 76px;
+}
+
+.journey-avatar img {
+  width: 62px;
+  height: 62px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 4px solid #d8c0ba;
+  filter: grayscale(1);
+}
+.journey-avatar span {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--zoho-red);
+  color: #fff;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 6px 20px rgba(226, 37, 39, 0.35);
+}
+
+.journey-card {
+  position: absolute;
+  z-index: 7;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 380px;
+  border: 2px solid #f0dfda;
+  border-radius: 24px;
+  background: rgba(255,255,255,0.94);
+  box-shadow: 0 20px 60px rgba(17, 24, 39, 0.08);
+  overflow: hidden;
+}
+.plan-card { top: 250px; }
+.report-card { bottom: 78px; }
+
+.journey-card h3 {
+  text-align: center;
+  margin: 0;
+  padding: 14px 18px 10px;
+  font-size: 17px;
+  letter-spacing: 0.30em;
+  text-transform: uppercase;
+  font-weight: 950;
+  background: #fff;
+}
+
+.journey-card ul {
+  list-style: none;
+  padding: 14px 24px 16px;
+  margin: 0;
+  display: grid;
+  gap: 10px;
+}
+.journey-card li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #222;
+  font-size: 18px;
+  font-weight: 650;
+}
+.journey-card li svg { color: #727272; }
+
+.journey-approval {
+  display: grid;
+  grid-template-columns: 54px 1fr 38px;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 24px;
+  background: #fbf8f7;
+  border-top: 1px solid #f0dfda;
+}
+.approval-avatar {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: #d9eef7;
+  color: var(--zoho-blue);
+  display: grid;
+  place-items: center;
+}
+.journey-approval strong,
+.journey-approval span { display: block; }
+.journey-approval strong { font-size: 18px; font-weight: 850; }
+.journey-approval span { color: #777; font-weight: 800; }
+.journey-approval > svg {
+  width: 34px;
+  height: 34px;
+  padding: 8px;
+  border-radius: 50%;
+  border: 1px solid #ddd;
+  color: var(--zoho-ink);
+}
+
+.journey-card p {
+  margin: 0;
+  border-top: 1px solid #f0dfda;
+  padding: 16px 24px 20px;
+  color: var(--zoho-muted);
+  font-size: 14px;
+  line-height: 1.55;
+  text-align: center;
+  background: #fbf8f7;
+}
+
+.journey-map {
+  position: absolute;
+  z-index: 3;
+  top: 410px;
+  left: 100px;
+  right: 100px;
+  height: 330px;
+  background: #f8e8e5;
+  overflow: hidden;
+}
+
+.map-lines {
+  position: absolute;
+  inset: -30px;
+  opacity: 0.58;
+  background-image:
+    linear-gradient(34deg, transparent 47%, #fff 48%, #fff 50%, transparent 51%),
+    linear-gradient(-38deg, transparent 45%, #fff 46%, #fff 48%, transparent 49%),
+    linear-gradient(90deg, transparent 48%, #fff 49%, #fff 51%, transparent 52%);
+  background-size: 180px 120px, 210px 140px, 240px 180px;
+}
+
+.route-line {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+}
+.route-line path {
+  fill: none;
+  stroke: #111;
+  stroke-width: 3.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1200;
+  stroke-dashoffset: 1200;
+  animation: drawRoute 1.6s ease forwards;
+}
+
+@keyframes drawRoute { to { stroke-dashoffset: 0; } }
+
+.map-pin {
+  position: absolute;
+  z-index: 4;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #111;
+}
+.map-pin::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 4px;
+  width: 1px;
+  height: 36px;
+  background: #111;
+  transform: translateX(-50%);
+}
+.map-pin span {
+  position: absolute;
+  bottom: 39px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-2deg);
+  white-space: nowrap;
+  border: 1px solid #111;
+  background: #fff;
+  padding: 5px 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 13px;
+  font-weight: 950;
+  box-shadow: inset 0 0 0 2px #fff, 0 0 0 1px #111;
+}
+.pin-one { left: 25%; top: 170px; }
+.pin-two { right: 26%; bottom: 74px; }
+
+.mode-control .journey-avatar span,
+.mode-control .zoho-kicker span { background: var(--zoho-blue); }
+.mode-control .route-line path { stroke: var(--zoho-blue); }
+.mode-scale .journey-avatar span,
+.mode-scale .zoho-kicker span { background: var(--zoho-green); }
+.mode-scale .route-line path { stroke: #0b6b3a; }
+
+.zoho-systems,
+.zoho-lab,
+.zoho-faq { padding: 96px 0; }
 
 .zoho-system-shell {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 24px;
   display: grid;
-  grid-template-columns: 260px minmax(0, 1fr);
-  gap: 18px;
+  grid-template-columns: 280px 1fr;
+  gap: 24px;
 }
 
 .zoho-system-nav {
@@ -575,447 +840,326 @@
   border: 1px solid var(--zoho-line);
   border-radius: 30px;
   padding: 12px;
-  display: grid;
-  gap: 8px;
   align-self: start;
+  position: sticky;
+  top: 104px;
 }
 
 .zoho-system-nav button {
+  width: 100%;
   display: flex;
   align-items: center;
   gap: 12px;
   text-align: left;
-  padding: 16px;
-  border-radius: 20px;
   background: transparent;
-  border: 1px solid transparent;
-  color: #737b88;
-  font-weight: 950;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  font-size: 11px;
-  transition: 180ms ease;
-}
-
-.zoho-system-nav button span {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 28px;
-  height: 28px;
-  border-radius: 10px;
-  background: var(--zoho-paper);
-  color: #a29a90;
-}
-
-.zoho-system-nav button.active {
-  color: var(--zoho-ink);
-  background: #fff8f5;
-  border-color: rgba(226, 37, 39, 0.22);
-}
-
-.zoho-system-nav button.active span {
-  background: var(--zoho-red);
-  color: #fff;
-}
-
-.zoho-system-panel {
-  min-height: 430px;
-  background: #fff;
-  border: 1px solid var(--zoho-line);
-  border-radius: 40px;
-  padding: 46px;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 280px;
-  gap: 36px;
-  align-items: end;
-  box-shadow: 0 24px 70px rgba(17, 24, 39, 0.06);
-}
-
-.zoho-system-copy span {
-  color: var(--zoho-red);
-  font-size: 10px;
-  font-weight: 950;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-}
-
-.zoho-system-copy h3 {
-  font-size: clamp(32px, 4vw, 56px);
-  letter-spacing: -0.052em;
-  line-height: 1.02;
-  font-weight: 950;
-  margin: 14px 0 18px;
-}
-
-.zoho-system-copy p {
-  color: var(--zoho-muted);
-  font-size: 17px;
-  line-height: 1.65;
-  max-width: 650px;
-}
-
-.zoho-system-list {
-  display: grid;
-  gap: 10px;
-}
-
-.zoho-system-list div {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 14px;
-  background: var(--zoho-paper);
-  border: 1px solid var(--zoho-line);
-  border-radius: 16px;
-  color: #39414d;
+  border: 0;
+  border-radius: 20px;
+  padding: 17px;
+  color: #737b86;
   font-size: 13px;
-  font-weight: 850;
-}
-
-.zoho-system-list svg { color: var(--zoho-green); }
-
-.zoho-proof {
-  background: var(--zoho-ink);
-  padding: 96px 24px 106px;
-  border-radius: 0;
-}
-
-.zoho-proof > * {
-  max-width: 1180px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.zoho-proof-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 18px;
-}
-
-.zoho-proof-card {
-  background: rgba(255, 255, 255, 0.045);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 36px;
-  padding: 28px;
-  color: #fff;
-  min-height: 450px;
-  display: flex;
-  flex-direction: column;
-  transition: 220ms ease;
-}
-
-.zoho-proof-card:hover {
-  transform: translateY(-4px);
-  border-color: rgba(226, 37, 39, 0.5);
-}
-
-.zoho-proof-icon {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  color: var(--zoho-red);
-  margin-bottom: 28px;
-}
-
-.zoho-proof-icon span {
-  color: #7f8794;
-  font-size: 9px;
-  font-weight: 950;
-  text-transform: uppercase;
-  letter-spacing: 0.18em;
-}
-
-.zoho-proof-card h3 {
-  font-size: 25px;
-  line-height: 1.05;
-  letter-spacing: -0.035em;
-  font-weight: 950;
-  margin: 0 0 14px;
-}
-
-.zoho-proof-card p {
-  color: #abb2bd;
-  line-height: 1.6;
-  font-size: 14px;
-  margin-bottom: 28px;
-}
-
-.zoho-proof-flow {
-  display: grid;
-  gap: 9px;
-  margin-top: auto;
-  margin-bottom: 24px;
-}
-
-.zoho-proof-flow span {
-  color: #d5dae2;
-  font-size: 12px;
-  font-weight: 800;
-}
-
-.zoho-proof-flow i {
-  width: 1px;
-  height: 12px;
-  background: rgba(255,255,255,0.16);
-  margin-left: 4px;
-}
-
-.zoho-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 7px;
-  padding-top: 20px;
-  border-top: 1px solid rgba(255,255,255,0.1);
-}
-
-.zoho-tags span {
-  padding: 7px 9px;
-  border-radius: 999px;
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.08);
-  color: #b7bec9;
-  font-size: 9px;
-  font-weight: 950;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-}
-
-.zoho-lab {
-  padding-top: 100px;
-  padding-bottom: 100px;
-  display: grid;
-  grid-template-columns: 0.9fr 1.1fr;
-  gap: 42px;
-  align-items: center;
-}
-
-.zoho-journey {
-  display: grid;
-  gap: 8px;
-  margin-top: 32px;
-}
-
-.zoho-journey div {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  background: #fff;
-  border: 1px solid var(--zoho-line);
-  border-radius: 18px;
-  padding: 13px 15px;
-}
-
-.zoho-journey span {
-  color: var(--zoho-red);
-  font-size: 10px;
-  font-weight: 950;
-  font-family: var(--font-mono, monospace);
-}
-
-.zoho-journey strong { font-size: 14px; }
-
-.zoho-lab-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 14px;
-}
-
-.zoho-lab-grid article {
-  min-height: 285px;
-  border-radius: 30px;
-  background: #fff;
-  border: 1px solid var(--zoho-line);
-  padding: 24px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  box-shadow: 0 18px 50px rgba(17, 24, 39, 0.05);
-}
-
-.zoho-lab-grid article > div {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.zoho-lab-grid svg { color: var(--zoho-red); }
-
-.zoho-lab-grid article > div span {
-  padding: 7px 9px;
-  border-radius: 999px;
-  background: #fff8f5;
-  color: var(--zoho-red);
-  font-size: 9px;
   font-weight: 950;
   text-transform: uppercase;
   letter-spacing: 0.12em;
 }
-
-.zoho-lab-grid h3 {
-  font-size: 24px;
-  line-height: 1.05;
-  letter-spacing: -0.03em;
-  font-weight: 950;
-  margin: 28px 0 10px;
+.zoho-system-nav button span {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--zoho-paper);
+  color: var(--zoho-red);
+  font-size: 11px;
+}
+.zoho-system-nav button.active {
+  background: #111827;
+  color: #fff;
 }
 
-.zoho-lab-grid p {
-  color: var(--zoho-muted);
-  line-height: 1.55;
-  font-size: 14px;
-}
-
-.zoho-testimonial {
-  max-width: 960px;
-  margin: 0 auto 96px;
+.zoho-system-panel {
+  min-height: 480px;
   background: #fff;
   border: 1px solid var(--zoho-line);
   border-radius: 40px;
   padding: 44px;
+  display: grid;
+  grid-template-columns: minmax(0, 0.92fr) minmax(280px, 0.62fr);
+  gap: 42px;
   box-shadow: 0 24px 70px rgba(17, 24, 39, 0.06);
 }
 
-.zoho-quote-mark {
-  color: var(--zoho-red);
-  font-size: 72px;
-  line-height: 0.75;
-  font-family: Georgia, serif;
+.zoho-system-panel h3 {
+  margin: 0;
+  font-size: clamp(2rem, 4vw, 4.1rem);
+  line-height: 1;
+  font-weight: 950;
+  letter-spacing: -0.06em;
+  max-width: 680px;
 }
-
-.zoho-testimonial > p {
-  font-size: clamp(26px, 3vw, 40px);
-  line-height: 1.18;
-  letter-spacing: -0.04em;
-  font-weight: 900;
-  margin: 0 0 30px;
-}
-
-.zoho-testimonial-bottom {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-  padding-top: 20px;
-  border-top: 1px solid var(--zoho-line);
-}
-
-.zoho-testimonial-bottom strong,
-.zoho-testimonial-bottom span {
-  display: block;
-}
-
-.zoho-testimonial-bottom span {
+.zoho-system-panel p {
   color: var(--zoho-muted);
-  font-size: 13px;
-  margin-top: 4px;
+  line-height: 1.7;
+  font-size: 17px;
+  max-width: 610px;
+  margin: 22px 0 30px;
 }
-
-.zoho-slider-controls {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.zoho-slider-controls button {
-  width: 34px;
-  height: 34px;
-  border: 1px solid var(--zoho-line);
-  background: #fff;
-  border-radius: 50%;
+.zoho-link-line {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
+  gap: 8px;
+  text-decoration: none;
+  color: var(--zoho-red);
+  font-weight: 950;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
 }
 
-.zoho-slider-controls button:not(:first-child):not(:last-child) {
-  width: 9px;
-  height: 9px;
-  padding: 0;
-  background: #d8d1c5;
-  border: 0;
-}
-
-.zoho-slider-controls button.active {
-  background: var(--zoho-red) !important;
-}
-
-.zoho-faq {
-  padding-top: 16px;
-  padding-bottom: 102px;
-}
-
-.zoho-faq-list {
+.zoho-check-grid {
   display: grid;
   gap: 12px;
+  align-self: center;
+}
+.zoho-check-grid div {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 18px;
+  border: 1px solid var(--zoho-line);
+  border-radius: 22px;
+  background: var(--zoho-paper);
+  font-weight: 850;
+}
+.zoho-check-grid svg { color: var(--zoho-green); }
+
+.zoho-proof {
+  padding: 106px 0;
+  background: #101010;
+  color: #fff;
+}
+.zoho-proof-grid {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
+}
+.zoho-proof-card {
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.035);
+  border-radius: 32px;
+  padding: 30px;
+  min-height: 430px;
+  display: flex;
+  flex-direction: column;
+  transition: 220ms ease;
+}
+.zoho-proof-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(226,37,39,0.55);
+}
+.zoho-proof-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #898989;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-weight: 950;
+  margin-bottom: 34px;
+}
+.zoho-proof-status span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--zoho-red);
+}
+.zoho-proof-card h3 {
+  font-size: 25px;
+  line-height: 1.1;
+  margin: 0 0 14px;
+  font-weight: 950;
+  letter-spacing: -0.04em;
+}
+.zoho-proof-card p {
+  color: #a3a3a3;
+  line-height: 1.65;
+  font-size: 14px;
+  margin: 0 0 26px;
+}
+.zoho-flow-list { display: grid; gap: 12px; margin-top: auto; }
+.zoho-flow-list div { display: flex; align-items: center; gap: 10px; color: #d4d4d4; }
+.zoho-flow-list small { color: #666; font-family: var(--font-mono, monospace); font-size: 10px; }
+.zoho-tags { display: flex; flex-wrap: wrap; gap: 8px; border-top: 1px solid rgba(255,255,255,0.1); margin-top: 24px; padding-top: 18px; }
+.zoho-tags span {
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.06);
+  border-radius: 999px;
+  padding: 8px 10px;
+  color: #bbb;
+  font-size: 9px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
 }
 
+.zoho-lab-grid {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
+}
+.zoho-lab-grid article {
+  background: #fff;
+  border: 1px solid var(--zoho-line);
+  border-radius: 32px;
+  padding: 30px;
+  min-height: 300px;
+  transition: 220ms ease;
+}
+.zoho-lab-grid article:hover { transform: translateY(-4px); box-shadow: 0 20px 60px rgba(17,24,39,0.08); }
+.zoho-lab-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 16px;
+  display: grid;
+  place-items: center;
+  background: #fff3f0;
+  color: var(--zoho-red);
+  margin-bottom: 24px;
+}
+.zoho-lab-status {
+  display: inline-flex;
+  color: var(--zoho-green);
+  font-size: 10px;
+  font-weight: 950;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+}
+.zoho-lab-grid h3 { font-size: 25px; margin: 12px 0; font-weight: 950; letter-spacing: -0.04em; }
+.zoho-lab-grid p { color: var(--zoho-muted); line-height: 1.65; }
+.zoho-code-strip {
+  margin-top: 24px;
+  padding: 14px;
+  border-radius: 14px;
+  background: #111827;
+  color: #9ca3af;
+  font-family: var(--font-mono, monospace);
+  font-size: 11px;
+}
+.zoho-code-strip span { color: var(--zoho-red); }
+
+.zoho-testimonials {
+  max-width: 900px;
+  margin: 20px auto 90px;
+  padding: 0 24px;
+}
+.zoho-quote-card {
+  background: #fff;
+  border: 1px solid var(--zoho-line);
+  border-radius: 36px;
+  padding: 44px;
+  text-align: center;
+  box-shadow: 0 24px 70px rgba(17,24,39,0.06);
+}
+.zoho-quote-card svg { color: var(--zoho-red); margin: 0 auto 18px; }
+.zoho-quote-card p {
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  line-height: 1.2;
+  letter-spacing: -0.05em;
+  font-weight: 900;
+  margin: 0 auto 24px;
+  max-width: 760px;
+}
+.zoho-quote-card strong,
+.zoho-quote-card span { display: block; }
+.zoho-quote-card span { color: #8a8174; font-size: 12px; text-transform: uppercase; letter-spacing: 0.15em; font-weight: 850; margin-top: 4px; }
+.zoho-slider-controls {
+  margin-top: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 18px;
+}
+.zoho-slider-controls button {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 1px solid var(--zoho-line);
+  background: #fff;
+}
+.zoho-slider-controls div { display: flex; gap: 8px; }
+.zoho-slider-controls span { width: 8px; height: 8px; border-radius: 50%; background: #ddd2cc; }
+.zoho-slider-controls span.active { background: var(--zoho-red); }
+
+.zoho-faq-list {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
 .zoho-faq-list article {
   background: #fff;
   border: 1px solid var(--zoho-line);
-  border-radius: 24px;
+  border-radius: 22px;
+  margin-bottom: 12px;
   overflow: hidden;
 }
-
 .zoho-faq-list button {
   width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 22px 24px;
-  background: transparent;
   border: 0;
-  color: var(--zoho-ink);
-  font-size: 17px;
+  background: transparent;
+  padding: 22px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 18px;
   font-weight: 950;
   text-align: left;
 }
-
-.zoho-faq-list svg { transition: transform 180ms ease; }
-.zoho-faq-list article.open svg { transform: rotate(180deg); }
-
 .zoho-faq-list p {
-  max-height: 0;
-  overflow: hidden;
+  display: none;
+  padding: 0 24px 24px;
   margin: 0;
-  padding: 0 24px;
   color: var(--zoho-muted);
-  line-height: 1.65;
-  transition: 220ms ease;
+  line-height: 1.7;
 }
-
-.zoho-faq-list article.open p {
-  max-height: 160px;
-  padding-bottom: 24px;
-}
+.zoho-faq-list article.active p { display: block; }
+.zoho-faq-list article.active svg { transform: rotate(180deg); }
 
 .zoho-final-cta {
+  margin: 0;
+  padding: 106px 24px;
   text-align: center;
-  padding-top: 82px;
-  padding-bottom: 130px;
-  border-top: 1px solid var(--zoho-line);
-}
-
-.zoho-final-cta svg { color: var(--zoho-red); margin-bottom: 20px; }
-.zoho-final-cta a {
-  display: inline-flex;
-  margin-top: 26px;
-  background: var(--zoho-ink);
+  background: #111827;
   color: #fff;
-  text-decoration: none;
-  border-radius: 999px;
-  padding: 15px 24px;
-  font-size: 11px;
+}
+.zoho-final-cta h2 {
+  margin: 0 auto;
+  max-width: 850px;
+  font-size: clamp(2.7rem, 6vw, 6rem);
+  line-height: 0.95;
+  letter-spacing: -0.07em;
   font-weight: 950;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+}
+.zoho-final-cta p {
+  max-width: 640px;
+  margin: 22px auto 34px;
+  color: #cfcfcf;
+  line-height: 1.7;
+  font-size: 18px;
 }
 
-.zoho-floating-demo {
+.zoho-sticky-demo {
   position: fixed;
-  right: 18px;
-  bottom: 18px;
-  z-index: 860;
+  right: 22px;
+  bottom: 22px;
+  z-index: 700;
   border: 0;
   background: var(--zoho-red);
   color: #fff;
@@ -1023,155 +1167,131 @@
   padding: 14px 18px;
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  box-shadow: 0 18px 40px rgba(226, 37, 39, 0.28);
+  gap: 9px;
   font-size: 11px;
-  font-weight: 950;
   text-transform: uppercase;
-  letter-spacing: 0.13em;
-  transition: transform 180ms ease, opacity 180ms ease;
-}
-
-.zoho-floating-demo.hide {
-  opacity: 0;
-  pointer-events: none;
-  transform: translateY(10px);
+  letter-spacing: 0.14em;
+  font-weight: 950;
+  box-shadow: 0 18px 50px rgba(226,37,39,0.34);
 }
 
 .zoho-drawer {
   position: fixed;
+  inset: 0;
+  z-index: 1200;
+  pointer-events: none;
+  background: rgba(17, 24, 39, 0);
+  transition: background 220ms ease;
+}
+.zoho-drawer.open {
+  pointer-events: auto;
+  background: rgba(17, 24, 39, 0.34);
+}
+.zoho-drawer-panel {
+  position: absolute;
   top: 0;
   right: 0;
-  bottom: 0;
-  width: min(420px, 100vw);
+  height: 100%;
+  width: min(480px, 100%);
   background: #fff;
-  border-left: 1px solid var(--zoho-line);
-  z-index: 1200;
-  padding: 34px;
-  transform: translateX(105%);
-  transition: transform 260ms cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: -18px 0 70px rgba(17, 24, 39, 0.12);
-  display: flex;
-  flex-direction: column;
+  padding: 42px;
+  transform: translateX(100%);
+  transition: transform 260ms ease;
+  box-shadow: -22px 0 70px rgba(17, 24, 39, 0.18);
+  overflow-y: auto;
 }
-
-.zoho-drawer.open { transform: translateX(0); }
-
+.zoho-drawer.open .zoho-drawer-panel { transform: translateX(0); }
 .zoho-drawer-close {
-  width: 38px;
-  height: 38px;
-  align-self: flex-end;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  position: absolute;
+  top: 22px;
+  right: 22px;
+  width: 42px;
+  height: 42px;
   border-radius: 50%;
   border: 1px solid var(--zoho-line);
   background: #fff;
-  margin-bottom: 30px;
-}
-
-.zoho-drawer h3 {
-  font-size: 36px;
-  line-height: 1;
-  letter-spacing: -0.05em;
-  font-weight: 950;
-  margin: 0 0 18px;
-}
-
-.zoho-drawer p {
-  color: var(--zoho-muted);
-  line-height: 1.65;
-}
-
-.zoho-drawer-checks {
   display: grid;
-  gap: 10px;
-  margin: 28px 0;
+  place-items: center;
 }
-
+.zoho-drawer-panel h3 {
+  margin: 70px 0 16px;
+  font-size: 44px;
+  line-height: 1;
+  letter-spacing: -0.06em;
+  font-weight: 950;
+}
+.zoho-drawer-panel p { color: var(--zoho-muted); line-height: 1.7; }
+.zoho-drawer-checks { display: grid; gap: 12px; margin: 28px 0; }
 .zoho-drawer-checks div {
   display: flex;
-  gap: 10px;
   align-items: center;
-  padding: 13px;
+  gap: 10px;
+  padding: 15px;
   background: var(--zoho-paper);
   border: 1px solid var(--zoho-line);
   border-radius: 16px;
   font-weight: 850;
 }
-
 .zoho-drawer-checks svg { color: var(--zoho-green); }
+
+.zoho-footer {
+  padding: 34px 24px;
+  text-align: center;
+  color: #8a8174;
+  font-size: 12px;
+  background: #fff;
+  border-top: 1px solid var(--zoho-line);
+}
+.zoho-footer a { color: var(--zoho-red); font-weight: 850; }
 
 @media (max-width: 980px) {
   .zoho-hero,
   .zoho-system-shell,
   .zoho-system-panel,
-  .zoho-lab {
+  .zoho-proof-grid,
+  .zoho-lab-grid {
     grid-template-columns: 1fr;
   }
-
-  .zoho-proof-grid,
-  .zoho-lab-grid,
-  .zoho-mapping-grid {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .zoho-hero { padding-top: 128px; }
-  .zoho-system-panel { min-height: auto; }
-  .zoho-mega-grid { grid-template-columns: 1fr 1fr; }
+  .zoho-hero { padding-top: 132px; }
+  .zoho-system-nav { position: static; display: grid; grid-template-columns: repeat(2, 1fr); }
+  .zoho-trust-strip { grid-template-columns: 1fr; gap: 14px; }
+  .zoho-trust-title { padding-left: 24px; }
+  .zoho-journey-canvas { min-height: 900px; }
+  .journey-map { left: 28px; right: 28px; }
+  .note-left { left: 30px; }
+  .note-right { right: 30px; }
+  .note-bottom { left: 34px; }
 }
 
 @media (max-width: 720px) {
-  .zoho-topbar-inner { height: 68px; padding: 0 14px; }
   .zoho-actions { gap: 8px; }
-  .zoho-signup { padding: 11px 14px; font-size: 9px; }
-  .zoho-brand { font-size: 20px; }
-
-  .zoho-hero {
-    padding: 112px 18px 58px;
-    gap: 30px;
+  .zoho-signup { padding-inline: 13px; }
+  .zoho-hero { grid-template-columns: 1fr; gap: 34px; }
+  .zoho-hero h1 { font-size: clamp(3.2rem, 15vw, 5rem); }
+  .zoho-hero-stats { grid-template-columns: 1fr; }
+  .zoho-jump-links { top: 78px; overflow-x: auto; justify-content: flex-start; padding-inline: 16px; }
+  .zoho-jump-links button { min-width: 132px; padding-inline: 18px; }
+  .zoho-journey-canvas {
+    min-height: 970px;
+    width: calc(100% - 20px);
+    border-radius: 28px;
   }
-
-  .zoho-hero h1 { font-size: clamp(44px, 13vw, 62px); }
-  .zoho-hero-copy p { font-size: 17px; }
-  .zoho-hero-statrow,
-  .zoho-proof-grid,
-  .zoho-lab-grid,
-  .zoho-mapping-grid,
-  .zoho-mega-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .zoho-mapping,
-  .zoho-trust,
-  .zoho-systems,
-  .zoho-lab,
-  .zoho-faq,
-  .zoho-final-cta {
-    padding-left: 18px;
-    padding-right: 18px;
-  }
-
-  .zoho-trust {
-    grid-template-columns: 1fr;
-  }
-
-  .zoho-system-panel,
-  .zoho-testimonial {
-    padding: 26px;
-    border-radius: 30px;
-  }
-
-  .zoho-system-nav {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .zoho-system-nav button {
-    padding: 12px;
-    font-size: 10px;
-  }
-
-  .zoho-proof { padding-left: 18px; padding-right: 18px; }
-  .zoho-testimonial-bottom { align-items: flex-start; flex-direction: column; }
-  .zoho-floating-demo span { display: none; }
+  .journey-pill { min-width: 0; width: calc(100% - 42px); font-size: 17px; }
+  .journey-card { width: calc(100% - 38px); }
+  .journey-card li { font-size: 15px; }
+  .plan-card { top: 248px; }
+  .journey-map { top: 490px; height: 280px; left: 14px; right: 14px; }
+  .report-card { bottom: 32px; }
+  .pin-one { left: 22%; top: 140px; }
+  .pin-two { right: 24%; bottom: 58px; }
+  .map-pin span { font-size: 10px; }
+  .zoho-hand-note { display: none; }
+  .zoho-system-panel { padding: 26px; }
+  .zoho-system-nav { grid-template-columns: 1fr; }
+  .zoho-section-head h2 { font-size: clamp(2.25rem, 11vw, 4rem); }
+  .zoho-proof-card,
+  .zoho-lab-grid article,
+  .zoho-quote-card { padding: 24px; }
+  .zoho-drawer-panel { padding: 28px; }
+  .zoho-drawer-panel h3 { font-size: 34px; }
 }

@@ -12,6 +12,7 @@ import {
   Database,
   FileText,
   Filter,
+  Gauge,
   Globe2,
   Mail,
   Menu,
@@ -27,23 +28,18 @@ import {
 
 const navLinks = [
   { label: 'Overview', href: '#zoho-overview' },
-  { label: 'Systems', href: '#zoho-systems' },
-  { label: 'Proof', href: '#zoho-proof' },
+  { label: 'Automate', href: '#zoho-journey' },
+  { label: 'Control', href: '#zoho-systems' },
+  { label: 'Scale', href: '#zoho-proof' },
   { label: 'Lab', href: '#zoho-lab' },
   { label: 'FAQ', href: '#zoho-faq' },
 ];
 
 const relatedProducts = [
-  { label: 'Data Mining', note: 'Public signals → clean records', icon: Database },
-  { label: 'CRM Ops', note: 'Stages, assignment, governance', icon: Network },
-  { label: 'Automation', note: 'Webhooks, routing, review loops', icon: Workflow },
-  { label: 'Analytics', note: 'GA4, GTM, dashboards, source logic', icon: BarChart3 },
-];
-
-const heroStats = [
-  { value: 'Public → CRM', label: 'Signal pipeline' },
-  { value: 'Human review', label: 'Control preserved' },
-  { value: 'GTM systems', label: 'Current focus' },
+  { label: 'Signal Mining', note: 'Public sources into clean records', icon: Database },
+  { label: 'CRM Operations', note: 'Fields, stages and ownership logic', icon: Network },
+  { label: 'Workflow Routing', note: 'Webhooks, review gates and alerts', icon: Workflow },
+  { label: 'Analytics Layer', note: 'GA4, GTM and dashboard clarity', icon: BarChart3 },
 ];
 
 const trustItems = [
@@ -63,6 +59,54 @@ const trustItems = [
   'Prompt Specs',
   'CRM Payloads',
 ];
+
+const journeyModes = {
+  automate: {
+    label: 'Automate',
+    title: 'Automation that enhances the operator experience.',
+    kicker: 'Clean handoffs instead of copy-paste heroics',
+    trip: 'Campaign sourcing run',
+    planTitle: 'Plan workflow',
+    plan: ['Source map', 'ICP rules', 'Output schema'],
+    approver: 'Human review gate',
+    approverRole: 'Quality control',
+    eventLabel: 'Signal captured',
+    meetupLabel: 'Enrichment pass',
+    reportTitle: 'Add to CRM',
+    report: ['Owner assigned', 'Status logged', 'Next action queued'],
+    sideNote: 'Automate the repeatable parts. Keep judgment visible.',
+  },
+  control: {
+    label: 'Control',
+    title: 'Control that keeps messy growth from leaking downstream.',
+    kicker: 'Rules, exclusions and checkpoints where they matter',
+    trip: 'Lead quality review',
+    planTitle: 'Check filters',
+    plan: ['Role match', 'Region fit', 'Exclusion rules'],
+    approver: 'Decision checkpoint',
+    approverRole: 'Manual override',
+    eventLabel: 'Mismatch flagged',
+    meetupLabel: 'Record repaired',
+    reportTitle: 'Release clean record',
+    report: ['Reason attached', 'Source preserved', 'Audit trail saved'],
+    sideNote: 'Control is not bureaucracy. It is fewer surprises later.',
+  },
+  scale: {
+    label: 'Scale',
+    title: 'Scale that stays understandable when volume increases.',
+    kicker: 'Reporting, routing and proof trails built for repeat use',
+    trip: 'Multi-market GTM loop',
+    planTitle: 'Set operating model',
+    plan: ['Input standard', 'Routing logic', 'Dashboard view'],
+    approver: 'Leadership view',
+    approverRole: 'Pipeline clarity',
+    eventLabel: 'Market signal',
+    meetupLabel: 'Sales handoff',
+    reportTitle: 'Report outcome',
+    report: ['Channel view', 'Quality trend', 'Action summary'],
+    sideNote: 'Scale should make the system clearer, not louder.',
+  },
+};
 
 const systemTabs = {
   source: {
@@ -166,7 +210,7 @@ const faqs = [
   },
   {
     q: 'What is copied from Zoho?',
-    a: 'Nothing proprietary. The page borrows UX patterns: sticky product-style nav, scannable sections, CTA drawer, tabs, proof strip, testimonials and FAQ behavior.',
+    a: 'Nothing proprietary. The page borrows UX patterns: product-style navigation, jump links, journey visualization, CTA drawer, tabs, testimonials and FAQ behavior.',
   },
   {
     q: 'What is the positioning?',
@@ -204,13 +248,13 @@ function ZohoNav({ onCallback }) {
       <header className="zoho-topbar">
         <div className="zoho-topbar-inner">
           <div className="zoho-brand-row">
-            <button className="zoho-icon-button md:hidden" aria-label="Open menu" onClick={() => setOpen(true)}>
+            <button className="zoho-icon-button md:hidden" aria-label="Open menu" onClick={() => setOpen(true)} type="button">
               <Menu size={18} />
             </button>
             <a className="zoho-brand" href="/">
               nrajpk<span>_</span>
             </a>
-            <button className="zoho-related hidden lg:inline-flex" onClick={() => setMega(!mega)} aria-expanded={mega}>
+            <button className="zoho-related hidden lg:inline-flex" onClick={() => setMega(!mega)} aria-expanded={mega} type="button">
               Systems map <ChevronDown size={14} />
             </button>
           </div>
@@ -227,7 +271,7 @@ function ZohoNav({ onCallback }) {
             <a href="mailto:nrajpk@outlook.com" className="zoho-login hidden sm:inline-flex">
               Email
             </a>
-            <button className="zoho-signup" onClick={onCallback}>
+            <button className="zoho-signup" onClick={onCallback} type="button">
               Request map
             </button>
           </div>
@@ -241,7 +285,7 @@ function ZohoNav({ onCallback }) {
             </div>
             <div className="zoho-mega-grid">
               {relatedProducts.map(({ label, note, icon: Icon }) => (
-                <button key={label} onClick={() => scrollToHash('#zoho-systems')}>
+                <button key={label} onClick={() => scrollToHash('#zoho-systems')} type="button">
                   <Icon size={18} />
                   <span>{label}</span>
                   <small>{note}</small>
@@ -257,18 +301,18 @@ function ZohoNav({ onCallback }) {
           <div className="zoho-mobile-panel">
             <div className="zoho-mobile-head">
               <span>nrajpk systems menu</span>
-              <button className="zoho-icon-button" aria-label="Close menu" onClick={() => setOpen(false)}>
+              <button className="zoho-icon-button" aria-label="Close menu" onClick={() => setOpen(false)} type="button">
                 <X size={18} />
               </button>
             </div>
             {navLinks.map((link) => (
               <a key={link.href} href={link.href} onClick={() => setOpen(false)}>
                 {link.label}
-                <ArrowRight size={15} />
+                <ArrowRight size={14} />
               </a>
             ))}
-            <button className="zoho-mobile-cta" onClick={() => { setOpen(false); onCallback(); }}>
-              Request systems map
+            <button className="zoho-mobile-cta" onClick={onCallback} type="button">
+              Request workflow map
             </button>
           </div>
         </div>
@@ -279,62 +323,61 @@ function ZohoNav({ onCallback }) {
 
 function Hero({ onCallback }) {
   return (
-    <section className="zoho-hero" id="zoho-overview">
+    <section id="zoho-overview" className="zoho-hero">
       <div className="zoho-hero-copy">
-        <div className="zoho-eyebrow">Zoho-style profile route / ultra-scannable GTM systems page</div>
-        <h1>Marketing works better when the operating system behind it is clean.</h1>
+        <div className="zoho-kicker">
+          <span /> GTM Systems Profile
+        </div>
+        <h1>Marketing works better when the operating layer is clean.</h1>
         <p>
-          I build practical GTM systems across public data extraction, CRM workflows, campaign tracking,
-          enrichment logic, reporting views and AI-assisted review loops.
+          I connect data extraction, campaign logic, CRM workflows, analytics and AI-assisted review into systems that make growth easier to track, control and scale.
         </p>
         <div className="zoho-hero-actions">
-          <a href="#zoho-proof" className="zoho-primary-btn">
-            View built work <ArrowUpRight size={15} />
+          <a href="#zoho-journey" className="zoho-primary-btn">
+            See the journey <ArrowRight size={16} />
           </a>
-          <button className="zoho-secondary-btn" onClick={onCallback}>
-            <Play size={14} /> Map my workflow
+          <button className="zoho-secondary-btn" onClick={onCallback} type="button">
+            Request workflow map
           </button>
         </div>
-        <div className="zoho-hero-statrow">
-          {heroStats.map((stat) => (
-            <div key={stat.label}>
-              <strong>{stat.value}</strong>
-              <span>{stat.label}</span>
+        <div className="zoho-hero-stats">
+          {[
+            ['Public → CRM', 'Signal pipeline'],
+            ['Human review', 'Control preserved'],
+            ['GTM systems', 'Current focus'],
+          ].map(([value, label]) => (
+            <div key={value}>
+              <strong>{value}</strong>
+              <span>{label}</span>
             </div>
           ))}
         </div>
       </div>
 
-      <div className="zoho-hero-panel" aria-label="Systems readiness panel">
-        <div className="zoho-panel-top">
-          <span>GTM operating layer</span>
-          <span className="zoho-live-dot">live map</span>
+      <div className="zoho-hero-card" aria-label="Profile workflow mockup">
+        <div className="zoho-card-topline">
+          <span>LIVE OPERATING VIEW</span>
+          <span className="zoho-live-dot" />
         </div>
-        <div className="zoho-flow-card active">
-          <Database size={20} />
+        <div className="zoho-profile-chip">
+          <img src="/dp.jpeg" alt="Nikhil Raj PK" />
           <div>
-            <strong>Source signal</strong>
-            <span>Public records, LinkedIn search, campaign context</span>
+            <strong>Nikhil Raj PK</strong>
+            <span>Marketing Operations & GTM Systems Builder</span>
           </div>
         </div>
-        <div className="zoho-flow-card">
-          <Filter size={20} />
-          <div>
-            <strong>Clean + qualify</strong>
-            <span>ICP rules, exclusions, dedupe, field structure</span>
-          </div>
+        <div className="zoho-mini-flow">
+          {['Source', 'Shape', 'Route', 'Report'].map((step, i) => (
+            <div key={step} className="zoho-mini-step">
+              <span>{`0${i + 1}`}</span>
+              <strong>{step}</strong>
+              <small>{i === 0 ? 'Public signals' : i === 1 ? 'Clean fields' : i === 2 ? 'Review gate' : 'Decision view'}</small>
+            </div>
+          ))}
         </div>
-        <div className="zoho-flow-card">
-          <Workflow size={20} />
-          <div>
-            <strong>Route to action</strong>
-            <span>CRM payload, owner, alert, proof trail</span>
-          </div>
-        </div>
-        <div className="zoho-mini-console">
-          <span>&gt; request parsed</span>
-          <span>&gt; filters mapped</span>
-          <span>&gt; human review preserved</span>
+        <div className="zoho-hero-console">
+          <span>&gt; workflow.status</span>
+          <strong>reviewable_output_ready</strong>
         </div>
       </div>
     </section>
@@ -342,14 +385,14 @@ function Hero({ onCallback }) {
 }
 
 function TrustStrip() {
-  const items = [...trustItems, ...trustItems];
+  const row = [...trustItems, ...trustItems];
   return (
-    <section className="zoho-trust" aria-label="Tool and workflow strip">
-      <span className="zoho-trust-title">Stack signals</span>
-      <div className="zoho-trust-window">
-        <div className="zoho-trust-track">
-          {items.map((item, index) => (
-            <span key={`${item}-${index}`}>{item}</span>
+    <section className="zoho-trust-strip" aria-label="GTM stack strip">
+      <div className="zoho-trust-title">Production and lab stack</div>
+      <div className="zoho-marquee-wrap">
+        <div className="zoho-marquee-track">
+          {row.map((item, idx) => (
+            <span key={`${item}-${idx}`}>{item}</span>
           ))}
         </div>
       </div>
@@ -357,45 +400,125 @@ function TrustStrip() {
   );
 }
 
-function SystemsTabs() {
-  const [activeKey, setActiveKey] = useState('source');
-  const active = systemTabs[activeKey];
+function JourneySection() {
+  const [mode, setMode] = useState('automate');
+  const active = journeyModes[mode];
 
   return (
-    <section className="zoho-systems" id="zoho-systems">
+    <section id="zoho-journey" className="zoho-journey-section">
+      <div className="zoho-jump-links" aria-label="Automate control scale jump links">
+        {Object.entries(journeyModes).map(([key, item]) => (
+          <button key={key} className={mode === key ? 'active' : ''} onClick={() => setMode(key)} type="button">
+            {item.label}
+          </button>
+        ))}
+      </div>
+
+      <div className="zoho-section-head centered">
+        <span>Automate / Control / Scale</span>
+        <h2>{active.title}</h2>
+        <p>{active.kicker}</p>
+      </div>
+
+      <div className={`zoho-journey-canvas mode-${mode}`}>
+        <div className="zoho-canvas-grid" />
+        <div className="zoho-journey-spine" />
+
+        <div className="zoho-hand-note note-left">
+          pre-work
+          <svg viewBox="0 0 110 72" aria-hidden="true"><path d="M12 6c8 31 34 48 72 42m0 0-17-12m17 12-14 16" /></svg>
+        </div>
+        <div className="zoho-hand-note note-right">
+          active loop
+          <svg viewBox="0 0 112 72" aria-hidden="true"><path d="M92 7c-28 0-52 16-64 44m0 0 3-20m-3 20 20-8" /></svg>
+        </div>
+        <div className="zoho-hand-note note-bottom">
+          post-handoff
+          <svg viewBox="0 0 112 72" aria-hidden="true"><path d="M10 10c14 34 43 45 88 36m0 0-16-11m16 11-13 16" /></svg>
+        </div>
+
+        <div className="journey-pill top-pill">{active.trip}</div>
+        <div className="journey-avatar">
+          <img src="/dp.jpeg" alt="Nikhil Raj PK" />
+          <span><Workflow size={22} /></span>
+        </div>
+
+        <div className="journey-card plan-card">
+          <h3>{active.planTitle}</h3>
+          <ul>
+            {active.plan.map((item) => (
+              <li key={item}><Check size={16} /> {item}</li>
+            ))}
+          </ul>
+          <div className="journey-approval">
+            <div className="approval-avatar"><ShieldCheck size={20} /></div>
+            <div>
+              <strong>{active.approver}</strong>
+              <span>{active.approverRole}</span>
+            </div>
+            <Check size={18} />
+          </div>
+        </div>
+
+        <div className="journey-map">
+          <svg className="route-line" viewBox="0 0 900 360" preserveAspectRatio="none" aria-hidden="true">
+            <path d="M420 0 L420 82 L94 82 C36 82 36 176 94 176 L795 176 C850 176 850 268 795 268 L420 268 L420 360" />
+          </svg>
+          <div className="map-lines" />
+          <div className="map-pin pin-one"><span>{active.eventLabel}</span></div>
+          <div className="map-pin pin-two"><span>{active.meetupLabel}</span></div>
+        </div>
+
+        <div className="journey-card report-card">
+          <h3>{active.reportTitle}</h3>
+          <ul>
+            {active.report.map((item) => (
+              <li key={item}><Check size={16} /> {item}</li>
+            ))}
+          </ul>
+          <p>{active.sideNote}</p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function SystemsTabs() {
+  const [active, setActive] = useState('source');
+  const tab = systemTabs[active];
+
+  return (
+    <section id="zoho-systems" className="zoho-systems">
       <div className="zoho-section-head">
-        <span>Expense-control tabs → profile systems tabs</span>
-        <h2>Four checks before a workflow deserves automation.</h2>
-        <p>Zoho makes dense product capability scannable through progressive panels. Here the same pattern maps your GTM work into source, shape, route and report.</p>
+        <span>Control layer</span>
+        <h2>Everything that happens before the dashboard matters.</h2>
+        <p>Zoho’s page is scannable because each section owns one job. This profile route uses the same logic for GTM systems: source, shape, route, report.</p>
       </div>
 
       <div className="zoho-system-shell">
-        <div className="zoho-system-nav" role="tablist" aria-label="GTM system layers">
-          {Object.entries(systemTabs).map(([key, item]) => (
-            <button
-              key={key}
-              role="tab"
-              aria-selected={activeKey === key}
-              className={activeKey === key ? 'active' : ''}
-              onClick={() => setActiveKey(key)}
-            >
-              <span>{item.metric}</span>
-              {item.label}
+        <div className="zoho-system-nav">
+          {Object.keys(systemTabs).map((key) => (
+            <button key={key} className={active === key ? 'active' : ''} onClick={() => setActive(key)} type="button">
+              <span>{systemTabs[key].metric}</span>
+              {systemTabs[key].label}
             </button>
           ))}
         </div>
 
         <div className="zoho-system-panel">
-          <div className="zoho-system-copy">
-            <span>{active.eyebrow}</span>
-            <h3>{active.title}</h3>
-            <p>{active.desc}</p>
+          <div>
+            <span className="zoho-panel-eyebrow">{tab.eyebrow}</span>
+            <h3>{tab.title}</h3>
+            <p>{tab.desc}</p>
+            <a href="#zoho-proof" className="zoho-link-line">
+              See proof layer <ArrowRight size={16} />
+            </a>
           </div>
-          <div className="zoho-system-list">
-            {active.bullets.map((bullet) => (
-              <div key={bullet}>
-                <Check size={15} />
-                {bullet}
+          <div className="zoho-check-grid">
+            {tab.bullets.map((item) => (
+              <div key={item}>
+                <Check size={17} />
+                <span>{item}</span>
               </div>
             ))}
           </div>
@@ -405,29 +528,26 @@ function SystemsTabs() {
   );
 }
 
-function ProofCards() {
+function ProofSection() {
   return (
-    <section className="zoho-proof" id="zoho-proof">
+    <section id="zoho-proof" className="zoho-proof">
       <div className="zoho-section-head light">
-        <span>Customer logo slider → built-work proof cards</span>
-        <h2>Production work, kept factual and fast to scan.</h2>
-        <p>No invented revenue numbers. No hero cosplay. Just the system, flow, tools and proof trail that should be shown.</p>
+        <span>Scale layer</span>
+        <h2>Built work shown as flows, not résumé confetti.</h2>
+        <p>The goal is to let a busy visitor scan what was built, how it moves, and what proof should be shown next.</p>
       </div>
       <div className="zoho-proof-grid">
         {proofCards.map((card) => (
           <article key={card.title} className="zoho-proof-card">
-            <div className="zoho-proof-icon">
-              <ShieldCheck size={22} />
-              <span>Built</span>
-            </div>
+            <div className="zoho-proof-status"><span /> Built</div>
             <h3>{card.title}</h3>
             <p>{card.summary}</p>
-            <div className="zoho-proof-flow">
-              {card.flow.map((step, index) => (
-                <React.Fragment key={step}>
+            <div className="zoho-flow-list">
+              {card.flow.map((step, idx) => (
+                <div key={step}>
+                  <small>{`0${idx + 1}`}</small>
                   <span>{step}</span>
-                  {index < card.flow.length - 1 && <i />}
-                </React.Fragment>
+                </div>
               ))}
             </div>
             <div className="zoho-tags">
@@ -442,31 +562,22 @@ function ProofCards() {
 
 function LabSection() {
   return (
-    <section className="zoho-lab" id="zoho-lab">
-      <div className="zoho-lab-left">
-        <span>Journey animation → lab workflow path</span>
-        <h2>From raw signal to usable decision.</h2>
-        <p>
-          The lab section behaves like a product walkthrough: compact, visual and structured around the actual operating path.
-        </p>
-        <div className="zoho-journey">
-          {['Request', 'Parse', 'Qualify', 'Route', 'Report'].map((item, index) => (
-            <div key={item}>
-              <span>{String(index + 1).padStart(2, '0')}</span>
-              <strong>{item}</strong>
-            </div>
-          ))}
-        </div>
+    <section id="zoho-lab" className="zoho-lab">
+      <div className="zoho-section-head">
+        <span>GTM lab</span>
+        <h2>Small systems, visible mechanics.</h2>
+        <p>Interactive lab cards show the kind of operating details that make a profile credible instead of just pretty.</p>
       </div>
       <div className="zoho-lab-grid">
         {labCards.map(({ icon: Icon, title, status, desc }) => (
           <article key={title}>
-            <div>
-              <Icon size={20} />
-              <span>{status}</span>
-            </div>
+            <div className="zoho-lab-icon"><Icon size={20} /></div>
+            <span className="zoho-lab-status">{status}</span>
             <h3>{title}</h3>
             <p>{desc}</p>
+            <div className="zoho-code-strip">
+              <span>&gt;</span> output.schema.validated
+            </div>
           </article>
         ))}
       </div>
@@ -474,57 +585,44 @@ function LabSection() {
   );
 }
 
-function TestimonialPanel() {
-  const [index, setIndex] = useState(0);
-  const slide = testimonialSlides[index];
+function TestimonialSection() {
+  const [active, setActive] = useState(0);
+  const slide = testimonialSlides[active];
 
-  useEffect(() => {
-    const timer = setInterval(() => setIndex((prev) => (prev + 1) % testimonialSlides.length), 7000);
-    return () => clearInterval(timer);
-  }, []);
+  const next = () => setActive((prev) => (prev + 1) % testimonialSlides.length);
+  const prev = () => setActive((prev) => (prev - 1 + testimonialSlides.length) % testimonialSlides.length);
 
   return (
-    <section className="zoho-testimonial" aria-label="Profile principles carousel">
-      <div className="zoho-quote-mark">“</div>
-      <p>{slide.quote}</p>
-      <div className="zoho-testimonial-bottom">
+    <section className="zoho-testimonials">
+      <div className="zoho-quote-card">
+        <Sparkles size={26} />
+        <p>“{slide.quote}”</p>
         <div>
           <strong>{slide.name}</strong>
           <span>{slide.role}</span>
         </div>
-        <div className="zoho-slider-controls">
-          <button onClick={() => setIndex((index - 1 + testimonialSlides.length) % testimonialSlides.length)} aria-label="Previous principle">
-            <ChevronLeft size={16} />
-          </button>
-          {testimonialSlides.map((item, i) => (
-            <button
-              key={item.name}
-              className={i === index ? 'active' : ''}
-              onClick={() => setIndex(i)}
-              aria-label={`Show principle ${i + 1}`}
-            />
-          ))}
-          <button onClick={() => setIndex((index + 1) % testimonialSlides.length)} aria-label="Next principle">
-            <ChevronRight size={16} />
-          </button>
-        </div>
+      </div>
+      <div className="zoho-slider-controls">
+        <button onClick={prev} type="button" aria-label="Previous principle"><ChevronLeft size={18} /></button>
+        <div>{testimonialSlides.map((_, idx) => <span key={idx} className={idx === active ? 'active' : ''} />)}</div>
+        <button onClick={next} type="button" aria-label="Next principle"><ChevronRight size={18} /></button>
       </div>
     </section>
   );
 }
 
-function FAQ() {
+function FAQSection() {
   const [open, setOpen] = useState(0);
   return (
-    <section className="zoho-faq" id="zoho-faq">
-      <div className="zoho-section-head">
-        <span>Zoho FAQ accordion → route clarity</span>
-        <h2>Questions this page answers before anyone gets irritated.</h2>
+    <section id="zoho-faq" className="zoho-faq">
+      <div className="zoho-section-head centered">
+        <span>FAQ</span>
+        <h2>More about this profile route.</h2>
       </div>
       <div className="zoho-faq-list">
-        {faqs.map((item, index) => (
-          <article key={item.q} className={open === index ? 'open' : ''}>
-            <button onClick={() => setOpen(open === index ? -1 : index)}>
+        {faqs.map((item, idx) => (
+          <article key={item.q} className={open === idx ? 'active' : ''}>
+            <button onClick={() => setOpen(open === idx ? -1 : idx)} type="button">
               {item.q}
               <ChevronDown size={18} />
             </button>
@@ -536,78 +634,58 @@ function FAQ() {
   );
 }
 
-function CallbackDrawer({ open, setOpen }) {
+function DemoDrawer({ open, onClose }) {
   return (
-    <>
-      <button className={`zoho-floating-demo ${open ? 'hide' : ''}`} onClick={() => setOpen(true)} aria-label="Open workflow drawer">
-        <span>Workflow map</span>
-        <MousePointer2 size={18} />
-      </button>
-      <aside className={`zoho-drawer ${open ? 'open' : ''}`} aria-hidden={!open}>
-        <button className="zoho-drawer-close" onClick={() => setOpen(false)} aria-label="Close drawer">
+    <div className={`zoho-drawer ${open ? 'open' : ''}`} aria-hidden={!open}>
+      <div className="zoho-drawer-panel">
+        <button className="zoho-drawer-close" onClick={onClose} type="button" aria-label="Close workflow drawer">
           <X size={18} />
         </button>
-        <span className="zoho-drawer-eyebrow">Request callback pattern → profile CTA drawer</span>
-        <h3>Map the workflow before adding more tools.</h3>
-        <p>Use this route to show how your profile page can feel product-like without turning into a circus of cards, sliders and startup incense.</p>
+        <span className="zoho-panel-eyebrow">Workflow map request</span>
+        <h3>Send me the system you want cleaned.</h3>
+        <p>Best fit: public-source research, CRM handoffs, lead review, enrichment logic, attribution cleanup or reporting systems.</p>
         <div className="zoho-drawer-checks">
-          {['Source quality', 'CRM handoff', 'Human review', 'Reporting clarity'].map((item) => (
-            <div key={item}><Check size={14} /> {item}</div>
+          {['Input sources', 'Current bottleneck', 'Desired output', 'Human review point'].map((item) => (
+            <div key={item}><Check size={16} /> {item}</div>
           ))}
         </div>
-        <a href="mailto:nrajpk@outlook.com" className="zoho-primary-btn">Email Nikhil <Mail size={15} /></a>
-      </aside>
-    </>
+        <a href="mailto:nrajpk@outlook.com?subject=Workflow%20map%20request" className="zoho-primary-btn">
+          Email workflow brief <Mail size={16} />
+        </a>
+      </div>
+    </div>
   );
 }
 
 export default function ZohoProfilePage() {
   const [drawerOpen, setDrawerOpen] = useState(false);
-
-  const mapping = useMemo(() => [
-    ['Zoho global header / product nav', 'Fixed profile nav + systems mega menu'],
-    ['Hero CTA and product panel', 'GTM systems hero + workflow readiness card'],
-    ['Trusted-by horizontal strip', 'Tool and workflow signal marquee'],
-    ['Feature control tabs', 'Source / Shape / Route / Report tabs'],
-    ['Customer proof cards', 'Built-work proof cards'],
-    ['Journey animation', 'Raw signal → decision lab path'],
-    ['Demo request drawer', 'Workflow map drawer'],
-    ['FAQ accordion', 'Route and positioning FAQ'],
-  ], []);
+  const year = useMemo(() => new Date().getFullYear(), []);
 
   return (
     <div className="zoho-profile-page">
       <ZohoNav onCallback={() => setDrawerOpen(true)} />
       <main>
         <Hero onCallback={() => setDrawerOpen(true)} />
-        <section className="zoho-mapping" aria-label="Zoho to profile UI mapping">
-          <div className="zoho-mapping-head">
-            <Sparkles size={18} />
-            <span>Precise UI mapping</span>
-          </div>
-          <div className="zoho-mapping-grid">
-            {mapping.map(([zoho, profile]) => (
-              <div key={zoho}>
-                <small>{zoho}</small>
-                <strong>{profile}</strong>
-              </div>
-            ))}
-          </div>
-        </section>
         <TrustStrip />
+        <JourneySection />
         <SystemsTabs />
-        <ProofCards />
+        <ProofSection />
         <LabSection />
-        <TestimonialPanel />
-        <FAQ />
+        <TestimonialSection />
+        <FAQSection />
         <section className="zoho-final-cta">
-          <FileText size={24} />
-          <h2>Same profile. Faster scan. More product-like proof.</h2>
-          <p>The route is designed to sit at <strong>/zoho</strong> while your existing homepage remains untouched.</p>
-          <a href="mailto:nrajpk@outlook.com">Start a systems conversation</a>
+          <h2>Growth should not depend on fragile handoffs.</h2>
+          <p>Bring me the workflow. I’ll map the inputs, control points and output path.</p>
+          <button className="zoho-primary-btn" onClick={() => setDrawerOpen(true)} type="button">
+            Request workflow map <ArrowUpRight size={16} />
+          </button>
         </section>
       </main>
-      <CallbackDrawer open={drawerOpen} setOpen={setDrawerOpen} />
+      <button className="zoho-sticky-demo" onClick={() => setDrawerOpen(true)} type="button">
+        <MousePointer2 size={15} /> Map workflow
+      </button>
+      <DemoDrawer open={drawerOpen} onClose={() => setDrawerOpen(false)} />
+      <footer className="zoho-footer">© {year} Nikhil Raj PK · Zoho-inspired profile route · <a href="/">Back to main profile</a></footer>
     </div>
   );
 }

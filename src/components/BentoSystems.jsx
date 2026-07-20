@@ -87,8 +87,8 @@ export default function BentoSystems() {
   useEffect(() => setStatIndex(0), [view]);
 
   return (
-    <section id="expertise" className="py-28 px-6 bg-white border-y border-stone-100">
-      <div className="max-w-6xl mx-auto mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
+    <section id="expertise" className="py-20 px-6 bg-white border-y border-stone-100">
+      <div className="max-w-6xl mx-auto mb-10 flex flex-col md:flex-row md:items-end justify-between gap-6">
         <div>
           <span className="font-mono text-[10px] text-zapier font-bold uppercase mb-4 block tracking-[0.35em]">
             Core Systems
@@ -102,11 +102,11 @@ export default function BentoSystems() {
         </p>
       </div>
 
-      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-6 md:auto-rows-[280px]">
-        <div className="md:col-span-8 md:row-span-2 p-10 md:p-12 bg-white border border-stone-200 rounded-[32px] flex flex-col justify-between relative overflow-hidden group shadow-sm">
+      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-5 md:auto-rows-[225px]">
+        <div className="md:col-span-8 md:row-span-2 p-8 md:p-10 bg-white border border-stone-200 rounded-[32px] flex flex-col justify-between relative overflow-hidden group shadow-sm">
           <div className="absolute -right-20 -top-20 w-72 h-72 bg-zapier/5 rounded-full blur-3xl group-hover:bg-zapier/10 transition-colors" />
           <div className="relative z-10">
-            <span className="font-mono text-[10px] text-zapier font-bold uppercase mb-6 block tracking-widest">
+            <span className="font-mono text-[10px] text-zapier font-bold uppercase mb-4 block tracking-widest">
               Marketing Ops / GTM Systems
             </span>
             <AnimatePresence mode="wait">
@@ -117,17 +117,17 @@ export default function BentoSystems() {
                 exit={{ opacity: 0, x: 10 }}
                 transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
               >
-                <h3 className="text-4xl md:text-5xl font-bold leading-[1.1] text-stone-900 tracking-tight max-w-xl">
+                <h3 className="text-3xl md:text-4xl font-bold leading-[1.1] text-stone-900 tracking-tight max-w-xl">
                   {active.title}
                 </h3>
-                <p className="text-stone-500 text-lg mt-8 max-w-lg leading-relaxed">
+                <p className="text-stone-500 text-base md:text-lg mt-5 max-w-lg leading-relaxed">
                   {active.desc}
                 </p>
               </motion.div>
             </AnimatePresence>
           </div>
 
-          <div className="flex flex-wrap items-center gap-3 font-mono text-[10px] font-bold uppercase relative z-10 pt-12 md:pt-0">
+          <div className="flex flex-wrap items-center gap-3 font-mono text-[10px] font-bold uppercase relative z-10 pt-8 md:pt-0">
             {Object.keys(content).map((item) => (
               <button
                 key={item}
@@ -207,7 +207,7 @@ export default function BentoSystems() {
         </div>
       </div>
 
-      <div className="max-w-6xl mx-auto mt-10 text-center md:text-left">
+      <div className="max-w-6xl mx-auto mt-8 text-center md:text-left">
         <a href="#proof" className="inline-flex items-center gap-2 font-mono text-[10px] font-bold uppercase tracking-widest text-stone-500 hover:text-zapier transition-colors">
           See how these run in production →
         </a>

@@ -1,5 +1,5 @@
-import React from "react";
-import { motion } from "framer-motion";
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { Globe, Share2, Database, LineChart, ShieldCheck, ArrowUpRight } from "lucide-react";
 
 const deployments = [
@@ -41,7 +41,12 @@ const deployments = [
   }
 ];
 
+const tabLabels = ["B2G Extraction", "Custom CRM", "Tender Engine", "Production Tracker"];
+
 export default function HighTicketArchitecture() {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const active = deployments[activeIndex];
+
   return (
     <section id="proof" className="py-36 md:py-40 bg-stone-950 text-white overflow-hidden relative">
       <div className="absolute inset-0 opacity-[0.035] pointer-events-none" style={{ backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)', backgroundSize: '60px 60px' }} />
@@ -64,55 +69,79 @@ export default function HighTicketArchitecture() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {deployments.map((item, index) => (
+        <div>
+          <div className="flex flex-wrap gap-2 mb-8">
+            {deployments.map((item, index) => (
+              <button
+                key={item.title}
+                type="button"
+                onClick={() => setActiveIndex(index)}
+                className={`px-5 py-2.5 rounded-full font-mono text-[10px] font-bold uppercase tracking-widest transition-all duration-300 border ${
+                  activeIndex === index
+                    ? "bg-white text-stone-900 border-white shadow-xl"
+                    : "bg-white/5 text-stone-400 border-white/10 hover:border-white/30 hover:text-white"
+                }`}
+              >
+                <span className={`mr-2 ${activeIndex === index ? "text-zapier" : "text-stone-600"}`}>0{index + 1}</span>
+                {tabLabels[index]}
+              </button>
+            ))}
+          </div>
+
+          <AnimatePresence mode="wait">
             <motion.article
-              key={item.title}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ delay: index * 0.08, duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-              className={`p-8 md:p-9 bg-white/[0.035] border border-white/10 rounded-[36px] hover:border-zapier/45 transition-all duration-500 group flex flex-col min-h-[440px] ${item.wide ? "md:col-span-2 md:min-h-0" : ""}`}
+              key={active.title}
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -12 }}
+              transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+              className="p-8 md:p-12 bg-white/[0.035] border border-white/10 rounded-[36px] lg:min-h-[420px]"
             >
-              <div className="flex items-start justify-between mb-8">
-                <div className="text-zapier group-hover:scale-110 transition-transform duration-500">{item.icon}</div>
-                <div className="flex items-center gap-2 font-mono text-[8px] font-bold uppercase tracking-widest text-stone-500">
-                  <span className="h-1.5 w-1.5 rounded-full bg-zapier animate-pulse" /> Built
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
+                <div className="lg:col-span-7">
+                  <div className="flex items-start justify-between mb-8">
+                    <div className="text-zapier">{active.icon}</div>
+                    <div className="flex items-center gap-2 font-mono text-[8px] font-bold uppercase tracking-widest text-stone-500">
+                      <span className="h-1.5 w-1.5 rounded-full bg-zapier" /> Built
+                    </div>
+                  </div>
+
+                  <h3 className="text-3xl md:text-5xl font-bold leading-tight mb-5 text-white tracking-tight">{active.title}</h3>
+                  <p className="text-stone-400 text-base md:text-lg leading-relaxed mb-8 max-w-xl">{active.desc}</p>
+
+                  <div className="mb-8">
+                    <p className="font-mono text-[8px] uppercase tracking-widest text-stone-600 mb-3 font-bold">Proof to show</p>
+                    <p className="text-xs leading-relaxed text-stone-500 max-w-xl">{active.proof}</p>
+                    {active.href && (
+                      <a href={active.href} className="inline-flex items-center gap-2 mt-5 text-[10px] font-bold uppercase tracking-widest text-zapier hover:text-white transition-colors">
+                        Read the full system breakdown <ArrowUpRight size={12} />
+                      </a>
+                    )}
+                  </div>
+
+                  <div className="pt-6 border-t border-white/10 flex flex-wrap gap-2">
+                    {active.tools.map((tool) => (
+                      <span key={tool} className="px-3 py-1 bg-white/5 border border-white/10 rounded-md font-mono text-[8px] font-bold uppercase tracking-widest text-stone-400">
+                        {tool}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="lg:col-span-5">
+                  <p className="font-mono text-[8px] uppercase tracking-widest text-stone-600 mb-4 font-bold">How it flows</p>
+                  <div className="space-y-3">
+                    {active.flow.map((step, i) => (
+                      <div key={step} className="flex items-start gap-3 p-4 bg-white/5 border border-white/5 rounded-2xl text-sm text-stone-300">
+                        <span className="font-mono text-[9px] text-zapier font-bold mt-0.5">0{i + 1}</span>
+                        <span>{step}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
-
-              <h3 className="text-2xl font-bold leading-tight mb-4 text-white">{item.title}</h3>
-              <p className="text-stone-400 text-sm leading-relaxed mb-8">{item.desc}</p>
-
-              <div className="space-y-3 mb-8 flex-1">
-                {item.flow.map((step, i) => (
-                  <div key={step} className="flex items-center gap-3 text-sm text-stone-300">
-                    <span className="font-mono text-[8px] text-stone-600 w-5">0{i + 1}</span>
-                    <span className="h-px w-5 bg-stone-800" />
-                    <span>{step}</span>
-                  </div>
-                ))}
-              </div>
-
-              <div className="mb-7">
-                <p className="font-mono text-[8px] uppercase tracking-widest text-stone-600 mb-3 font-bold">Proof to show</p>
-                <p className="text-xs leading-relaxed text-stone-500">{item.proof}</p>
-                {item.href && (
-                  <a href={item.href} className="inline-flex items-center gap-2 mt-4 text-[10px] font-bold uppercase tracking-widest text-zapier hover:text-white transition-colors">
-                    Read the full system breakdown <ArrowUpRight size={12} />
-                  </a>
-                )}
-              </div>
-
-              <div className="pt-6 border-t border-white/10 flex flex-wrap gap-2">
-                {item.tools.map((tool) => (
-                  <span key={tool} className="px-3 py-1 bg-white/5 border border-white/10 rounded-md font-mono text-[8px] font-bold uppercase tracking-widest text-stone-400">
-                    {tool}
-                  </span>
-                ))}
-              </div>
             </motion.article>
-          ))}
+          </AnimatePresence>
         </div>
 
         <motion.div

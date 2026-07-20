@@ -51,7 +51,7 @@ export default function Navigation() {
           href="mailto:nrajpk@outlook.com"
           className="text-[10px] font-bold uppercase tracking-widest text-white bg-stone-900 px-6 py-3 rounded-full hover:bg-zapier transition-all shadow-xl shadow-stone-900/10 active:scale-95"
         >
-          Contact
+          Connect
         </a>
       </div>
     </motion.header>

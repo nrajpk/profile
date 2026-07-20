@@ -1,0 +1,219 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navigation from '../../components/Navigation.jsx';
+
+// VERIFIED BUILD FIGURES — from project status & deployment docs (v1, July 2026).
+const figures = {
+  asOf: 'July 2026 (v1 production-readiness pass)',
+  tests: '37/37',
+  routingStages: 6,
+  endpoints: 10,
+  internalStatuses: 7,
+  platforms: 6,
+  templates: 11,
+};
+
+const decisions = [
+  {
+    n: '01',
+    title: 'AI runs last — and in v1, not at all',
+    what: 'Requirement rows route through six stages in strict order: approved cache → safety hold → numeric spec check → platform capability check → template match → AI. The AI stage is a conservative stub that outputs "Manual Review Needed" — no model call is made anywhere in v1.',
+    whyNot: 'The obvious 2026 build is "feed the tender to an LLM." But a hallucinated "Comply" on a ballistic spec is a contractual claim, not a typo. Deterministic checks answer what can be proven; everything else is honestly routed to a human. The AIResponder interface exists so a real model can slot in later — behind the same guardrails, never in front of them.',
+  },
+  {
+    n: '02',
+    title: 'A safety hold that no automation can override',
+    what: 'Rows touching ballistic protection levels (VPAM, STANAG, CEN 1063, BR4–7), payload, upgraded GVW, suspension, brakes, or armoured configuration are held at Manual Review Needed — always — unless a human-approved cache entry explicitly covers them.',
+    whyNot: 'These are the rows where a wrong answer costs a contract or worse. The design question wasn\'t "can we automate this?" — it was "what must never be automated?" The safety hold runs second in the pipeline, before any check that could mark a row compliant.',
+  },
+  {
+    n: '03',
+    title: 'No evidence, no "Compliant"',
+    what: 'A post-validation layer enforces evidence-or-downgrade: any row marked Compliant without an attached evidence trail is automatically downgraded. The exported DOCX carries a traceability appendix mapping every matrix row to its source document, page, and clause.',
+    whyNot: 'Compliance matrices fail audits on unsupported claims, not missing ones. Making evidence structurally mandatory means the output is defensible in front of a procurement officer, not just impressive in a demo.',
+  },
+  {
+    n: '04',
+    title: 'Human review compounds into a response library',
+    what: 'When a reviewer approves rows, they write back into a normalized-key approved cache — which is stage one of the pipeline. The next tender that asks the same question gets the human-approved answer instantly.',
+    whyNot: 'The fashionable version is fine-tuning a model on past responses. The cache achieves the compounding without training cost, drift, or opacity: every cached answer was explicitly approved by a person, and the cache file itself is the single most valuable backup artifact.',
+  },
+  {
+    n: '05',
+    title: 'The tender is locked as an immutable "case bible"',
+    what: 'On upload, the source PDF is locked per case. Extraction, review, and export all trace back to it; parsed pages are kept as an auditable intermediate so even dropped clauses remain inspectable.',
+    whyNot: 'Compliance work collapses when the source document can silently change mid-review. Immutability makes every downstream edit accountable to one fixed reference — the same discipline as a contract redline.',
+  },
+  {
+    n: '06',
+    title: 'Limitations are documented, not hidden',
+    what: 'No OCR — scanned PDFs are flagged as possibly scanned rather than guessed at. Narrow numeric coverage by design: units outside the verified set route to manual review. Every known parsing edge case is written down in the project docs.',
+    whyNot: 'A system that guesses at the 5% it can\'t parse poisons trust in the 95% it can. Flagging over guessing is what makes reviewers actually rely on the tool — the failure modes are part of the spec, not a surprise.',
+  },
+];
+
+const pipeline = [
+  'Case created — platform selected, tender PDF locked as case bible',
+  'Page-wise extraction with numbered-clause detection',
+  'Hierarchy normalization — refs, leaf detection, categories',
+  'Stage 1 · Approved cache lookup (human-approved answers)',
+  'Stage 2 · Safety hold — ballistic / payload rows frozen for review',
+  'Stage 3 · Numeric spec check against platform data',
+  'Stage 4 · Deterministic platform capability check',
+  'Stage 5 · Response template match',
+  'Stage 6 · Conservative AI stub → Manual Review Needed',
+  'Evidence-or-downgrade validation, human review, cache write-back',
+  'DOCX generation — clean matrix + traceability appendix',
+];
+
+const stack = ['Python / FastAPI', 'PyMuPDF', 'python-docx', 'React 18 + Vite', 'Supabase Auth', 'Docker', 'pytest'];
+---
+
+<Layout
+  title="Tender Compliance Engine — System Breakdown | Nikhil Raj PK"
+  description="A production tender-compliance matrix generator for armoured vehicle bids: deterministic routing, an un-overridable safety hold, evidence-enforced compliance claims, and a human-approved response cache. 37/37 tests, Dockerized."
+>
+  <Navigation client:load />
+
+  <main class="pt-32 pb-24 px-6">
+    <div class="max-w-4xl mx-auto">
+
+      <a href="/#proof" class="font-mono text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400 hover:text-zapier transition-colors">
+        &larr; Back to Built Work
+      </a>
+
+      <header class="mt-10 mb-16">
+        <span class="font-mono text-[10px] font-bold text-zapier uppercase tracking-[0.35em] mb-5 block">
+          System Breakdown // Shipped v1
+        </span>
+        <h1 class="text-4xl md:text-6xl font-bold tracking-tight text-stone-900 leading-[1.02] mb-8">
+          A tender-response engine built around one rule:
+          <span class="font-serif italic font-normal text-stone-400">never guess on compliance.</span>
+        </h1>
+        <p class="text-stone-500 text-lg md:text-xl leading-relaxed max-w-2xl">
+          Defense tenders arrive as hundreds of numbered requirements. Building the compliance matrix by hand takes days — and a single careless "Comply" is a contractual claim. This system automates the drudgery while making the dangerous parts impossible to automate.
+        </p>
+      </header>
+
+      <!-- Verified figures -->
+      <section class="mb-16">
+        <div class="bg-stone-950 text-white rounded-[32px] p-8 md:p-10">
+          <div class="flex flex-wrap items-center justify-between gap-3 mb-8">
+            <span class="font-mono text-[9px] font-bold uppercase tracking-[0.3em] text-zapier">Verified Build Figures</span>
+            <span class="font-mono text-[9px] text-stone-500 uppercase tracking-widest">{figures.asOf}</span>
+          </div>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+            <div>
+              <p class="text-4xl font-bold tracking-tighter">{figures.tests}</p>
+              <p class="font-mono text-[9px] uppercase tracking-widest text-stone-500 mt-2">Tests passing</p>
+            </div>
+            <div>
+              <p class="text-4xl font-bold tracking-tighter">{figures.routingStages}</p>
+              <p class="font-mono text-[9px] uppercase tracking-widest text-stone-500 mt-2">Routing stages</p>
+            </div>
+            <div>
+              <p class="text-4xl font-bold tracking-tighter">{figures.endpoints}</p>
+              <p class="font-mono text-[9px] uppercase tracking-widest text-stone-500 mt-2">API endpoints</p>
+            </div>
+            <div>
+              <p class="text-4xl font-bold tracking-tighter">{figures.internalStatuses}&rarr;4</p>
+              <p class="font-mono text-[9px] uppercase tracking-widest text-stone-500 mt-2">Statuses, collapsed at export</p>
+            </div>
+          </div>
+          <p class="text-stone-500 text-sm leading-relaxed mt-8 border-t border-white/10 pt-6">
+            End-to-end verified: create case &rarr; upload &rarr; extract &rarr; review &rarr; approve-to-cache &rarr; generate DOCX &rarr; download. Ships as a single Docker container serving API and frontend, with {figures.platforms} vehicle platform spec sets and {figures.templates} response templates seeded. Supabase-backed auth; JSON-file storage by deliberate v1 scope, behind interfaces ready for Postgres/S3.
+          </p>
+        </div>
+      </section>
+
+      <!-- Problem & constraint -->
+      <section class="mb-16 grid md:grid-cols-2 gap-8">
+        <div class="bg-white border border-stone-200 rounded-[28px] p-8">
+          <span class="font-mono text-[9px] font-bold uppercase tracking-[0.3em] text-stone-400 block mb-4">The Problem</span>
+          <p class="text-stone-600 leading-relaxed">
+            Every tender response meant manually reading hundreds of clauses, deciding Comply / Partial / Non-Comply per row, writing responses, and assembling a formatted matrix — days of expert time spent mostly on requirements the company had already answered in previous bids.
+          </p>
+        </div>
+        <div class="bg-white border border-stone-200 rounded-[28px] p-8">
+          <span class="font-mono text-[9px] font-bold uppercase tracking-[0.3em] text-stone-400 block mb-4">The Constraint</span>
+          <p class="text-stone-600 leading-relaxed">
+            A compliance matrix is a legal representation to a procurement authority. Speed was worthless without defensibility — so the architecture optimizes for "provably correct or explicitly flagged," never "probably right."
+          </p>
+        </div>
+      </section>
+
+      <!-- Pipeline -->
+      <section class="mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-stone-900 mb-8 font-serif italic">The pipeline.</h2>
+        <div class="bg-paper border border-stone-200 rounded-[28px] p-8">
+          <ol class="space-y-4">
+            {pipeline.map((step, i) => (
+              <li class="flex items-center gap-4 text-stone-700">
+                <span class="font-mono text-[10px] text-zapier font-bold w-6">{String(i + 1).padStart(2, '0')}</span>
+                <span class="h-px w-6 bg-stone-300"></span>
+                <span class="text-sm md:text-base">{step}</span>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      <!-- Decisions -->
+      <section class="mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-stone-900 mb-4 font-serif italic">Six decisions that define the system.</h2>
+        <p class="text-stone-500 leading-relaxed mb-10 max-w-2xl">
+          The engineering here is mostly restraint: deciding what the machine must never answer, and making that impossible rather than merely discouraged.
+        </p>
+        <div class="space-y-6">
+          {decisions.map((d) => (
+            <article class="bg-white border border-stone-200 rounded-[28px] p-8 hover:border-zapier/40 transition-colors">
+              <div class="flex items-start gap-5">
+                <span class="font-mono text-xs font-bold text-zapier mt-1">{d.n}</span>
+                <div>
+                  <h3 class="text-xl font-bold text-stone-900 mb-3 leading-tight">{d.title}</h3>
+                  <p class="text-stone-600 text-sm leading-relaxed mb-4">{d.what}</p>
+                  <p class="text-stone-400 text-sm leading-relaxed border-l-2 border-stone-100 pl-4">
+                    <span class="font-mono text-[9px] font-bold uppercase tracking-widest text-stone-400 block mb-1">Why not the obvious alternative</span>
+                    {d.whyNot}
+                  </p>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <!-- Stack -->
+      <section class="mb-16">
+        <span class="font-mono text-[9px] font-bold uppercase tracking-[0.3em] text-stone-400 block mb-5">Stack</span>
+        <div class="flex flex-wrap gap-2">
+          {stack.map((t) => (
+            <span class="px-4 py-2 bg-stone-900 text-white font-mono text-[9px] font-bold uppercase tracking-widest rounded-lg">{t}</span>
+          ))}
+        </div>
+      </section>
+
+      <!-- Disclosure -->
+      <section class="mb-20">
+        <div class="bg-stone-50 border border-stone-200 rounded-[28px] p-8">
+          <span class="font-mono text-[9px] font-bold uppercase tracking-[0.3em] text-stone-400 block mb-4">Disclosure</span>
+          <p class="text-stone-500 text-sm leading-relaxed">
+            Figures are taken from the project's status and deployment documentation ({figures.asOf}). Tender contents, client data, and platform-specific specification values are omitted. Known limitations (no OCR, narrow numeric coverage, single-process storage) are part of the documented v1 scope — flagged in the system itself, not discovered by users.
+          </p>
+        </div>
+      </section>
+
+      <!-- CTA -->
+      <section class="text-center">
+        <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-stone-900 mb-6 font-serif italic">Want the deeper walkthrough?</h2>
+        <p class="text-stone-500 leading-relaxed max-w-xl mx-auto mb-8">
+          I can demo the full flow live — tender PDF in, reviewed compliance matrix and DOCX out — and walk through the routing code and safety-hold logic on screen.
+        </p>
+        <a href="mailto:nrajpk@outlook.com" class="bg-stone-900 text-white px-10 py-4 rounded-full font-bold uppercase tracking-widest text-[10px] hover:bg-zapier transition-all active:scale-95 inline-flex items-center justify-center">
+          Book a system walkthrough
+        </a>
+      </section>
+
+    </div>
+  </main>
+</Layout>

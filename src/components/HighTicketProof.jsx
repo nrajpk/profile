@@ -21,6 +21,15 @@ const deployments = [
     proof: "Sanitized CRM workflow map, lifecycle structure and pipeline reporting view."
   },
   {
+    icon: <ShieldCheck size={30} />,
+    title: "Tender Compliance Matrix Engine",
+    desc: "A shipped FastAPI + React system that turns defense tender PDFs into reviewed compliance matrices — with an un-overridable safety hold on ballistic requirements.",
+    flow: ["Lock tender as case bible", "Extract numbered requirements", "Route through 6 deterministic stages", "Human review + approved cache", "Generate DOCX with traceability"],
+    tools: ["FastAPI", "PyMuPDF", "React", "Docker"],
+    proof: "37/37 tests passing, e2e-verified flow, Dockerized deploy, documented limitations.",
+    href: "/work/tender-compliance-engine"
+  },
+  {
     icon: <LineChart size={30} />,
     title: "Ads, Analytics & Attribution Setup",
     desc: "Campaign tracking and reporting workflows connecting paid acquisition activity with performance visibility.",
@@ -53,7 +62,7 @@ export default function HighTicketArchitecture() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {deployments.map((item, index) => (
             <motion.article
               key={item.title}

@@ -9,7 +9,8 @@ const deployments = [
     desc: "Automated workflows for sourcing and structuring defense and procurement-related contact data from public sources.",
     flow: ["Identify target sources", "Run Python/Apify extraction", "Clean fields", "Prepare CRM-ready output", "Campaign handoff"],
     tools: ["Python", "Apify", "LinkedIn Ads", "CRM Workflows"],
-    proof: "Architecture diagram, sanitized extraction log, source map and cleaned output sample."
+    proof: "Architecture diagram, sanitized extraction log, source map and cleaned output sample.",
+    href: "/work/b2g-gtm-pipeline"
   },
   {
     icon: <Share2 size={30} />,
@@ -85,6 +86,11 @@ export default function HighTicketArchitecture() {
               <div className="mb-7">
                 <p className="font-mono text-[8px] uppercase tracking-widest text-stone-600 mb-3 font-bold">Proof to show</p>
                 <p className="text-xs leading-relaxed text-stone-500">{item.proof}</p>
+                {item.href && (
+                  <a href={item.href} className="inline-flex items-center gap-2 mt-4 text-[10px] font-bold uppercase tracking-widest text-zapier hover:text-white transition-colors">
+                    Read the full system breakdown <ArrowUpRight size={12} />
+                  </a>
+                )}
               </div>
 
               <div className="pt-6 border-t border-white/10 flex flex-wrap gap-2">

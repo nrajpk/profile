@@ -1,0 +1,223 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navigation from '../../components/Navigation.jsx';
+
+// LIVE TELEMETRY — pulled from production tooling on 20 Jul 2026.
+// Update these by re-querying n8n + Instantly. Do not invent values.
+const telemetry = {
+  pulledOn: 'July 20, 2026',
+  executionsTotal: 79,
+  recentSampleSize: 50,
+  recentSuccessRate: '100%',
+  activeWorkflows: 3,
+  emailsSent: 21,
+  positiveReplies: 1,
+  opportunities: 1,
+  bounces: 1,
+  dailyCap: 15,
+};
+
+const decisions = [
+  {
+    n: '01',
+    title: 'A human approval console sits between AI and send',
+    what: 'Qualified leads land in an Airtable review queue. Nothing is contacted until a person clicks approve; the click fires an event-driven POST that pushes the lead to the sending platform.',
+    whyNot: 'Full automation was the obvious build. In defense-adjacent B2G, one badly-targeted email to a government contact costs more than a week of manual review saves. Judgment stays where it matters; automation handles everything around it.',
+  },
+  {
+    n: '02',
+    title: 'Open tracking is switched off — on purpose',
+    what: 'The live campaign config has open_tracking and link_tracking disabled. Reported opens on this system are zero, and that is correct.',
+    whyNot: 'Tracking pixels and rewritten links raise spam-filter risk and inflate dashboards with unreliable data. For a low-volume, high-consideration pipeline, the only metrics that matter are replies and opportunities — so those are the only ones measured.',
+  },
+  {
+    n: '03',
+    title: 'Volume is capped, plain-text first, stop-on-reply',
+    what: 'Daily send cap of 10–15, first email is text-only, sending restricted to UAE business hours (Sun–Thu), and the sequence halts the moment a lead replies.',
+    whyNot: 'A 100/day blast would produce bigger vanity numbers and a burned domain. Sender reputation is the pipeline\'s scarcest asset; every config choice protects it.',
+  },
+  {
+    n: '04',
+    title: 'Event-driven, not polling',
+    what: 'The approval console POSTs directly to a webhook on click. No scheduler loops asking "anything new?" every minute.',
+    whyNot: 'Polling wastes executions, adds latency, and creates race conditions on double-approval. The event model means the recent execution log reads as a clean list of sub-second successful runs.',
+  },
+  {
+    n: '05',
+    title: 'Guardrails before AI, validation before guardrails',
+    what: 'Extraction runs through field validation and rate-limit-aware guardrails before any AI qualification step. Batch continuation uses a search-signature so re-runs never re-process the same segment.',
+    whyNot: 'LLMs applied to dirty data produce confident garbage. Cleaning first means the qualification layer scores real records — and the dedup signature keeps API spend flat as the pipeline scales.',
+  },
+  {
+    n: '06',
+    title: 'Two sending platforms, one reporting endpoint',
+    what: 'A read-only n8n workflow fetches live campaign analytics and mailbox health from both sending platforms and merges them into a single JSON response for the ops console.',
+    whyNot: 'Two dashboards means two versions of the truth. One merged, read-only endpoint (no AI calls, no write access) gives management a single view without another SaaS subscription.',
+  },
+];
+
+const pipeline = [
+  'Campaign config submitted from ops console',
+  'Prospect search via data provider API',
+  'Field validation + combined mapping',
+  'Extraction guardrails (rate limits, retries)',
+  'AI qualification against ICP rules',
+  'Airtable review queue — human approval',
+  'Event-driven push to sending platform',
+  'Sequenced outreach, stop-on-reply',
+  'Merged live reporting endpoint',
+];
+
+const stack = ['n8n', 'Apollo API', 'Apify', 'Airtable', 'Instantly', 'Smartlead', 'Claude / LLM APIs', 'Webhooks / REST'];
+---
+
+<Layout
+  title="B2G GTM Pipeline — System Breakdown | Nikhil Raj PK"
+  description="Full decision-level breakdown of a live B2G lead generation pipeline: AI qualification, human-in-the-loop approval, deliverability-first sending, and merged reporting. Real production telemetry."
+>
+  <Navigation client:load />
+
+  <main class="pt-32 pb-24 px-6">
+    <div class="max-w-4xl mx-auto">
+
+      <!-- Breadcrumb -->
+      <a href="/#proof" class="font-mono text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400 hover:text-zapier transition-colors">
+        &larr; Back to Built Work
+      </a>
+
+      <!-- Header -->
+      <header class="mt-10 mb-16">
+        <span class="font-mono text-[10px] font-bold text-zapier uppercase tracking-[0.35em] mb-5 block">
+          System Breakdown // Live Production
+        </span>
+        <h1 class="text-4xl md:text-6xl font-bold tracking-tight text-stone-900 leading-[1.02] mb-8">
+          A B2G outbound pipeline where automation does the work and
+          <span class="font-serif italic font-normal text-stone-400">judgment does the deciding.</span>
+        </h1>
+        <p class="text-stone-500 text-lg md:text-xl leading-relaxed max-w-2xl">
+          Built for long-cycle armoured vehicle sales into government and defense-adjacent markets — an environment where one careless email costs more than a hundred good ones earn. Every design decision below follows from that constraint.
+        </p>
+      </header>
+
+      <!-- Live telemetry -->
+      <section class="mb-16">
+        <div class="bg-stone-950 text-white rounded-[32px] p-8 md:p-10">
+          <div class="flex flex-wrap items-center justify-between gap-3 mb-8">
+            <span class="font-mono text-[9px] font-bold uppercase tracking-[0.3em] text-zapier">Production Telemetry</span>
+            <span class="font-mono text-[9px] text-stone-500 uppercase tracking-widest">Queried from live tooling &middot; {telemetry.pulledOn}</span>
+          </div>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+            <div>
+              <p class="text-4xl font-bold tracking-tighter">{telemetry.executionsTotal}</p>
+              <p class="font-mono text-[9px] uppercase tracking-widest text-stone-500 mt-2">Workflow executions</p>
+            </div>
+            <div>
+              <p class="text-4xl font-bold tracking-tighter">{telemetry.recentSuccessRate}</p>
+              <p class="font-mono text-[9px] uppercase tracking-widest text-stone-500 mt-2">Success rate, last {telemetry.recentSampleSize} runs</p>
+            </div>
+            <div>
+              <p class="text-4xl font-bold tracking-tighter">{telemetry.emailsSent} &rarr; {telemetry.positiveReplies}</p>
+              <p class="font-mono text-[9px] uppercase tracking-widest text-stone-500 mt-2">First emails &rarr; positive replies</p>
+            </div>
+            <div>
+              <p class="text-4xl font-bold tracking-tighter">{telemetry.opportunities}</p>
+              <p class="font-mono text-[9px] uppercase tracking-widest text-stone-500 mt-2">Opportunity created</p>
+            </div>
+          </div>
+          <p class="text-stone-500 text-sm leading-relaxed mt-8 border-t border-white/10 pt-6">
+            These are real figures from a deliberately low-volume launch phase: {telemetry.dailyCap}/day cap, {telemetry.bounces} bounce, open tracking disabled by design (see Decision 02). Small numbers, honestly reported — the system is built to scale volume only after deliverability is proven.
+          </p>
+        </div>
+      </section>
+
+      <!-- Problem & constraint -->
+      <section class="mb-16 grid md:grid-cols-2 gap-8">
+        <div class="bg-white border border-stone-200 rounded-[28px] p-8">
+          <span class="font-mono text-[9px] font-bold uppercase tracking-[0.3em] text-stone-400 block mb-4">The Problem</span>
+          <p class="text-stone-600 leading-relaxed">
+            Sourcing B2G prospects meant hours of manual research per batch, inconsistent record quality, and no clean handoff between research, qualification, and outreach. Sales attention was going into copy-paste work instead of conversations.
+          </p>
+        </div>
+        <div class="bg-white border border-stone-200 rounded-[28px] p-8">
+          <span class="font-mono text-[9px] font-bold uppercase tracking-[0.3em] text-stone-400 block mb-4">The Constraint</span>
+          <p class="text-stone-600 leading-relaxed">
+            Defense-adjacent outreach cannot tolerate spray-and-pray. Wrong targets, burned domains, or sloppy personalization carry reputational cost far beyond marketing. The system had to be fast <em>and</em> conservative — which is exactly the tension the architecture resolves.
+          </p>
+        </div>
+      </section>
+
+      <!-- Pipeline -->
+      <section class="mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-stone-900 mb-8 font-serif italic">The pipeline.</h2>
+        <div class="bg-paper border border-stone-200 rounded-[28px] p-8">
+          <ol class="space-y-4">
+            {pipeline.map((step, i) => (
+              <li class="flex items-center gap-4 text-stone-700">
+                <span class="font-mono text-[10px] text-zapier font-bold w-6">0{i + 1}</span>
+                <span class="h-px w-6 bg-stone-300"></span>
+                <span class="text-sm md:text-base">{step}</span>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      <!-- Decisions -->
+      <section class="mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-stone-900 mb-4 font-serif italic">Six decisions that define the system.</h2>
+        <p class="text-stone-500 leading-relaxed mb-10 max-w-2xl">
+          Anyone can wire APIs together. The system is the set of choices about what <em>not</em> to automate, what not to track, and what not to send.
+        </p>
+        <div class="space-y-6">
+          {decisions.map((d) => (
+            <article class="bg-white border border-stone-200 rounded-[28px] p-8 hover:border-zapier/40 transition-colors">
+              <div class="flex items-start gap-5">
+                <span class="font-mono text-xs font-bold text-zapier mt-1">{d.n}</span>
+                <div>
+                  <h3 class="text-xl font-bold text-stone-900 mb-3 leading-tight">{d.title}</h3>
+                  <p class="text-stone-600 text-sm leading-relaxed mb-4">{d.what}</p>
+                  <p class="text-stone-400 text-sm leading-relaxed border-l-2 border-stone-100 pl-4">
+                    <span class="font-mono text-[9px] font-bold uppercase tracking-widest text-stone-400 block mb-1">Why not the obvious alternative</span>
+                    {d.whyNot}
+                  </p>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <!-- Stack -->
+      <section class="mb-16">
+        <span class="font-mono text-[9px] font-bold uppercase tracking-[0.3em] text-stone-400 block mb-5">Stack</span>
+        <div class="flex flex-wrap gap-2">
+          {stack.map((t) => (
+            <span class="px-4 py-2 bg-stone-900 text-white font-mono text-[9px] font-bold uppercase tracking-widest rounded-lg">{t}</span>
+          ))}
+        </div>
+      </section>
+
+      <!-- Disclosure -->
+      <section class="mb-20">
+        <div class="bg-stone-50 border border-stone-200 rounded-[28px] p-8">
+          <span class="font-mono text-[9px] font-bold uppercase tracking-[0.3em] text-stone-400 block mb-4">Disclosure</span>
+          <p class="text-stone-500 text-sm leading-relaxed">
+            Telemetry figures were queried directly from the production workflow engine and sending platform on {telemetry.pulledOn}. Prospect data, recipient identities, campaign contents, and client-specific details are omitted. Figures reflect an early controlled-volume phase and are reported as-is, without extrapolation.
+          </p>
+        </div>
+      </section>
+
+      <!-- CTA -->
+      <section class="text-center">
+        <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-stone-900 mb-6 font-serif italic">Want the deeper walkthrough?</h2>
+        <p class="text-stone-500 leading-relaxed max-w-xl mx-auto mb-8">
+          I can walk through the workflow architecture, the qualification prompt design, and the deliverability setup live — with the actual system on screen.
+        </p>
+        <a href="mailto:nrajpk@outlook.com" class="bg-stone-900 text-white px-10 py-4 rounded-full font-bold uppercase tracking-widest text-[10px] hover:bg-zapier transition-all active:scale-95 inline-flex items-center justify-center">
+          Book a system walkthrough
+        </a>
+      </section>
+
+    </div>
+  </main>
+</Layout>

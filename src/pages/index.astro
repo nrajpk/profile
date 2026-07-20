@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import Navigation from '../components/Navigation.jsx';
 import HeroNarrative from '../components/HeroNarrative.jsx';
+import WhoAmI from '../components/WhoAmI.astro';
 import ToolMarquee from '../components/ToolMarquee.astro';
 import BentoSystems from '../components/BentoSystems.jsx';
 import HighTicketProof from '../components/HighTicketProof.jsx';
@@ -10,12 +11,13 @@ import CreativeStudio from '../components/CreativeStudio.jsx';
 import CareerArchitecture from '../components/CareerArchitecture.jsx';
 ---
 
-<Layout title="Nikhil Raj PK | Marketing Operations & GTM Systems Builder">
+<Layout title="Nikhil Raj PK | Growth Engineer — Marketing Ops & GTM Systems">
   <div class="fixed top-0 left-0 h-1 bg-zapier z-[60]" id="pb"></div>
   <Navigation client:load />
   
   <main class="relative">
     <HeroNarrative client:load />
+    <WhoAmI />
     <ToolMarquee />
     <BentoSystems client:visible />
     <HighTicketProof client:visible />

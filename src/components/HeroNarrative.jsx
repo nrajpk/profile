@@ -40,7 +40,7 @@ export default function HeroNarrative() {
             Nikhil Raj PK
           </span>
           <span className="font-mono text-[9px] text-stone-400 uppercase tracking-[0.2em] mt-0.5">
-            Marketing Operations & GTM Systems Builder
+            Growth Engineer · Marketing Ops & GTM Systems
           </span>
         </div>
       </motion.div>

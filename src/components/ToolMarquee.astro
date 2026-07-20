@@ -64,16 +64,16 @@ const ecosystem = [
         </h2>
       </div>
       <p class="max-w-xl text-stone-500 leading-relaxed">
-        So here are the handoffs. This is the chain every lead travels in the systems I build — and the tools doing the work at each step.
+        I'm a digital marketer at the core — campaigns, paid media, creative. The chain below is what I've built around that craft, so every campaign runs on clean data and clear handoffs.
       </p>
     </div>
 
     <!-- The handoff chain -->
-    <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-3 mb-10">
+    <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4 mb-10">
       {chain.map((stage, i) => (
         <article class="relative bg-white border border-stone-200 rounded-2xl p-4 hover:border-zapier/40 transition-colors">
           {i < chain.length - 1 && (
-            <span class="hidden lg:block absolute -right-2.5 top-1/2 -translate-y-1/2 text-stone-300 text-xs z-10">&rarr;</span>
+            <span class="hidden lg:flex absolute -right-4 top-1/2 -translate-y-1/2 w-4 h-4 items-center justify-center text-zapier/60 text-[10px] leading-none z-10 pointer-events-none">&rarr;</span>
           )}
           <p class="font-mono text-[9px] font-bold text-zapier mb-2">{stage.n}</p>
           <p class="font-bold text-stone-900 leading-tight">{stage.verb}</p>
@@ -89,16 +89,34 @@ const ecosystem = [
       ))}
     </div>
 
-    <!-- Broader ecosystem, one quiet line -->
-    <div class="flex flex-wrap items-center gap-2">
-      <span class="font-mono text-[9px] font-bold uppercase tracking-[0.25em] text-stone-400 mr-2">
-        Also worked with / design around
-      </span>
-      {ecosystem.map((tool) => (
-        <span class="font-mono text-[8px] font-bold uppercase tracking-[0.16em] text-stone-400 bg-white border border-stone-200 rounded-lg px-2.5 py-1.5 hover:text-zapier hover:border-zapier/30 transition-colors cursor-default">
-          {tool}
-        </span>
-      ))}
+    <!-- Two lanes: the craft and the systems around it -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+      <div class="bg-white border border-stone-200 rounded-2xl p-6">
+        <p class="font-mono text-[9px] font-bold uppercase tracking-[0.25em] text-zapier mb-1.5">
+          The marketing craft
+        </p>
+        <p class="text-xs text-stone-400 mb-4">Where I come from — and still operate daily.</p>
+        <div class="flex flex-wrap gap-2">
+          {['Google Ads', 'Meta Ads', 'LinkedIn Campaign Manager', 'GA4', 'GTM', 'MS Clarity', 'Landing Pages / CRO', 'Email Campaigns', 'Figma', 'Adobe Suite', 'Content & Creative Ops'].map((tool) => (
+            <span class="font-mono text-[8px] font-bold uppercase tracking-[0.16em] text-stone-600 bg-paper border border-stone-300 rounded-lg px-2.5 py-1.5 hover:text-zapier hover:border-zapier/40 transition-colors cursor-default">
+              {tool}
+            </span>
+          ))}
+        </div>
+      </div>
+      <div class="bg-white border border-stone-200 rounded-2xl p-6">
+        <p class="font-mono text-[9px] font-bold uppercase tracking-[0.25em] text-stone-400 mb-1.5">
+          The systems ecosystem
+        </p>
+        <p class="text-xs text-stone-400 mb-4">What I build with, integrate, or design workflows around.</p>
+        <div class="flex flex-wrap gap-2">
+          {ecosystem.map((tool) => (
+            <span class="font-mono text-[8px] font-bold uppercase tracking-[0.16em] text-stone-400 bg-paper border border-stone-200 rounded-lg px-2.5 py-1.5 hover:text-zapier hover:border-zapier/30 transition-colors cursor-default">
+              {tool}
+            </span>
+          ))}
+        </div>
+      </div>
     </div>
   </div>
 </section>

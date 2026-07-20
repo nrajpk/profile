@@ -45,7 +45,8 @@ const deployments = [
     desc: "Campaign tracking and reporting workflows connecting paid acquisition activity with performance visibility.",
     flow: ["Configure GTM events", "Set up GA4 conversions", "Map campaign sources", "Build reporting views", "Review acquisition quality"],
     tools: ["Google Ads", "GA4", "GTM", "MS Power BI"],
-    proof: "Blurred reporting dashboard, tracking structure, source mapping and campaign performance view."
+    proof: "Blurred reporting dashboard, tracking structure, source mapping and campaign performance view.",
+    wide: true
   }
 ];
 
@@ -80,7 +81,7 @@ export default function HighTicketArchitecture() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-80px" }}
               transition={{ delay: index * 0.08, duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-              className="p-8 md:p-9 bg-white/[0.035] border border-white/10 rounded-[36px] hover:border-zapier/45 transition-all duration-500 group flex flex-col min-h-[440px]"
+              className={`p-8 md:p-9 bg-white/[0.035] border border-white/10 rounded-[36px] hover:border-zapier/45 transition-all duration-500 group flex flex-col min-h-[440px] ${item.wide ? "md:col-span-2 md:min-h-0" : ""}`}
             >
               <div className="flex items-start justify-between mb-8">
                 <div className="text-zapier group-hover:scale-110 transition-transform duration-500">{item.icon}</div>

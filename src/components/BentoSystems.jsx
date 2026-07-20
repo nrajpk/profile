@@ -98,7 +98,7 @@ export default function BentoSystems() {
           </h2>
         </div>
         <p className="max-w-md text-stone-500 leading-relaxed">
-          The site still looks designed, but the substance is operational: data pipelines, workflow handoffs, CRM logic, tracking infrastructure and AI-assisted review loops.
+          Three lenses on the same job — data, automation, and revenue. Switch between them to see how I approach each layer.
         </p>
       </div>
 

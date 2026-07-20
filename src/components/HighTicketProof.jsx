@@ -38,15 +38,6 @@ const deployments = [
     tools: ["Next.js", "Supabase", "Vercel", "React"],
     proof: "Repository, schema contract (5 views, 3 RPCs), role model and deployed build.",
     href: "/work/production-tracker"
-  },
-  {
-    icon: <LineChart size={30} />,
-    title: "Ads, Analytics & Attribution Setup",
-    desc: "Campaign tracking and reporting workflows connecting paid acquisition activity with performance visibility.",
-    flow: ["Configure GTM events", "Set up GA4 conversions", "Map campaign sources", "Build reporting views", "Review acquisition quality"],
-    tools: ["Google Ads", "GA4", "GTM", "MS Power BI"],
-    proof: "Blurred reporting dashboard, tracking structure, source mapping and campaign performance view.",
-    wide: true
   }
 ];
 
@@ -134,32 +125,37 @@ export default function HighTicketArchitecture() {
             <div>
               <div className="flex items-center gap-3 mb-5">
                 <ShieldCheck className="text-zapier" size={22} />
-                <span className="font-mono text-[9px] font-bold text-stone-400 uppercase tracking-widest">Operating Model</span>
+                <span className="font-mono text-[9px] font-bold text-stone-400 uppercase tracking-widest">Measurement & Attribution</span>
               </div>
               <h3 className="text-4xl md:text-5xl font-bold tracking-tight mb-6 italic font-serif">The work is the system.</h3>
               <p className="text-stone-500 text-lg leading-relaxed mb-8">
-                My strongest lane is not making marketing louder. It is making the operating layer cleaner: source data, CRM logic, tracking, reporting views, API-ready handoffs and campaign operations.
+                Every system above ships with its measurement wired in: GTM events, GA4 conversions, source-to-CRM attribution and reporting views leadership actually opens. That discipline comes from years of running paid acquisition — where untracked spend is just spending.
               </p>
               <a href="#lab" className="inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-stone-900 hover:text-zapier transition-colors">
-                See the lab layer <ArrowUpRight size={14} />
+                Next: the lab — these patterns, rebuilt in the open <ArrowUpRight size={14} />
               </a>
             </div>
 
             <div className="bg-stone-50 rounded-[36px] p-7 border border-stone-200">
               <div className="space-y-4">
                 {[
-                  { l: "Signal Sourcing", v: "Structured" },
-                  { l: "CRM Workflow", v: "Mapped" },
-                  { l: "Analytics Review", v: "Traceable" },
-                  { l: "Human Approval", v: "Preserved" },
+                  { l: "GTM Events", v: "Configured per campaign" },
+                  { l: "GA4 Conversions", v: "Mapped to pipeline" },
+                  { l: "Source Attribution", v: "Campaign → CRM" },
+                  { l: "Reporting Views", v: "Built in Power BI" },
                 ].map(item => (
                   <div key={item.l} className="flex justify-between items-center p-4 bg-white rounded-2xl border border-stone-100 shadow-sm">
                     <span className="font-mono text-[10px] font-bold text-stone-900 uppercase">{item.l}</span>
                     <div className="flex items-center gap-2">
-                      <div className="w-1.5 h-1.5 rounded-full bg-zapier animate-pulse" />
+                      <div className="w-1.5 h-1.5 rounded-full bg-zapier" />
                       <span className="font-mono text-[8px] text-stone-400 font-bold uppercase">{item.v}</span>
                     </div>
                   </div>
+                ))}
+              </div>
+              <div className="flex flex-wrap gap-2 mt-5">
+                {["Google Ads", "GA4", "GTM", "MS Power BI"].map(t => (
+                  <span key={t} className="px-3 py-1 bg-white border border-stone-200 rounded-md font-mono text-[8px] font-bold uppercase tracking-widest text-stone-500">{t}</span>
                 ))}
               </div>
             </div>

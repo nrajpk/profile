@@ -1,0 +1,186 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navigation from '../../components/Navigation.jsx';
+
+// PRODUCT SCOPE FACTS — observed from the live production system, July 2026.
+// Deliberately no pipeline counts, deal values, or client data.
+const scope = {
+  asOf: 'July 2026 — live in production',
+  leadStatuses: 5,
+  oppStates: 5,
+  sourceClasses: 3,
+  modules: 'Leads · Opportunities · Role dashboards · Coordination calendar',
+};
+
+const decisions = [
+  {
+    n: '01',
+    title: 'The pipeline is denominated in units, not just money',
+    what: 'Dashboards track pipeline units alongside estimated value, and sales targets are set as units confirmed per fiscal year. A deal is N vehicles in a configuration; revenue is derived from that, not typed over it.',
+    whyNot: 'Generic CRMs model deals as a currency amount with a probability. In armoured vehicle sales the unit count and configuration are the deal — value follows from them. Modeling the domain\'s real primitive was the single biggest break from both the Excel era and off-the-shelf CRM defaults.',
+  },
+  {
+    n: '02',
+    title: 'Leads and opportunities are separate objects with separate lifecycles',
+    what: 'Leads move through their own status set (cold → hot → opportunity → rejected) before conversion; opportunities then carry their own temperature and a first-class proposal state — "not initiated" vs "proposal generated" is tracked data, not a comment.',
+    whyNot: 'In the spreadsheet era one row served as lead, opportunity, and proposal log at once — so nobody could say how many real opportunities existed or which ones had never received a proposal. Splitting the objects made the funnel measurable at each conversion point.',
+  },
+  {
+    n: '03',
+    title: 'Lead source attribution is baked into the schema',
+    what: 'Every lead is classified at entry: self-prospected, company-provided, or other. Dashboards split performance along exactly these lines, next to each BDM\'s fiscal-year unit target.',
+    whyNot: 'When attribution lives in people\'s memory, target reviews become arguments. Making source a mandatory field turned "who actually generated this" from a debate into a report — and made self-prospecting visible enough to be worth doing.',
+  },
+  {
+    n: '04',
+    title: 'Follow-up is a system function, not a habit',
+    what: 'A follow-up tracker with dated reminders sits on the dashboard; every lead and opportunity row carries an add-follow-up action. The failure mode being engineered against: first contact, then silence.',
+    whyNot: 'Excel cannot nag anyone. In long-cycle B2G sales where deals move over months, the system that remembers on the seller\'s behalf is the difference between a pipeline and a contact list.',
+  },
+  {
+    n: '05',
+    title: 'Tender deadlines live in the same system as the pipeline',
+    what: 'A coordination calendar carries corporate events, country-specific national days, and tender deadlines — both manually added and system-found tenders surfaced by automated discovery — exportable per date range.',
+    whyNot: 'Tender dates in one tool and pipeline in another means missed deadlines fall between systems. Putting automated tender discovery inside the CRM connects "an RFP exists" to "someone owns it" in one place. National-day tracking matters in this market: outreach timing around them is a real variable.',
+  },
+  {
+    n: '06',
+    title: 'Owned as a product, delivered through a partner',
+    what: 'I owned the product: lifecycle design, field schema, source attribution rules, dashboard and reporting logic, and role structure. A development partner built and maintains the application to that specification.',
+    whyNot: 'Pretending to have coded it would be the flattering version — and the fragile one. Product ownership is the honest claim and the transferable skill: knowing what the sales operation needs, specifying it precisely, and iterating it against real usage.',
+  },
+];
+
+const beforeAfter = [
+  { before: 'Excel workbooks + Access, passed between users with version-name file management', after: 'Multi-user web CRM with role-based access, live for the sales team' },
+  { before: 'One row = lead, opportunity, and notes at once', after: 'Separate lead and opportunity objects with distinct lifecycles and proposal states' },
+  { before: 'Lead origin remembered, argued, or lost', after: 'Mandatory source attribution: self-prospected / company-provided / other' },
+  { before: 'Follow-ups dependent on individual discipline', after: 'Dated follow-up tracker with reminders on the dashboard' },
+  { before: 'Management reporting = manual consolidation before reviews', after: 'Live funnel, activity, and target-achievement views per role and date range' },
+  { before: 'Tender deadlines tracked outside the sales tooling', after: 'Tender calendar in-system, including automated tender discovery' },
+];
+---
+
+<Layout
+  title="CRM Product Ownership — System Breakdown | Nikhil Raj PK"
+  description="How an Excel-and-Access sales process became a custom CRM for long-cycle armoured vehicle sales: unit-denominated pipeline, schema-level source attribution, systematized follow-up, and in-system tender deadlines."
+>
+  <Navigation client:load />
+
+  <main class="pt-32 pb-24 px-6">
+    <div class="max-w-4xl mx-auto">
+
+      <a href="/#proof" class="font-mono text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400 hover:text-zapier transition-colors">
+        &larr; Back to Built Work
+      </a>
+
+      <header class="mt-10 mb-16">
+        <span class="font-mono text-[10px] font-bold text-zapier uppercase tracking-[0.35em] mb-5 block">
+          System Breakdown // Product Ownership
+        </span>
+        <h1 class="text-4xl md:text-6xl font-bold tracking-tight text-stone-900 leading-[1.02] mb-8">
+          The CRM that replaced
+          <span class="font-serif italic font-normal text-stone-400">a decade of spreadsheets.</span>
+        </h1>
+        <p class="text-stone-500 text-lg md:text-xl leading-relaxed max-w-2xl">
+          Global armoured vehicle sales ran on Excel workbooks and an Access database — workable at small scale, blind at real scale. I owned the product design of its replacement: a custom CRM whose every schema decision encodes how long-cycle B2G selling actually works.
+        </p>
+      </header>
+
+      <!-- Product scope -->
+      <section class="mb-16">
+        <div class="bg-stone-950 text-white rounded-[32px] p-8 md:p-10">
+          <div class="flex flex-wrap items-center justify-between gap-3 mb-8">
+            <span class="font-mono text-[9px] font-bold uppercase tracking-[0.3em] text-zapier">Product Scope</span>
+            <span class="font-mono text-[9px] text-stone-500 uppercase tracking-widest">{scope.asOf}</span>
+          </div>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+            <div>
+              <p class="text-4xl font-bold tracking-tighter">{scope.leadStatuses}</p>
+              <p class="font-mono text-[9px] uppercase tracking-widest text-stone-500 mt-2">Lead lifecycle states</p>
+            </div>
+            <div>
+              <p class="text-4xl font-bold tracking-tighter">{scope.oppStates}</p>
+              <p class="font-mono text-[9px] uppercase tracking-widest text-stone-500 mt-2">Opportunity states</p>
+            </div>
+            <div>
+              <p class="text-4xl font-bold tracking-tighter">{scope.sourceClasses}</p>
+              <p class="font-mono text-[9px] uppercase tracking-widest text-stone-500 mt-2">Source attribution classes</p>
+            </div>
+            <div>
+              <p class="text-4xl font-bold tracking-tighter">Units</p>
+              <p class="font-mono text-[9px] uppercase tracking-widest text-stone-500 mt-2">Pipeline denomination</p>
+            </div>
+          </div>
+          <p class="text-stone-500 text-sm leading-relaxed mt-8 border-t border-white/10 pt-6">
+            Core modules: {scope.modules}. Role-based dashboards carry fiscal-year unit targets, activity and funnel views, and a follow-up tracker. Pipeline figures, client identities, and deal data are deliberately not shown here.
+          </p>
+        </div>
+      </section>
+
+      <!-- Before / after -->
+      <section class="mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-stone-900 mb-8 font-serif italic">From workbook to operating system.</h2>
+        <div class="bg-paper border border-stone-200 rounded-[28px] overflow-hidden">
+          <div class="grid grid-cols-2 bg-stone-900 text-white">
+            <p class="font-mono text-[9px] font-bold uppercase tracking-[0.3em] p-5">Excel + Access era</p>
+            <p class="font-mono text-[9px] font-bold uppercase tracking-[0.3em] p-5 text-zapier">Custom CRM</p>
+          </div>
+          {beforeAfter.map((row) => (
+            <div class="grid grid-cols-2 border-t border-stone-200">
+              <p class="p-5 text-sm text-stone-500 leading-relaxed">{row.before}</p>
+              <p class="p-5 text-sm text-stone-700 leading-relaxed border-l border-stone-200">{row.after}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- Decisions -->
+      <section class="mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-stone-900 mb-4 font-serif italic">Six decisions that define the product.</h2>
+        <p class="text-stone-500 leading-relaxed mb-10 max-w-2xl">
+          None of these are technical flourishes. Each one encodes something true about how armoured vehicles are actually sold — which is what a custom CRM is for.
+        </p>
+        <div class="space-y-6">
+          {decisions.map((d) => (
+            <article class="bg-white border border-stone-200 rounded-[28px] p-8 hover:border-zapier/40 transition-colors">
+              <div class="flex items-start gap-5">
+                <span class="font-mono text-xs font-bold text-zapier mt-1">{d.n}</span>
+                <div>
+                  <h3 class="text-xl font-bold text-stone-900 mb-3 leading-tight">{d.title}</h3>
+                  <p class="text-stone-600 text-sm leading-relaxed mb-4">{d.what}</p>
+                  <p class="text-stone-400 text-sm leading-relaxed border-l-2 border-stone-100 pl-4">
+                    <span class="font-mono text-[9px] font-bold uppercase tracking-widest text-stone-400 block mb-1">Why not the obvious alternative</span>
+                    {d.whyNot}
+                  </p>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <!-- Disclosure -->
+      <section class="mb-20">
+        <div class="bg-stone-50 border border-stone-200 rounded-[28px] p-8">
+          <span class="font-mono text-[9px] font-bold uppercase tracking-[0.3em] text-stone-400 block mb-4">Disclosure</span>
+          <p class="text-stone-500 text-sm leading-relaxed">
+            Described from the live production system as of July 2026. The application was developed by an external partner to an internally owned product specification; my role is product ownership — lifecycle design, schema, reporting logic, and iteration against real sales usage. All pipeline figures, client names, and deal details are excluded by design.
+          </p>
+        </div>
+      </section>
+
+      <!-- CTA -->
+      <section class="text-center">
+        <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-stone-900 mb-6 font-serif italic">Want the deeper walkthrough?</h2>
+        <p class="text-stone-500 leading-relaxed max-w-xl mx-auto mb-8">
+          I can walk through the lifecycle model, the attribution and target logic, and how the product evolved from the first spreadsheet audit to the current build.
+        </p>
+        <a href="mailto:nrajpk@outlook.com" class="bg-stone-900 text-white px-10 py-4 rounded-full font-bold uppercase tracking-widest text-[10px] hover:bg-zapier transition-all active:scale-95 inline-flex items-center justify-center">
+          Book a system walkthrough
+        </a>
+      </section>
+
+    </div>
+  </main>
+</Layout>

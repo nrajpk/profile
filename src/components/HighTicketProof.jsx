@@ -18,7 +18,8 @@ const deployments = [
     desc: "Structured CRM logic and dashboards for long-cycle global sales activity across B2B and B2G markets.",
     flow: ["Map sales stages", "Define custom fields", "Align lifecycle views", "Support pipeline reporting", "Management dashboard"],
     tools: ["Custom CRM", "Salesforce", "Zoho", "Power BI"],
-    proof: "Sanitized CRM workflow map, lifecycle structure and pipeline reporting view."
+    proof: "Sanitized CRM workflow map, lifecycle structure and pipeline reporting view.",
+    href: "/work/crm-product-ownership"
   },
   {
     icon: <ShieldCheck size={30} />,

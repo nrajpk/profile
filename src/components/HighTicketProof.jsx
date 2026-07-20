@@ -31,6 +31,15 @@ const deployments = [
     href: "/work/tender-compliance-engine"
   },
   {
+    icon: <Database size={30} />,
+    title: "Vehicle Production Tracker",
+    desc: "A Supabase-backed production console with a 14-stage rail, near-zero write access and database-enforced integrity — closing the loop from sale to delivery.",
+    flow: ["Create order with unit breakdown", "Vehicles enter 14-stage rail", "Stage updates via RPC only", "Views aggregate KPIs & distribution", "Decision dashboard flags stalls"],
+    tools: ["Next.js", "Supabase", "Vercel", "React"],
+    proof: "Repository, schema contract (5 views, 3 RPCs), role model and deployed build.",
+    href: "/work/production-tracker"
+  },
+  {
     icon: <LineChart size={30} />,
     title: "Ads, Analytics & Attribution Setup",
     desc: "Campaign tracking and reporting workflows connecting paid acquisition activity with performance visibility.",

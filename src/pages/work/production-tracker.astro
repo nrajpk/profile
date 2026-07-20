@@ -1,0 +1,212 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navigation from '../../components/Navigation.jsx';
+
+// FACTS FROM THE REPOSITORY README AND SCHEMA — July 2026.
+const facts = {
+  asOf: 'July 2026 — deployed build',
+  stages: 14,
+  writeRoles: 2,
+  dbViews: 5,
+  rpcs: 3,
+};
+
+const decisions = [
+  {
+    n: '01',
+    title: 'Status is a position on a rail, not a remark',
+    what: 'Every vehicle sits at one of 14 defined production stages. The dashboard renders the rail per vehicle and per lot; stage distribution views roll it up per project.',
+    whyNot: 'The previous tracker died by free-text: "almost done, waiting on glass" means nothing you can aggregate. The system\'s stated core principle is that free-form remarks must never become the status system again — that is how Excel escaped containment the first time.',
+  },
+  {
+    n: '02',
+    title: 'Almost everyone can look; almost no one can touch',
+    what: 'Viewer and production-user roles get full diagnostic dashboards. The Update and New Order surfaces are restricted to production-head roles (admin, production_manager) — two roles, out of everyone.',
+    whyNot: 'Shared-write is what corrupted the spreadsheet era: every editor a potential source of fiction. Inverting the default — universal read, near-zero write — keeps the data trustworthy enough that management actually uses the dashboard instead of phoning the factory floor.',
+  },
+  {
+    n: '03',
+    title: 'The database enforces the rules, not the UI',
+    what: 'Reads go through dedicated views (KPIs, project summary, vehicle status, stage distribution, open decisions). Writes only happen through RPCs — create_project_with_units, update_vehicle_stage, bulk_update_vehicle_stage.',
+    whyNot: 'UI-enforced rules last until the next UI. Pushing integrity into the database layer means no client, script, or future rewrite can put a vehicle in an impossible state. The frontend is deliberately replaceable; the contract is not.',
+  },
+  {
+    n: '04',
+    title: 'Units are the primitive — again',
+    what: 'Projects decompose into vehicle- and lot-level production paths; KPIs and status counts are split by units. The same unit-first modeling as the CRM, applied downstream.',
+    whyNot: 'A project-level "70% complete" hides which specific vehicles are stuck at which stage. Contract deadlines are per unit delivered, so the tracking primitive matches the contractual one — consistent with how every system I own models this business.',
+  },
+  {
+    n: '05',
+    title: 'A decision dashboard, not just a status dashboard',
+    what: 'Open decisions are a first-class view — the things awaiting a human call surface on their own panel instead of hiding inside status notes.',
+    whyNot: 'Production stalls are usually decision stalls. Tracking the stage tells you where a vehicle is; tracking open decisions tells you why it isn\'t moving. The second question is the one management meetings are actually about.',
+  },
+  {
+    n: '06',
+    title: 'Calm UI, strict security hygiene',
+    what: 'Apple-style light dashboard language: restrained status colors, segmented navigation, a large calm operational header. Browser-exposed config carries publishable keys only — service-role keys are explicitly barred from the frontend environment.',
+    whyNot: 'An ops room screen read twenty times a day earns calm design; alarm-colored dashboards train people to ignore them. And the key discipline is the difference between "works in the demo" and "safe to deploy" — written into the setup docs so it survives handover.',
+  },
+];
+
+const pipeline = [
+  'New order created with project + unit breakdown (RPC, production head only)',
+  'Vehicles / lots enter the 14-stage production rail',
+  'Stage updates via single or bulk RPC — no free-form status',
+  'Views aggregate: KPIs, project summary, stage distribution',
+  'Open decisions surfaced on the decision dashboard',
+  'All roles diagnose from the same live picture',
+];
+
+const stack = ['Next.js', 'Supabase (Postgres, RLS, RPC)', 'Vercel', 'React'];
+---
+
+<Layout
+  title="Production Tracker — System Breakdown | Nikhil Raj PK"
+  description="A Supabase-backed production console for armoured vehicle manufacturing: a 14-stage production rail, near-zero write access, database-enforced integrity, and a decision dashboard. Built to keep Excel from escaping containment again."
+>
+  <Navigation client:load />
+
+  <main class="pt-32 pb-24 px-6">
+    <div class="max-w-4xl mx-auto">
+
+      <a href="/#proof" class="font-mono text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400 hover:text-zapier transition-colors">
+        &larr; Back to Built Work
+      </a>
+
+      <header class="mt-10 mb-16">
+        <span class="font-mono text-[10px] font-bold text-zapier uppercase tracking-[0.35em] mb-5 block">
+          System Breakdown // Deployed Build
+        </span>
+        <h1 class="text-4xl md:text-6xl font-bold tracking-tight text-stone-900 leading-[1.02] mb-8">
+          A production console built on one lesson:
+          <span class="font-serif italic font-normal text-stone-400">never let remarks become the status system.</span>
+        </h1>
+        <p class="text-stone-500 text-lg md:text-xl leading-relaxed max-w-2xl">
+          Armoured vehicle production tracking used to live in spreadsheets where "status" was whatever the last editor typed. This system replaces it with a strict stage rail, near-zero write access, and integrity rules enforced by the database itself — closing the loop from sale to delivery.
+        </p>
+      </header>
+
+      <!-- Facts -->
+      <section class="mb-16">
+        <div class="bg-stone-950 text-white rounded-[32px] p-8 md:p-10">
+          <div class="flex flex-wrap items-center justify-between gap-3 mb-8">
+            <span class="font-mono text-[9px] font-bold uppercase tracking-[0.3em] text-zapier">System Facts</span>
+            <span class="font-mono text-[9px] text-stone-500 uppercase tracking-widest">{facts.asOf}</span>
+          </div>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+            <div>
+              <p class="text-4xl font-bold tracking-tighter">{facts.stages}</p>
+              <p class="font-mono text-[9px] uppercase tracking-widest text-stone-500 mt-2">Production stages</p>
+            </div>
+            <div>
+              <p class="text-4xl font-bold tracking-tighter">{facts.writeRoles}</p>
+              <p class="font-mono text-[9px] uppercase tracking-widest text-stone-500 mt-2">Roles with write access</p>
+            </div>
+            <div>
+              <p class="text-4xl font-bold tracking-tighter">{facts.dbViews}</p>
+              <p class="font-mono text-[9px] uppercase tracking-widest text-stone-500 mt-2">Read views</p>
+            </div>
+            <div>
+              <p class="text-4xl font-bold tracking-tighter">{facts.rpcs}</p>
+              <p class="font-mono text-[9px] uppercase tracking-widest text-stone-500 mt-2">Write RPCs — the only way in</p>
+            </div>
+          </div>
+          <p class="text-stone-500 text-sm leading-relaxed mt-8 border-t border-white/10 pt-6">
+            Next.js frontend on a Supabase backend, deployed via Vercel. Vehicle- and lot-level production paths, per-unit status splits, project overview and decision dashboards. Production data and client details are not shown here.
+          </p>
+        </div>
+      </section>
+
+      <!-- Problem & constraint -->
+      <section class="mb-16 grid md:grid-cols-2 gap-8">
+        <div class="bg-white border border-stone-200 rounded-[28px] p-8">
+          <span class="font-mono text-[9px] font-bold uppercase tracking-[0.3em] text-stone-400 block mb-4">The Problem</span>
+          <p class="text-stone-600 leading-relaxed">
+            Production status lived in spreadsheets: free-text remarks, no shared stage definitions, no way to aggregate where dozens of vehicles actually stood — and management decisions waiting on information that had to be collected by walking the floor.
+          </p>
+        </div>
+        <div class="bg-white border border-stone-200 rounded-[28px] p-8">
+          <span class="font-mono text-[9px] font-bold uppercase tracking-[0.3em] text-stone-400 block mb-4">The Constraint</span>
+          <p class="text-stone-600 leading-relaxed">
+            The replacement had to stay trustworthy under real organizational pressure — many viewers, strong incentives to "adjust" statuses, and delivery deadlines counted per unit. Trust was designed in structurally, not requested politely.
+          </p>
+        </div>
+      </section>
+
+      <!-- Flow -->
+      <section class="mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-stone-900 mb-8 font-serif italic">The flow.</h2>
+        <div class="bg-paper border border-stone-200 rounded-[28px] p-8">
+          <ol class="space-y-4">
+            {pipeline.map((step, i) => (
+              <li class="flex items-center gap-4 text-stone-700">
+                <span class="font-mono text-[10px] text-zapier font-bold w-6">0{i + 1}</span>
+                <span class="h-px w-6 bg-stone-300"></span>
+                <span class="text-sm md:text-base">{step}</span>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      <!-- Decisions -->
+      <section class="mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-stone-900 mb-4 font-serif italic">Six decisions that define the system.</h2>
+        <p class="text-stone-500 leading-relaxed mb-10 max-w-2xl">
+          Every one of them is a container for the same failure mode: data that drifts from reality the moment humans are busy.
+        </p>
+        <div class="space-y-6">
+          {decisions.map((d) => (
+            <article class="bg-white border border-stone-200 rounded-[28px] p-8 hover:border-zapier/40 transition-colors">
+              <div class="flex items-start gap-5">
+                <span class="font-mono text-xs font-bold text-zapier mt-1">{d.n}</span>
+                <div>
+                  <h3 class="text-xl font-bold text-stone-900 mb-3 leading-tight">{d.title}</h3>
+                  <p class="text-stone-600 text-sm leading-relaxed mb-4">{d.what}</p>
+                  <p class="text-stone-400 text-sm leading-relaxed border-l-2 border-stone-100 pl-4">
+                    <span class="font-mono text-[9px] font-bold uppercase tracking-widest text-stone-400 block mb-1">Why not the obvious alternative</span>
+                    {d.whyNot}
+                  </p>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <!-- Stack -->
+      <section class="mb-16">
+        <span class="font-mono text-[9px] font-bold uppercase tracking-[0.3em] text-stone-400 block mb-5">Stack</span>
+        <div class="flex flex-wrap gap-2">
+          {stack.map((t) => (
+            <span class="px-4 py-2 bg-stone-900 text-white font-mono text-[9px] font-bold uppercase tracking-widest rounded-lg">{t}</span>
+          ))}
+        </div>
+      </section>
+
+      <!-- Disclosure -->
+      <section class="mb-20">
+        <div class="bg-stone-50 border border-stone-200 rounded-[28px] p-8">
+          <span class="font-mono text-[9px] font-bold uppercase tracking-[0.3em] text-stone-400 block mb-4">Disclosure</span>
+          <p class="text-stone-500 text-sm leading-relaxed">
+            System facts are taken from the repository documentation and schema as of July 2026. Production volumes, project identities, and operational data are excluded. The frontend implements a specification I own end-to-end; stage definitions and permission rules were designed against the documented failure modes of the spreadsheet process it replaced.
+          </p>
+        </div>
+      </section>
+
+      <!-- CTA -->
+      <section class="text-center">
+        <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-stone-900 mb-6 font-serif italic">Want the deeper walkthrough?</h2>
+        <p class="text-stone-500 leading-relaxed max-w-xl mx-auto mb-8">
+          I can walk through the stage model, the view/RPC contract, and why write access is the scarcest resource in the whole system.
+        </p>
+        <a href="mailto:nrajpk@outlook.com" class="bg-stone-900 text-white px-10 py-4 rounded-full font-bold uppercase tracking-widest text-[10px] hover:bg-zapier transition-all active:scale-95 inline-flex items-center justify-center">
+          Book a system walkthrough
+        </a>
+      </section>
+
+    </div>
+  </main>
+</Layout>

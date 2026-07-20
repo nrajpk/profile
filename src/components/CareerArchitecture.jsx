@@ -88,7 +88,7 @@ export default function CareerArchitecture() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-14 lg:gap-16 items-start">
           <div className="lg:col-span-5">
             <div className="mb-10">
-              <span className="font-mono text-[10px] font-bold text-stone-400 uppercase tracking-[0.4em] mb-4 block">
+              <span className="font-mono text-[10px] font-bold text-zapier uppercase tracking-[0.4em] mb-4 block">
                 Background
               </span>
 

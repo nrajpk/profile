@@ -251,7 +251,7 @@ export default function UtilityLab() {
       <div className="max-w-6xl mx-auto">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-8">
           <div className="max-w-2xl">
-            <span className="font-mono text-[10px] font-bold text-stone-400 uppercase tracking-[0.3em] mb-4 block">
+            <span className="font-mono text-[10px] font-bold text-zapier uppercase tracking-[0.3em] mb-4 block">
               GTM Systems Lab
             </span>
 

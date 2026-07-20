@@ -235,7 +235,7 @@ export default function CreativeStudio() {
         {/* HEADER SECTION */}
         <div className="mb-8 flex items-center gap-3">
            <Aperture className="text-stone-400 animate-spin-slow" size={20} />
-           <span className="font-mono text-[10px] font-bold text-stone-400 uppercase tracking-[0.4em]">Interface Layer // Conversion Systems</span>
+           <span className="font-mono text-[10px] font-bold text-zapier uppercase tracking-[0.4em]">Interface Layer // Conversion Systems</span>
         </div>
 
         {/* 1. FULL WIDTH THEME MANIFESTO: "THE EYE FOR DESIGN" */}
@@ -305,7 +305,7 @@ export default function CreativeStudio() {
                 <p className="text-stone-500 leading-relaxed text-lg mb-8">
                    Landing pages and campaign interfaces work best when message, hierarchy, proof and form logic are aligned. This layer connects design decisions with marketing operations and lead flow.
                 </p>
-                <div className="flex gap-2">
+                <div className="flex flex-wrap gap-2">
                    {['Figma', 'HTML/CSS', 'Form Logic', 'Clarity Review', 'AI Asset Direction'].map(t => (
                      <span key={t} className="px-4 py-2 bg-white border border-stone-200 rounded-lg font-mono text-[9px] font-bold text-stone-500 uppercase tracking-widest">{t}</span>
                    ))}

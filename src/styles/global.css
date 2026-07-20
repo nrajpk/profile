@@ -80,3 +80,12 @@ main {
 .bg-zapier {
   background-color: var(--color-zapier) !important;
 }
+
+/* 5. MICRO-TYPOGRAPHY FLOOR
+   Mono labels below 9px are illegible on many screens and fail
+   accessibility expectations. Floor every 7px/8px utility at 9px
+   without touching the markup. */
+[class*="text-[7px]"],
+[class*="text-[8px]"] {
+  font-size: 0.5625rem !important; /* 9px */
+}

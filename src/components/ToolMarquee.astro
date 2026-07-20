@@ -1,36 +1,60 @@
 ---
-const stackGroups = [
+// The handoff chain — the section now shows what the headline claims.
+const chain = [
   {
-    title: 'Production Stack',
-    note: 'Tools already used across marketing operations, CRM, analytics, campaign execution and asset workflows.',
-    tools: [
-      'Python', 'Apify', 'Salesforce', 'Zoho', 'Custom CRM', 'GA4', 'Google Tag Manager',
-      'Google Ads', 'LinkedIn Campaign Manager', 'Meta Ads', 'MS Power BI', 'MS Clarity',
-      'Figma', 'HTML/CSS', 'GPT-4o', 'Midjourney', 'GitHub', 'SQL'
-    ]
+    n: '01',
+    verb: 'Source',
+    line: 'Find the signal',
+    tools: ['Python', 'Apify', 'Apollo', 'LinkedIn'],
   },
   {
-    title: 'Lab Stack',
-    note: 'Tools and patterns being used in portfolio systems, demos and proof trails.',
-    tools: [
-      'n8n', 'REST APIs', 'Webhooks', 'OpenAI API', 'Slack API', 'CSV/JSON Workflows',
-      'Enrichment Logic', 'Routing Rules', 'Prompt Specs', 'CRM Payloads'
-    ]
+    n: '02',
+    verb: 'Enrich',
+    line: 'Complete the record',
+    tools: ['REST APIs', 'Waterfall logic', 'CSV/JSON'],
   },
   {
-    title: 'GTM Ecosystem Map',
-    note: 'The broader tool landscape I design around, evaluate or build compatible workflows for.',
-    tools: [
-      'Clay', 'Apollo', 'HubSpot', 'Smartlead', 'Instantly', 'ZoomInfo', 'Clearbit',
-      'Make', 'Zapier', '6sense', 'Bombora', 'Gong', 'Snowflake', 'BigQuery'
-    ]
-  }
+    n: '03',
+    verb: 'Qualify',
+    line: 'Score against ICP',
+    tools: ['LLM APIs', 'Prompt specs', 'JSON output'],
+  },
+  {
+    n: '04',
+    verb: 'Approve',
+    line: 'A human decides',
+    tools: ['Airtable', 'Review console'],
+  },
+  {
+    n: '05',
+    verb: 'Send',
+    line: 'Reach out, carefully',
+    tools: ['Instantly', 'Smartlead', 'n8n', 'Webhooks'],
+  },
+  {
+    n: '06',
+    verb: 'Track',
+    line: 'Measure what matters',
+    tools: ['GA4', 'GTM', 'MS Clarity'],
+  },
+  {
+    n: '07',
+    verb: 'Report',
+    line: 'One version of truth',
+    tools: ['Power BI', 'Custom CRM', 'SQL'],
+  },
+];
+
+const ecosystem = [
+  'Salesforce', 'Zoho', 'HubSpot', 'Clay', 'ZoomInfo', 'Clearbit', 'Make',
+  'Zapier', '6sense', 'Gong', 'Snowflake', 'BigQuery', 'Google Ads',
+  'Meta Ads', 'Figma', 'GitHub', 'Supabase', 'Next.js', 'FastAPI'
 ];
 ---
 
 <section id="stack" class="py-20 px-6 border-y border-stone-100 bg-white/45 overflow-hidden">
   <div class="max-w-6xl mx-auto">
-    <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-10">
+    <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-12">
       <div>
         <span class="font-mono text-[10px] font-bold text-zapier uppercase tracking-[0.35em] mb-4 block">
           GTM Stack Map
@@ -40,26 +64,40 @@ const stackGroups = [
         </h2>
       </div>
       <p class="max-w-xl text-stone-500 leading-relaxed">
-        The operating layer is how data is sourced, cleaned, scored, routed, tracked and reported across the systems where teams actually work.
+        So here are the handoffs. This is the chain every lead travels in the systems I build — and the tools doing the work at each step.
       </p>
     </div>
 
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
-      {stackGroups.map((group) => (
-        <article class="bg-white border border-stone-200 rounded-[32px] p-7 shadow-sm hover:border-zapier/40 hover:shadow-xl hover:shadow-orange-500/5 transition-all duration-500">
-          <div class="flex items-center justify-between gap-4 mb-5">
-            <h3 class="font-bold text-stone-900 text-xl tracking-tight">{group.title}</h3>
-            <span class="h-2 w-2 rounded-full bg-zapier animate-pulse"></span>
-          </div>
-          <p class="text-stone-500 text-sm leading-relaxed mb-7 min-h-[64px]">{group.note}</p>
-          <div class="flex flex-wrap gap-2">
-            {group.tools.map((tool) => (
-              <span class="font-mono text-[8px] font-bold uppercase tracking-[0.18em] text-stone-500 bg-paper border border-stone-200 rounded-lg px-3 py-2 hover:text-zapier hover:border-zapier/30 transition-colors cursor-default">
+    <!-- The handoff chain -->
+    <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-3 mb-10">
+      {chain.map((stage, i) => (
+        <article class="relative bg-white border border-stone-200 rounded-2xl p-4 hover:border-zapier/40 transition-colors">
+          {i < chain.length - 1 && (
+            <span class="hidden lg:block absolute -right-2.5 top-1/2 -translate-y-1/2 text-stone-300 text-xs z-10">&rarr;</span>
+          )}
+          <p class="font-mono text-[9px] font-bold text-zapier mb-2">{stage.n}</p>
+          <p class="font-bold text-stone-900 leading-tight">{stage.verb}</p>
+          <p class="text-[11px] text-stone-400 mb-3 leading-snug">{stage.line}</p>
+          <div class="flex flex-wrap gap-1">
+            {stage.tools.map((tool) => (
+              <span class="font-mono text-[7px] font-bold uppercase tracking-[0.14em] text-stone-500 bg-paper border border-stone-200 rounded px-1.5 py-1">
                 {tool}
               </span>
             ))}
           </div>
         </article>
+      ))}
+    </div>
+
+    <!-- Broader ecosystem, one quiet line -->
+    <div class="flex flex-wrap items-center gap-2">
+      <span class="font-mono text-[9px] font-bold uppercase tracking-[0.25em] text-stone-400 mr-2">
+        Also worked with / design around
+      </span>
+      {ecosystem.map((tool) => (
+        <span class="font-mono text-[8px] font-bold uppercase tracking-[0.16em] text-stone-400 bg-white border border-stone-200 rounded-lg px-2.5 py-1.5 hover:text-zapier hover:border-zapier/30 transition-colors cursor-default">
+          {tool}
+        </span>
       ))}
     </div>
   </div>

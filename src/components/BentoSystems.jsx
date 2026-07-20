@@ -206,6 +206,12 @@ export default function BentoSystems() {
           </AnimatePresence>
         </div>
       </div>
+
+      <div className="max-w-6xl mx-auto mt-10 text-center md:text-left">
+        <a href="#proof" className="inline-flex items-center gap-2 font-mono text-[10px] font-bold uppercase tracking-widest text-stone-500 hover:text-zapier transition-colors">
+          See how these run in production →
+        </a>
+      </div>
     </section>
   );
 }

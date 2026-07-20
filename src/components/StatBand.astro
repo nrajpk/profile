@@ -1,0 +1,24 @@
+---
+// Real, verifiable figures only — sources noted per stat.
+// Update alongside the detail pages when numbers grow.
+const stats = [
+  { value: '5', label: 'Systems in production', note: 'Breakdowns above' },
+  { value: '79', label: 'Workflow executions logged', note: 'n8n, July 2026' },
+  { value: '37/37', label: 'Tests passing', note: 'Tender engine v1' },
+  { value: '14', label: 'Production stages tracked', note: 'Vehicle tracker' },
+];
+---
+
+<section class="py-14 px-6 bg-stone-950 text-white">
+  <div class="max-w-6xl mx-auto">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+      {stats.map((s) => (
+        <div class="text-center md:text-left">
+          <p class="text-4xl md:text-5xl font-bold tracking-tighter">{s.value}</p>
+          <p class="font-mono text-[9px] uppercase tracking-widest text-stone-400 mt-2 font-bold">{s.label}</p>
+          <p class="font-mono text-[8px] uppercase tracking-widest text-stone-600 mt-1">{s.note}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

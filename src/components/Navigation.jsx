@@ -29,7 +29,7 @@ export default function Navigation() {
               <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
             </div>
             <span className="font-mono text-[9px] font-bold text-stone-500 uppercase tracking-tight">
-              Abu Dhabi / GTM Systems Layer
+              United Arab Emirates
             </span>
           </div>
         </div>

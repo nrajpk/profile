@@ -189,7 +189,7 @@ function PointItem({ job, index, count, isActive, isPast, progress, onSelect }) 
             {String(index + 1).padStart(2, "0")} · {job.period}
           </p>
 
-          <p className="text-xl font-bold leading-tight text-stone-950 tracking-tight">
+          <p className="font-serif text-3xl leading-none text-stone-950 tracking-tight">
             {job.company}
           </p>
 
@@ -209,7 +209,7 @@ function DetailCard({ job }) {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: reduceMotion ? 0 : -24 }}
       transition={{ duration: reduceMotion ? 0.2 : 0.45, ease: [0.16, 1, 0.3, 1] }}
-      className="bg-white border border-stone-200 rounded-[36px] p-7 xl:p-9 shadow-sm"
+      className="bg-white border border-stone-200 p-7 xl:p-10"
     >
       <JobDetails job={job} />
     </motion.article>
@@ -233,7 +233,7 @@ function JobDetails({ job }) {
         </span>
       </div>
 
-      <h3 className="text-2xl md:text-3xl font-bold text-stone-900 mb-2 leading-tight tracking-tight">
+      <h3 className="font-serif text-4xl md:text-5xl text-stone-900 mb-3 leading-none tracking-tight">
         {job.role}
       </h3>
 
@@ -294,7 +294,7 @@ function StackedTimeline() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-          className="bg-white border border-stone-200 rounded-[32px] p-6 md:p-8 shadow-sm"
+          className="bg-white border border-stone-200 p-6 md:p-8"
         >
           <p className="font-mono text-[10px] font-bold uppercase tracking-[0.3em] text-zapier mb-4">
             {String(index + 1).padStart(2, "0")} · {job.period}

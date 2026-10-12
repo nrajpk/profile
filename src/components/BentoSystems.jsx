@@ -87,10 +87,10 @@ export default function BentoSystems() {
   useEffect(() => setStatIndex(0), [view]);
 
   return (
-    <section id="expertise" className="py-20 px-6 bg-white border-y border-stone-100">
-      <div className="max-w-6xl mx-auto mb-10 flex flex-col md:flex-row md:items-end justify-between gap-6">
+    <section id="expertise" className="py-24 md:py-32 border-y border-stone-200">
+      <div className="max-w-7xl mx-auto px-5 md:px-8 mb-10 flex flex-col md:flex-row md:items-end justify-between gap-6">
         <div>
-          <span className="font-mono text-[10px] text-zapier font-bold uppercase mb-4 block tracking-[0.35em]">
+          <span className="kicker mb-6">
             Core Systems
           </span>
           <h2 className="text-4xl md:text-6xl font-normal tracking-tight text-stone-900 italic font-serif">
@@ -102,11 +102,10 @@ export default function BentoSystems() {
         </p>
       </div>
 
-      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-5 md:auto-rows-[225px]">
-        <div className="md:col-span-8 md:row-span-2 p-8 md:p-10 bg-white border border-stone-200 rounded-[32px] flex flex-col justify-between relative overflow-hidden group shadow-sm">
-          <div className="absolute -right-20 -top-20 w-72 h-72 bg-zapier/5 rounded-full blur-3xl group-hover:bg-zapier/10 transition-colors" />
+      <div className="max-w-7xl mx-auto px-5 md:px-8 grid grid-cols-1 md:grid-cols-12 gap-5 md:auto-rows-[225px]">
+        <div className="md:col-span-8 md:row-span-2 p-8 md:p-10 bg-white border border-stone-200 flex flex-col justify-between relative overflow-hidden group">
           <div className="relative z-10">
-            <span className="font-mono text-[10px] text-zapier font-bold uppercase mb-4 block tracking-widest">
+            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-zapier mb-5 block">
               Marketing Ops / GTM Systems
             </span>
             <AnimatePresence mode="wait" initial={false}>
@@ -117,7 +116,7 @@ export default function BentoSystems() {
                 exit={{ opacity: 0, x: 10 }}
                 transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
               >
-                <h3 className="text-3xl md:text-4xl font-bold leading-[1.1] text-stone-900 tracking-tight max-w-xl">
+                <h3 className="font-serif text-4xl md:text-5xl font-normal leading-[1.02] text-stone-900 tracking-tight max-w-xl">
                   {active.title}
                 </h3>
                 <p className="text-stone-500 text-base md:text-lg mt-5 max-w-lg leading-relaxed">
@@ -134,7 +133,7 @@ export default function BentoSystems() {
                 onClick={() => setView(item)}
                 className={`px-6 py-2.5 rounded-full transition-all duration-500 border ${
                   view === item
-                    ? "bg-stone-900 text-white border-stone-900 shadow-xl"
+                    ? "bg-stone-900 text-white border-stone-900"
                     : "bg-paper text-stone-400 border-stone-200 hover:border-stone-400"
                 }`}
               >
@@ -144,7 +143,7 @@ export default function BentoSystems() {
           </div>
         </div>
 
-        <div className="md:col-span-4 bg-stone-900 text-white rounded-[32px] p-8 flex flex-col justify-between relative overflow-hidden shadow-xl">
+        <div className="md:col-span-4 bg-stone-900 text-white p-8 flex flex-col justify-between relative overflow-hidden">
           <AnimatePresence mode="wait" initial={false}>
             <motion.div
               key={`${view}-${statIndex}`}
@@ -155,7 +154,7 @@ export default function BentoSystems() {
             >
               <div className="text-zapier">{active.stats[statIndex].icon}</div>
               <div>
-                <p className="text-4xl md:text-5xl font-bold tracking-tighter italic font-serif leading-none">
+                <p className="text-5xl md:text-6xl font-normal tracking-tight italic font-serif leading-none">
                   {active.stats[statIndex].value}
                 </p>
                 <p className="font-mono text-[10px] uppercase tracking-widest text-stone-500 mt-2 font-bold">
@@ -176,7 +175,7 @@ export default function BentoSystems() {
         </div>
 
         <div
-          className="md:col-span-4 bg-paper border border-stone-200 rounded-[32px] p-8 flex flex-col justify-between group cursor-pointer hover:border-stone-400 transition-colors"
+          className="md:col-span-4 bg-paper border border-stone-200 p-8 flex flex-col justify-between group cursor-pointer hover:border-stone-400 transition-colors"
           onClick={() => setStatIndex((prev) => (prev + 1) % active.insights.length)}
         >
           <AnimatePresence mode="wait" initial={false}>
@@ -192,10 +191,10 @@ export default function BentoSystems() {
                 <ChevronRight className="w-4 h-4 text-stone-300 group-hover:text-stone-900 transition-colors" />
               </div>
               <div>
-                <p className="text-xs font-mono font-bold text-stone-400 uppercase tracking-widest mb-2">
+                <p className="text-xs font-semibold text-stone-500 uppercase tracking-[0.2em] mb-3">
                   Technical Insight
                 </p>
-                <p className="text-xl font-bold leading-tight text-stone-900 mb-2">
+                <p className="font-serif text-3xl leading-none text-stone-900 mb-3">
                   {active.insights[statIndex].title}
                 </p>
                 <p className="text-stone-500 text-sm leading-relaxed">
@@ -207,8 +206,8 @@ export default function BentoSystems() {
         </div>
       </div>
 
-      <div className="max-w-6xl mx-auto mt-8 text-center md:text-left">
-        <a href="/work" className="inline-flex items-center gap-2 font-mono text-[10px] font-bold uppercase tracking-widest text-stone-500 hover:text-zapier transition-colors">
+      <div className="max-w-7xl mx-auto px-5 md:px-8 mt-8 text-center md:text-left">
+        <a href="/work" className="link-arrow">
           See how these run in production →
         </a>
       </div>

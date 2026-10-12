@@ -8,6 +8,7 @@ import {
   useReducedMotion,
 } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
+import SystemField, { STAGES, stageAt } from "./SystemField.jsx";
 
 const ease = [0.16, 1, 0.3, 1];
 
@@ -70,10 +71,12 @@ export default function HeroStage() {
   };
 
   return (
+    <div className="relative overflow-hidden">
+    <SystemField />
     <section
       onMouseMove={onMove}
       onMouseLeave={onLeave}
-      className="relative max-w-7xl mx-auto px-5 md:px-8 pt-28 md:pt-36 pb-16 md:pb-24 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-6 items-center"
+      className="relative max-w-7xl mx-auto px-5 md:px-8 pt-28 md:pt-36 pb-20 md:pb-32 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-6 items-center"
     >
       <div className="lg:col-span-7 relative z-10">
         <motion.span
@@ -222,5 +225,21 @@ export default function HeroStage() {
         </div>
       </div>
     </section>
+
+    {/* Stage rail for the field behind the hero */}
+    <ol className="hidden md:block absolute inset-x-0 bottom-5 h-4 pointer-events-none" aria-label="The handoff chain">
+      {STAGES.map((stage, i) => (
+        <li
+          key={stage}
+          className={`absolute -translate-x-1/2 text-[10px] font-semibold uppercase tracking-[0.22em] ${
+            stage === "Approve" ? "text-zapier" : "text-stone-400"
+          }`}
+          style={{ left: `${stageAt(i) * 100}%` }}
+        >
+          {stage}
+        </li>
+      ))}
+    </ol>
+    </div>
   );
 }

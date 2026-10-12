@@ -1,6 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import Navigation from '../../components/Navigation.jsx';
+import ProjectCover from '../../components/ProjectCover.jsx';
 
 // PRODUCT SCOPE FACTS — observed from the live production system, July 2026.
 // Deliberately no pipeline counts, deal values, or client data.
@@ -65,13 +65,12 @@ const beforeAfter = [
   title="CRM Product Ownership — System Breakdown | Nikhil Raj PK"
   description="How an Excel-and-Access sales process became a custom CRM for long-cycle armoured vehicle sales: unit-denominated pipeline, schema-level source attribution, systematized follow-up, and in-system tender deadlines."
 >
-  <Navigation client:load />
 
-  <main class="pt-32 pb-24 px-6">
+  <main id="main" class="pt-32 pb-24 px-6">
     <div class="max-w-4xl mx-auto">
 
-      <a href="/#proof" class="font-mono text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400 hover:text-zapier transition-colors">
-        &larr; Back to Built Work
+      <a href="/work" class="font-mono text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400 hover:text-zapier transition-colors">
+        &larr; Back to Work
       </a>
 
       <header class="mt-10 mb-16">
@@ -86,6 +85,11 @@ const beforeAfter = [
           Global armoured vehicle sales ran on Excel workbooks and an Access database — workable at small scale, blind at real scale. I owned the product design of its replacement: a custom CRM whose every schema decision encodes how long-cycle B2G selling actually works.
         </p>
       </header>
+
+      <!-- System diagram -->
+      <figure class="mb-16 bg-stone-100 border border-stone-200 p-4 md:p-8" data-reveal="wipe">
+        <ProjectCover kind="crm" />
+      </figure>
 
       <!-- Product scope -->
       <section class="mb-16">

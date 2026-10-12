@@ -1,6 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import Navigation from '../../components/Navigation.jsx';
+import ProjectCover from '../../components/ProjectCover.jsx';
 
 // VERIFIED BUILD FIGURES — from project status & deployment docs (v1, July 2026).
 const figures = {
@@ -73,13 +73,12 @@ const stack = ['Python / FastAPI', 'PyMuPDF', 'python-docx', 'React 18 + Vite', 
   title="Tender Compliance Engine — System Breakdown | Nikhil Raj PK"
   description="A production tender-compliance matrix generator for armoured vehicle bids: deterministic routing, an un-overridable safety hold, evidence-enforced compliance claims, and a human-approved response cache. 37/37 tests, Dockerized."
 >
-  <Navigation client:load />
 
-  <main class="pt-32 pb-24 px-6">
+  <main id="main" class="pt-32 pb-24 px-6">
     <div class="max-w-4xl mx-auto">
 
-      <a href="/#proof" class="font-mono text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400 hover:text-zapier transition-colors">
-        &larr; Back to Built Work
+      <a href="/work" class="font-mono text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400 hover:text-zapier transition-colors">
+        &larr; Back to Work
       </a>
 
       <header class="mt-10 mb-16">
@@ -94,6 +93,11 @@ const stack = ['Python / FastAPI', 'PyMuPDF', 'python-docx', 'React 18 + Vite', 
           Defense tenders arrive as hundreds of numbered requirements. Building the compliance matrix by hand takes days — and a single careless "Comply" is a contractual claim. This system automates the drudgery while making the dangerous parts impossible to automate.
         </p>
       </header>
+
+      <!-- System diagram -->
+      <figure class="mb-16 bg-stone-100 border border-stone-200 p-4 md:p-8" data-reveal="wipe">
+        <ProjectCover kind="tender" />
+      </figure>
 
       <!-- Verified figures -->
       <section class="mb-16">

@@ -7,7 +7,6 @@ import {
   useMotionValueEvent,
   useReducedMotion,
 } from "framer-motion";
-import { Code2, Terminal } from "lucide-react";
 
 const deployments = [
   {
@@ -88,32 +87,9 @@ export default function CareerArchitecture() {
   return (
     <section
       id="experience"
-      className="pt-36 md:pt-40 pb-24 lg:pb-12 px-6 bg-paper border-t border-stone-100"
+      className="pb-24 lg:pb-12 bg-paper"
     >
-      <div className="max-w-6xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-end">
-          <div className="lg:col-span-7">
-            <span className="font-mono text-[10px] font-bold text-zapier uppercase tracking-[0.4em] mb-4 block">
-              Background
-            </span>
-
-            <h2 className="text-5xl md:text-6xl font-bold tracking-tight text-stone-900 italic font-serif">
-              A marketing path with a technical base.
-            </h2>
-
-            <p className="text-stone-500 leading-relaxed mt-6 max-w-md">
-              My career has moved through campaign execution, websites,
-              acquisition, CRM workflows, analytics, and data systems. The
-              common thread is operational: making the visible parts of
-              marketing work through cleaner systems underneath.
-            </p>
-          </div>
-
-          <div className="lg:col-span-5">
-            <EducationCard />
-          </div>
-        </div>
-
+      <div className="max-w-7xl mx-auto px-5 md:px-8">
         <PinnedTimeline />
         <StackedTimeline />
       </div>
@@ -327,27 +303,5 @@ function StackedTimeline() {
         </motion.li>
       ))}
     </ol>
-  );
-}
-
-function EducationCard() {
-  return (
-    <div className="p-8 bg-stone-900 rounded-[32px] text-white relative overflow-hidden group">
-      <div className="relative z-10">
-        <Terminal className="text-zapier mb-4" size={20} />
-
-        <p className="font-mono text-[9px] text-stone-500 uppercase tracking-widest mb-1">
-          Root Foundation
-        </p>
-
-        <p className="font-bold text-lg leading-tight">B.Tech in Computer Science</p>
-
-        <p className="text-stone-400 text-xs mt-2 italic">
-          Mar Athanasius College of Engineering
-        </p>
-      </div>
-
-      <Code2 className="absolute -right-4 -bottom-4 text-white/5 w-32 h-32 rotate-12 transition-transform group-hover:scale-110" />
-    </div>
   );
 }

@@ -247,36 +247,9 @@ const LabProjectCard = ({ project, index }) => (
 
 export default function UtilityLab() {
   return (
-    <section id="lab" className="py-32 px-6 bg-paper relative overflow-hidden">
-      <div className="max-w-6xl mx-auto">
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-8">
-          <div className="max-w-2xl">
-            <span className="font-mono text-[10px] font-bold text-zapier uppercase tracking-[0.3em] mb-4 block">
-              GTM Systems Lab
-            </span>
-
-            <h2 className="text-5xl md:text-6xl font-bold tracking-tight text-stone-900 italic font-serif">
-              Production patterns, rebuilt in the open.
-            </h2>
-
-            <p className="mt-6 text-stone-500 text-lg leading-relaxed max-w-xl">
-              Each of these systems already runs in production — their full
-              breakdowns are above. The lab versions are sanitized rebuilds
-              I'm publishing so the code itself can be read. "In progress"
-              means the public version isn't ready yet, not that the pattern
-              is unproven.
-            </p>
-          </div>
-
-          <div className="px-4 py-2 bg-white border border-stone-200 rounded-full shadow-sm flex items-center gap-2">
-            <span className="h-1.5 w-1.5 rounded-full bg-zapier" />
-            <span className="font-mono text-[9px] font-bold text-stone-400 uppercase">
-              Proven in production
-            </span>
-          </div>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+    <section id="lab" className="pb-10 bg-paper relative overflow-hidden">
+      <div className="max-w-7xl mx-auto px-5 md:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {labProjects.map((project, index) => (
             <LabProjectCard key={project.id} project={project} index={index} />
           ))}

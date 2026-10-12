@@ -93,7 +93,7 @@ export default function BentoSystems() {
           <span className="font-mono text-[10px] text-zapier font-bold uppercase mb-4 block tracking-[0.35em]">
             Core Systems
           </span>
-          <h2 className="text-4xl md:text-6xl font-bold tracking-tight text-stone-900 italic font-serif">
+          <h2 className="text-4xl md:text-6xl font-normal tracking-tight text-stone-900 italic font-serif">
             The operating layer.
           </h2>
         </div>
@@ -109,7 +109,7 @@ export default function BentoSystems() {
             <span className="font-mono text-[10px] text-zapier font-bold uppercase mb-4 block tracking-widest">
               Marketing Ops / GTM Systems
             </span>
-            <AnimatePresence mode="wait">
+            <AnimatePresence mode="wait" initial={false}>
               <motion.div
                 key={view}
                 initial={{ opacity: 0, x: -20 }}
@@ -145,7 +145,7 @@ export default function BentoSystems() {
         </div>
 
         <div className="md:col-span-4 bg-stone-900 text-white rounded-[32px] p-8 flex flex-col justify-between relative overflow-hidden shadow-xl">
-          <AnimatePresence mode="wait">
+          <AnimatePresence mode="wait" initial={false}>
             <motion.div
               key={`${view}-${statIndex}`}
               initial={{ y: 20, opacity: 0 }}
@@ -179,7 +179,7 @@ export default function BentoSystems() {
           className="md:col-span-4 bg-paper border border-stone-200 rounded-[32px] p-8 flex flex-col justify-between group cursor-pointer hover:border-stone-400 transition-colors"
           onClick={() => setStatIndex((prev) => (prev + 1) % active.insights.length)}
         >
-          <AnimatePresence mode="wait">
+          <AnimatePresence mode="wait" initial={false}>
             <motion.div
               key={`${view}-${statIndex}-insight`}
               initial={{ opacity: 0 }}
@@ -208,7 +208,7 @@ export default function BentoSystems() {
       </div>
 
       <div className="max-w-6xl mx-auto mt-8 text-center md:text-left">
-        <a href="#proof" className="inline-flex items-center gap-2 font-mono text-[10px] font-bold uppercase tracking-widest text-stone-500 hover:text-zapier transition-colors">
+        <a href="/work" className="inline-flex items-center gap-2 font-mono text-[10px] font-bold uppercase tracking-widest text-stone-500 hover:text-zapier transition-colors">
           See how these run in production →
         </a>
       </div>

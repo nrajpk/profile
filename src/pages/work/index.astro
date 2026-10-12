@@ -1,0 +1,121 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ProjectCover from '../../components/ProjectCover.jsx';
+import { projects } from '../../data/projects.js';
+---
+
+<Layout
+  title="Work — Production Systems | Nikhil Raj PK"
+  description="Four production systems across data extraction, CRM product ownership, tender compliance and production tracking — each with its flow, stack and sanitized proof."
+>
+  <main id="main" class="overflow-x-clip">
+    <header class="max-w-7xl mx-auto px-5 md:px-8 pt-32 md:pt-44 pb-16 md:pb-24 grid grid-cols-1 lg:grid-cols-12 gap-10 items-end">
+      <div class="lg:col-span-8">
+        <span class="kicker mb-8">Built Work — Production Systems</span>
+        <h1 class="display" data-reveal="wipe">
+          Production work, <br /><span class="italic text-stone-400">kept factual.</span>
+        </h1>
+      </div>
+      <p class="lg:col-span-4 text-stone-600 leading-relaxed" data-reveal style="--d:150ms">
+        Real work across data extraction, CRM workflows, paid acquisition and reporting. No fake metrics, no invented outcomes, only systems that can be explained and shown with sanitized proof.
+      </p>
+    </header>
+
+    <!-- In-page index -->
+    <nav class="sticky top-16 z-30 bg-paper/90 backdrop-blur-md border-y border-stone-200" aria-label="Systems on this page">
+      <ul class="max-w-7xl mx-auto px-5 md:px-8 flex gap-6 md:gap-10 overflow-x-auto no-scrollbar">
+        {projects.map((p) => (
+          <li class="shrink-0">
+            <a href={`#${p.slug}`} class="block py-3.5 text-sm font-medium text-stone-500 hover:text-zapier transition-colors whitespace-nowrap">{p.label}</a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <div class="max-w-7xl mx-auto px-5 md:px-8">
+      {projects.map((p, i) => (
+        <article id={p.slug} class="scroll-mt-32 py-16 md:py-28 border-b border-stone-200 last:border-b-0 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
+          <a
+            href={p.href}
+            aria-label={`${p.title} — full system breakdown`}
+            class:list={[
+              'cover-frame group block bg-stone-100 border border-stone-200 p-4 md:p-8',
+              i % 2 === 0 ? 'lg:col-span-7' : 'lg:col-span-6 lg:order-2 lg:mt-24',
+            ]}
+            data-reveal="wipe"
+          >
+            <ProjectCover kind={p.cover} className="transition-transform duration-700 ease-out group-hover:scale-[1.03]" />
+          </a>
+
+          <div class:list={[i % 2 === 0 ? 'lg:col-span-5' : 'lg:col-span-6 lg:order-1']} data-reveal style="--d:120ms">
+            <p class="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-stone-500 mb-5">
+              <span class="h-1.5 w-1.5 rounded-full bg-zapier"></span> Built
+            </p>
+            <h2 class="font-serif text-4xl md:text-5xl leading-[1.02] tracking-tight">
+              <a href={p.href} class="hover:text-zapier transition-colors">{p.title}</a>
+            </h2>
+            <p class="mt-5 text-lg text-stone-600 leading-relaxed">{p.desc}</p>
+
+            <h3 class="mt-10 text-xs font-semibold uppercase tracking-[0.2em] text-stone-500">How it flows</h3>
+            <ol class="mt-4 flow">
+              {p.flow.map((step) => (
+                <li class="flow-step">{step}</li>
+              ))}
+            </ol>
+
+            <h3 class="mt-10 text-xs font-semibold uppercase tracking-[0.2em] text-stone-500">Proof to show</h3>
+            <p class="mt-3 text-sm text-stone-600 leading-relaxed">{p.proof}</p>
+
+            <ul class="mt-6 flex flex-wrap gap-2">
+              {p.tools.map((tool) => (
+                <li class="px-3 py-1.5 border border-stone-300 rounded-full text-xs font-medium text-stone-600">{tool}</li>
+              ))}
+            </ul>
+
+            <a href={p.href} class="link-arrow mt-9">
+              Read the full system breakdown
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9" /></svg>
+            </a>
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <section class="bg-stone-900 text-white">
+      <div class="max-w-7xl mx-auto px-5 md:px-8 py-20 md:py-28 grid grid-cols-1 lg:grid-cols-12 gap-10 items-end">
+        <h2 class="lg:col-span-7 font-serif italic text-5xl md:text-6xl leading-[0.98] tracking-tight" data-reveal>The work is the system.</h2>
+        <div class="lg:col-span-5" data-reveal style="--d:120ms">
+          <p class="text-stone-300 leading-relaxed">
+            Every system above ships with its measurement wired in: GTM events, GA4 conversions, source-to-CRM attribution and reporting views leadership actually opens.
+          </p>
+          <a href="/systems" class="link-arrow mt-6">
+            See how the layers connect
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9" /></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<style>
+  .flow { counter-reset: step; border-left: 1px solid var(--color-stone-300); }
+  .flow-step {
+    counter-increment: step;
+    position: relative;
+    padding: 0.55rem 0 0.55rem 1.5rem;
+    font-size: 0.9375rem;
+    color: var(--color-stone-700);
+    transition: color 0.3s, transform 0.5s var(--ease-out-expo);
+  }
+  .flow-step::before {
+    content: "";
+    position: absolute; left: -4px; top: 1.05rem;
+    width: 7px; height: 7px; border-radius: 999px;
+    background: var(--color-paper); border: 1px solid var(--color-stone-400);
+    transition: background 0.3s, border-color 0.3s, transform 0.5s var(--ease-out-expo);
+  }
+  .flow-step:hover { color: var(--color-stone-900); transform: translateX(4px); }
+  .flow-step:hover::before { background: var(--color-zapier); border-color: var(--color-zapier); transform: scale(1.4); }
+  .flow-step:last-child::before { background: var(--color-zapier); border-color: var(--color-zapier); }
+</style>

@@ -1,6 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import Navigation from '../../components/Navigation.jsx';
+import ProjectCover from '../../components/ProjectCover.jsx';
 
 // LIVE TELEMETRY — pulled from production tooling on 20 Jul 2026.
 // Update these by re-querying n8n + Instantly. Do not invent values.
@@ -75,14 +75,13 @@ const stack = ['n8n', 'Apollo API', 'Apify', 'Airtable', 'Instantly', 'Smartlead
   title="B2G GTM Pipeline — System Breakdown | Nikhil Raj PK"
   description="Full decision-level breakdown of a live B2G lead generation pipeline: AI qualification, human-in-the-loop approval, deliverability-first sending, and merged reporting. Real production telemetry."
 >
-  <Navigation client:load />
 
-  <main class="pt-32 pb-24 px-6">
+  <main id="main" class="pt-32 pb-24 px-6">
     <div class="max-w-4xl mx-auto">
 
       <!-- Breadcrumb -->
-      <a href="/#proof" class="font-mono text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400 hover:text-zapier transition-colors">
-        &larr; Back to Built Work
+      <a href="/work" class="font-mono text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400 hover:text-zapier transition-colors">
+        &larr; Back to Work
       </a>
 
       <!-- Header -->
@@ -98,6 +97,11 @@ const stack = ['n8n', 'Apollo API', 'Apify', 'Airtable', 'Instantly', 'Smartlead
           Built for long-cycle armoured vehicle sales into government and defense-adjacent markets — an environment where one careless email costs more than a hundred good ones earn. Every design decision below follows from that constraint.
         </p>
       </header>
+
+      <!-- System diagram -->
+      <figure class="mb-16 bg-stone-100 border border-stone-200 p-4 md:p-8" data-reveal="wipe">
+        <ProjectCover kind="pipeline" />
+      </figure>
 
       <!-- Live telemetry -->
       <section class="mb-16">

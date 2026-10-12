@@ -1,6 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import Navigation from '../../components/Navigation.jsx';
+import ProjectCover from '../../components/ProjectCover.jsx';
 
 // FACTS FROM THE REPOSITORY README AND SCHEMA — July 2026.
 const facts = {
@@ -66,13 +66,12 @@ const stack = ['Next.js', 'Supabase (Postgres, RLS, RPC)', 'Vercel', 'React'];
   title="Production Tracker — System Breakdown | Nikhil Raj PK"
   description="A Supabase-backed production console for armoured vehicle manufacturing: a 14-stage production rail, near-zero write access, database-enforced integrity, and a decision dashboard. Built to keep Excel from escaping containment again."
 >
-  <Navigation client:load />
 
-  <main class="pt-32 pb-24 px-6">
+  <main id="main" class="pt-32 pb-24 px-6">
     <div class="max-w-4xl mx-auto">
 
-      <a href="/#proof" class="font-mono text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400 hover:text-zapier transition-colors">
-        &larr; Back to Built Work
+      <a href="/work" class="font-mono text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400 hover:text-zapier transition-colors">
+        &larr; Back to Work
       </a>
 
       <header class="mt-10 mb-16">
@@ -87,6 +86,11 @@ const stack = ['Next.js', 'Supabase (Postgres, RLS, RPC)', 'Vercel', 'React'];
           Armoured vehicle production tracking used to live in spreadsheets where "status" was whatever the last editor typed. This system replaces it with a strict stage rail, near-zero write access, and integrity rules enforced by the database itself — closing the loop from sale to delivery.
         </p>
       </header>
+
+      <!-- System diagram -->
+      <figure class="mb-16 bg-stone-100 border border-stone-200 p-4 md:p-8" data-reveal="wipe">
+        <ProjectCover kind="tracker" />
+      </figure>
 
       <!-- Facts -->
       <section class="mb-16">

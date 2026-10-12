@@ -1,0 +1,51 @@
+---
+import Layout from '../layouts/Layout.astro';
+import UtilityLab from '../components/UtilityLab.jsx';
+---
+
+<Layout
+  title="Lab — Production Patterns, Rebuilt in the Open | Nikhil Raj PK"
+  description="Sanitized public rebuilds of four GTM patterns that already run in production: enrichment waterfall, procurement signal harvesting, inbound routing and LLM account qualification."
+>
+  <main id="main" class="overflow-x-clip">
+    <header class="max-w-7xl mx-auto px-5 md:px-8 pt-32 md:pt-44 pb-14 md:pb-20 grid grid-cols-1 lg:grid-cols-12 gap-10 items-end">
+      <div class="lg:col-span-8">
+        <span class="kicker mb-8">GTM Systems Lab</span>
+        <h1 class="display" data-reveal="wipe">
+          Production patterns, <br /><span class="italic text-stone-400">rebuilt in the open.</span>
+        </h1>
+      </div>
+      <div class="lg:col-span-4" data-reveal style="--d:150ms">
+        <p class="text-stone-600 leading-relaxed">
+          Each of these systems already runs in production — their full breakdowns are in <a href="/work" class="underline decoration-zapier underline-offset-4 hover:text-zapier">Work</a>. The lab versions are sanitized rebuilds I'm publishing so the code itself can be read.
+        </p>
+      </div>
+    </header>
+
+    <!-- How to read the labels -->
+    <section class="max-w-7xl mx-auto px-5 md:px-8 pb-12" aria-label="Status labels">
+      <dl class="grid grid-cols-1 md:grid-cols-3 border-t border-stone-200 text-sm" data-reveal>
+        <div class="py-5 md:pr-8 border-b border-stone-200">
+          <dt class="flex items-center gap-2 font-semibold"><span class="h-1.5 w-1.5 rounded-full bg-zapier"></span>Proven in production</dt>
+          <dd class="mt-1.5 text-stone-600">The pattern itself runs in a live system. Each card links to it.</dd>
+        </div>
+        <div class="py-5 md:px-8 border-b border-stone-200 md:border-l">
+          <dt class="font-semibold">Public rebuild in progress</dt>
+          <dd class="mt-1.5 text-stone-600">A sanitized version is being written. The public code isn't ready yet.</dd>
+        </div>
+        <div class="py-5 md:pl-8 border-b border-stone-200 md:border-l">
+          <dt class="font-semibold">Public rebuild queued</dt>
+          <dd class="mt-1.5 text-stone-600">Not started. "In progress" or "queued" never means the pattern is unproven.</dd>
+        </div>
+      </dl>
+    </section>
+
+    <UtilityLab client:load />
+
+    <section class="max-w-7xl mx-auto px-5 md:px-8 pb-24 md:pb-32">
+      <p class="text-sm text-stone-500 max-w-2xl" data-reveal>
+        The small panels inside each card are interactive illustrations of the pattern, not live connections to production data.
+      </p>
+    </section>
+  </main>
+</Layout>

@@ -2,6 +2,8 @@
 import Layout from '../../layouts/Layout.astro';
 import ProjectCover from '../../components/ProjectCover.jsx';
 import { projects } from '../../data/projects.js';
+import WorkArchive from '../../components/WorkArchive.jsx';
+import { archive, groups, statusLabels } from '../../data/archive.js';
 ---
 
 <Layout
@@ -29,6 +31,9 @@ import { projects } from '../../data/projects.js';
             <a href={`#${p.slug}`} class="block py-3.5 text-sm font-medium text-stone-500 hover:text-zapier transition-colors whitespace-nowrap">{p.label}</a>
           </li>
         ))}
+        <li class="shrink-0">
+          <a href="#more-work" class="block py-3.5 text-sm font-medium text-stone-500 hover:text-zapier transition-colors whitespace-nowrap">More work <span class="text-stone-400 tabular-nums">{archive.length}</span></a>
+        </li>
       </ul>
     </nav>
 
@@ -80,6 +85,24 @@ import { projects } from '../../data/projects.js';
         </article>
       ))}
     </div>
+
+    <!-- The wider body of work -->
+    <section id="more-work" class="scroll-mt-32 border-t border-stone-200">
+      <div class="max-w-7xl mx-auto px-5 md:px-8 py-20 md:py-32">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-end mb-12">
+          <div class="lg:col-span-8">
+            <span class="kicker mb-6">Beyond the four case studies</span>
+            <h2 class="font-serif text-5xl md:text-6xl leading-[0.98] tracking-tight" data-reveal>
+              The wider body of work, <span class="italic text-stone-400">labelled honestly.</span>
+            </h2>
+          </div>
+          <p class="lg:col-span-4 text-stone-600 leading-relaxed" data-reveal style="--d:120ms">
+            Company platforms, my own products, client builds and experiments. Each one says what it is, what my part was, and how far along it is. Most of the code is private, so the evidence shown is the repository's own history.
+          </p>
+        </div>
+        <WorkArchive client:visible items={archive} groups={groups} statusLabels={statusLabels} />
+      </div>
+    </section>
 
     <section class="bg-stone-900 text-white">
       <div class="max-w-7xl mx-auto px-5 md:px-8 py-20 md:py-28 grid grid-cols-1 lg:grid-cols-12 gap-10 items-end">

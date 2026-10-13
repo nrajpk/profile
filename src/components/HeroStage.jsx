@@ -167,8 +167,8 @@ export default function HeroStage() {
               <defs>
                 <path id="orbit-path" d="M100,100 m-92,0 a92,92 0 1,1 184,0 a92,92 0 1,1 -184,0" />
               </defs>
-              <text className="fill-stone-500" style={{ fontFamily: "var(--font-mono)", fontSize: "6.2px", letterSpacing: "0.32em" }}>
-                <textPath href="#orbit-path">
+              <text className="fill-stone-500" style={{ fontFamily: "var(--font-mono)", fontSize: "5.4px" }}>
+                <textPath href="#orbit-path" textLength="570" lengthAdjust="spacing">
                   SOURCE · ENRICH · QUALIFY · APPROVE · SEND · TRACK · REPORT · SOURCE · ENRICH · QUALIFY · APPROVE · SEND · TRACK · REPORT ·
                 </textPath>
               </text>

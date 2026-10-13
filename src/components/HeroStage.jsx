@@ -8,6 +8,7 @@ import {
   useReducedMotion,
 } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
+import SystemField, { STAGES, stageAt } from "./SystemField.jsx";
 
 const ease = [0.16, 1, 0.3, 1];
 
@@ -70,10 +71,12 @@ export default function HeroStage() {
   };
 
   return (
+    <div className="relative overflow-hidden">
+    <SystemField />
     <section
       onMouseMove={onMove}
       onMouseLeave={onLeave}
-      className="relative max-w-7xl mx-auto px-5 md:px-8 pt-28 md:pt-36 pb-16 md:pb-24 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-6 items-center"
+      className="relative max-w-7xl mx-auto px-5 md:px-8 pt-28 md:pt-36 pb-20 md:pb-32 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-6 items-center"
     >
       <div className="lg:col-span-7 relative z-10">
         <motion.span
@@ -164,8 +167,8 @@ export default function HeroStage() {
               <defs>
                 <path id="orbit-path" d="M100,100 m-92,0 a92,92 0 1,1 184,0 a92,92 0 1,1 -184,0" />
               </defs>
-              <text className="fill-stone-500" style={{ fontFamily: "var(--font-mono)", fontSize: "6.2px", letterSpacing: "0.32em" }}>
-                <textPath href="#orbit-path">
+              <text className="fill-stone-500" style={{ fontFamily: "var(--font-mono)", fontSize: "5.4px" }}>
+                <textPath href="#orbit-path" textLength="570" lengthAdjust="spacing">
                   SOURCE · ENRICH · QUALIFY · APPROVE · SEND · TRACK · REPORT · SOURCE · ENRICH · QUALIFY · APPROVE · SEND · TRACK · REPORT ·
                 </textPath>
               </text>
@@ -180,15 +183,15 @@ export default function HeroStage() {
               initial={reduce ? false : { clipPath: "inset(100% 0 0 0)" }}
               animate={{ clipPath: "inset(0% 0 0 0)" }}
               transition={{ delay: 0.45, duration: 1.3, ease }}
-              className="group h-full w-full overflow-hidden bg-stone-200"
+              className="group relative h-full w-full overflow-hidden bg-stone-200"
             >
               <img
-                src="/portrait.webp"
-                alt="Nikhil Raj PK"
-                width="800"
-                height="800"
+                src="/photos/portrait-bw.webp"
+                alt="Nikhil Raj PK, arms crossed, leaning against a textured wall"
+                width="1122"
+                height="1402"
                 fetchPriority="high"
-                className="h-full w-full object-cover grayscale contrast-[1.08] group-hover:grayscale-0 scale-105 group-hover:scale-100 transition-all duration-1000 ease-out"
+                className="absolute inset-0 h-full w-full object-cover object-[50%_18%] scale-105 group-hover:scale-100 transition-transform duration-1000 ease-out"
               />
             </motion.div>
             <p className="mt-3 text-xs text-stone-500 leading-snug">
@@ -222,5 +225,21 @@ export default function HeroStage() {
         </div>
       </div>
     </section>
+
+    {/* Stage rail for the field behind the hero */}
+    <ol className="hidden md:block absolute inset-x-0 bottom-5 h-4 pointer-events-none" aria-label="The handoff chain">
+      {STAGES.map((stage, i) => (
+        <li
+          key={stage}
+          className={`absolute -translate-x-1/2 text-[10px] font-semibold uppercase tracking-[0.22em] ${
+            stage === "Approve" ? "text-zapier" : "text-stone-400"
+          }`}
+          style={{ left: `${stageAt(i) * 100}%` }}
+        >
+          {stage}
+        </li>
+      ))}
+    </ol>
+    </div>
   );
 }

@@ -206,7 +206,7 @@ const LabProjectCard = ({ project, index }) => (
     whileInView={{ opacity: 1, y: 0 }}
     transition={{ delay: index * 0.08 }}
     viewport={{ once: true }}
-    className="p-7 bg-white border border-stone-200 rounded-[32px] flex flex-col justify-between group hover:border-zapier hover:shadow-2xl hover:shadow-orange-500/5 transition-all duration-500"
+    className="p-7 md:p-9 bg-white border border-stone-200 flex flex-col justify-between group hover:border-zapier transition-colors duration-500"
   >
     <div>
       <div className="flex justify-between items-start mb-7">
@@ -218,7 +218,7 @@ const LabProjectCard = ({ project, index }) => (
         </span>
       </div>
 
-      <h4 className="font-bold text-stone-900 text-lg mb-2 leading-tight">
+      <h4 className="font-serif text-stone-900 text-3xl md:text-4xl mb-3 leading-none tracking-tight">
         {project.title}
       </h4>
 

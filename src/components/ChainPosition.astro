@@ -1,0 +1,30 @@
+---
+// Shows where a case study sits in the composed sales system on /systems.
+import { chains } from '../data/compose.js';
+
+const path = Astro.url.pathname.replace(/\/$/, '');
+const chain = chains.find((c) => c.id === 'sales');
+const index = chain.stages.findIndex((s) => s.href === path);
+const stage = chain.stages[index];
+const prev = chain.stages[index - 1];
+const next = chain.stages[index + 1];
+---
+
+{stage && (
+  <aside class="mb-16 border-y border-stone-200 py-5 grid grid-cols-1 md:grid-cols-[auto_1fr_auto] gap-x-8 gap-y-3 items-center" aria-label="Where this system sits">
+    <p class="text-sm text-stone-500">
+      Step <span class="tabular-nums font-semibold text-stone-900">{index + 1}</span> of {chain.stages.length} in the sales system
+    </p>
+    <ol class="flex items-center gap-3 text-sm overflow-x-auto no-scrollbar">
+      {prev && <li class="text-stone-500 whitespace-nowrap">{prev.verb}</li>}
+      {prev && <li class="h-px w-6 bg-stone-300 shrink-0" aria-hidden="true"></li>}
+      <li class="font-serif text-2xl leading-none text-zapier whitespace-nowrap">{stage.verb}</li>
+      {next && <li class="h-px w-6 bg-stone-300 shrink-0" aria-hidden="true"></li>}
+      {next && <li class="text-stone-500 whitespace-nowrap">{next.verb}</li>}
+    </ol>
+    <a href="/systems#compose-sales" class="link-arrow justify-self-start md:justify-self-end">
+      See the whole chain
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9" /></svg>
+    </a>
+  </aside>
+)}

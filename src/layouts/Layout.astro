@@ -9,7 +9,7 @@ import { projects } from '../data/projects.js';
 const {
   title = 'Nikhil Raj PK | Marketing Operations & GTM Systems Builder',
   description = 'Nikhil Raj PK builds practical GTM systems across marketing operations, CRM workflows, analytics, data extraction, automation, API handoffs and AI-assisted workflows.',
-  image = '/dp.jpeg',
+  image = '/og.png',
   chrome = true,
 } = Astro.props;
 
@@ -51,7 +51,9 @@ const paletteGroups = [
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImage} />
-    <meta name="twitter:card" content="summary" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />

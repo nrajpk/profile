@@ -2,6 +2,11 @@
 import Layout from '../../layouts/Layout.astro';
 import ProjectCover from '../../components/ProjectCover.jsx';
 import { projects } from '../../data/projects.js';
+import ArchiveCover from '../../components/ArchiveCover.jsx';
+import { archive, groups, statusLabels } from '../../data/archive.js';
+import { chains } from '../../data/compose.js';
+
+const chainNames = Object.fromEntries(chains.map((c) => [c.id, c.tab]));
 ---
 
 <Layout
@@ -27,6 +32,12 @@ import { projects } from '../../data/projects.js';
         {projects.map((p) => (
           <li class="shrink-0">
             <a href={`#${p.slug}`} class="block py-3.5 text-sm font-medium text-stone-500 hover:text-zapier transition-colors whitespace-nowrap">{p.label}</a>
+          </li>
+        ))}
+        <li class="shrink-0 self-center h-4 w-px bg-stone-300" aria-hidden="true"></li>
+        {groups.map((g) => (
+          <li class="shrink-0">
+            <a href={`#${g.id}`} class="block py-3.5 text-sm font-medium text-stone-500 hover:text-zapier transition-colors whitespace-nowrap">{g.name} <span class="text-stone-400 tabular-nums">{archive.filter((i) => i.group === g.id).length}</span></a>
           </li>
         ))}
       </ul>
@@ -80,6 +91,89 @@ import { projects } from '../../data/projects.js';
         </article>
       ))}
     </div>
+
+    <!-- The wider body of work, in the same shape as the case studies -->
+    <section id="more-work" class="scroll-mt-32 border-t border-stone-200">
+      <div class="max-w-7xl mx-auto px-5 md:px-8 pt-20 md:pt-32 grid grid-cols-1 lg:grid-cols-12 gap-10 items-end">
+        <h2 class="lg:col-span-8 font-serif text-5xl md:text-6xl leading-[0.98] tracking-tight" data-reveal>
+          And the rest of the bench. <span class="italic text-stone-400">Seventeen more builds.</span>
+        </h2>
+        <p class="lg:col-span-4 text-stone-600 leading-relaxed" data-reveal style="--d:120ms">
+          Company platforms, my own products, builds for friends and experiments, each drawn the same way as the four above.
+        </p>
+      </div>
+
+      {groups.map((group) => (
+        <div id={group.id} class="scroll-mt-32 max-w-7xl mx-auto px-5 md:px-8 pt-20 md:pt-28">
+          <header class="flex flex-col md:flex-row md:items-baseline justify-between gap-3 border-b border-stone-200 pb-5" data-reveal>
+            <h3 class="font-serif italic text-4xl md:text-5xl leading-none tracking-tight">{group.name}</h3>
+            <p class="text-stone-500">{group.line}</p>
+          </header>
+
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-14 gap-y-20 md:gap-y-24 pt-12 md:pt-16">
+            {archive.filter((item) => item.group === group.id).map((p, i) => (
+              <article id={p.id} class:list={['scroll-mt-32', i % 2 === 1 && 'lg:mt-20']}>
+                <div class="cover-frame group block bg-stone-100 border border-stone-200 overflow-hidden" data-reveal="wipe">
+                  {p.cover.image ? (
+                    <img src={p.cover.image} alt={p.cover.alt} width={p.cover.width} height={p.cover.height} loading="lazy" class="w-full h-auto transition-transform duration-[1200ms] ease-out group-hover:scale-[1.03]" />
+                  ) : (
+                    <div class="p-4 md:p-6">
+                      <ArchiveCover cover={p.cover} className="transition-transform duration-700 ease-out group-hover:scale-[1.03]" />
+                    </div>
+                  )}
+                </div>
+
+                <div class="pt-8" data-reveal style="--d:100ms">
+                  <p class="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-stone-500 mb-4">
+                    <span class:list={['h-1.5 w-1.5 rounded-full', p.status === 'live' ? 'bg-green-500' : 'bg-zapier']}></span> {statusLabels[p.status]}
+                  </p>
+                  <h4 class="font-serif text-4xl md:text-[2.6rem] leading-[1.02] tracking-tight">{p.title}</h4>
+                  <p class="mt-4 text-lg text-stone-600 leading-relaxed">{p.desc}</p>
+
+                  <h5 class="mt-8 text-xs font-semibold uppercase tracking-[0.2em] text-stone-500">How it flows</h5>
+                  <ol class="mt-4 flow">
+                    {p.flow.map((step) => (
+                      <li class="flow-step">{step}</li>
+                    ))}
+                  </ol>
+
+                  <h5 class="mt-8 text-xs font-semibold uppercase tracking-[0.2em] text-stone-500">Proof to show</h5>
+                  <p class="mt-3 text-sm text-stone-600 leading-relaxed">{p.proof}</p>
+
+                  <ul class="mt-6 flex flex-wrap gap-2">
+                    {p.tools.map((tool) => (
+                      <li class="px-3 py-1.5 border border-stone-300 rounded-full text-xs font-medium text-stone-600">{tool}</li>
+                    ))}
+                  </ul>
+
+                  <div class="mt-8 flex flex-wrap gap-x-8 gap-y-3">
+                    {p.link && (
+                      <a href={p.link.href} target="_blank" rel="noreferrer" class="link-arrow">
+                        {p.link.label}
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9" /></svg>
+                      </a>
+                    )}
+                    {p.related && (
+                      <a href={p.related.href} class="link-arrow">
+                        {p.related.label}
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9" /></svg>
+                      </a>
+                    )}
+                    {p.chain && (
+                      <a href={`/systems#compose-${p.chain}`} class="link-arrow">
+                        {chainNames[p.chain]} system
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9" /></svg>
+                      </a>
+                    )}
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      ))}
+      <div class="h-24 md:h-36"></div>
+    </section>
 
     <section class="bg-stone-900 text-white">
       <div class="max-w-7xl mx-auto px-5 md:px-8 py-20 md:py-28 grid grid-cols-1 lg:grid-cols-12 gap-10 items-end">

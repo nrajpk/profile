@@ -3,6 +3,8 @@ import Layout from '../layouts/Layout.astro';
 import HandoffChain from '../components/HandoffChain.jsx';
 import BentoSystems from '../components/BentoSystems.jsx';
 import { chain, craft, ecosystem, measurement } from '../data/systems.js';
+import Composer from '../components/Composer.jsx';
+import { chains, chainStatus, principles } from '../data/compose.js';
 ---
 
 <Layout
@@ -29,6 +31,24 @@ import { chain, craft, ecosystem, measurement } from '../data/systems.js';
       </div>
     </section>
 
+    <!-- How the separate builds compose -->
+    <section id="compose" class="scroll-mt-24 border-t border-stone-200">
+      <div class="max-w-7xl mx-auto px-5 md:px-8 py-24 md:py-32">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-end mb-12 md:mb-16">
+          <div class="lg:col-span-8">
+            <span class="kicker mb-6">Composed systems</span>
+            <h2 class="font-serif text-5xl md:text-6xl leading-[0.98] tracking-tight" data-reveal>
+              No build stands alone. <span class="italic text-stone-400">Here is what they add up to.</span>
+            </h2>
+          </div>
+          <p class="lg:col-span-4 text-stone-600 leading-relaxed" data-reveal style="--d:120ms">
+            Each project on this site solves one handoff. Put side by side, they form five larger systems. Pick one to see which build owns which step, and how finished each step is.
+          </p>
+        </div>
+        <Composer client:load chains={chains} statusLabels={chainStatus} />
+      </div>
+    </section>
+
     <!-- Two lanes: the craft and the systems around it -->
     <section class="max-w-7xl mx-auto px-5 md:px-8 pb-24 md:pb-32 grid grid-cols-1 lg:grid-cols-12 gap-y-14 gap-x-14">
       <div class="lg:col-span-5" data-reveal>
@@ -49,6 +69,31 @@ import { chain, craft, ecosystem, measurement } from '../data/systems.js';
 
     <!-- Three lenses -->
     <BentoSystems client:visible />
+
+    <!-- Principles that repeat across the builds -->
+    <section class="max-w-7xl mx-auto px-5 md:px-8 pt-24 md:pt-32">
+      <h2 class="font-serif text-5xl md:text-6xl leading-[0.98] tracking-tight max-w-4xl mb-12 md:mb-16" data-reveal>
+        Four decisions <span class="italic text-stone-400">I keep making.</span>
+      </h2>
+      <div class="border-t border-stone-200">
+        {principles.map((p, i) => (
+          <article class="grid grid-cols-1 lg:grid-cols-12 gap-x-14 gap-y-6 py-10 md:py-12 border-b border-stone-200" data-reveal>
+            <div class="lg:col-span-5">
+              <h3 class="font-serif text-4xl md:text-[2.75rem] leading-[1.02] tracking-tight">{p.title}</h3>
+              <p class="mt-4 text-stone-600 leading-relaxed max-w-md">{p.body}</p>
+            </div>
+            <dl class="lg:col-span-7">
+              {p.where.map(([name, fact]) => (
+                <div class="principle-row grid grid-cols-1 sm:grid-cols-[12rem_1fr] gap-x-6 gap-y-1 py-3 border-b border-stone-200 last:border-b-0">
+                  <dt class="font-semibold text-sm">{name}</dt>
+                  <dd class="text-sm text-stone-600 leading-relaxed">{fact}</dd>
+                </div>
+              ))}
+            </dl>
+          </article>
+        ))}
+      </div>
+    </section>
 
     <!-- Measurement & attribution -->
     <section class="max-w-7xl mx-auto px-5 md:px-8 py-24 md:py-36 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
@@ -84,6 +129,9 @@ import { chain, craft, ecosystem, measurement } from '../data/systems.js';
 </Layout>
 
 <style>
+  .principle-row { transition: padding-left 0.5s var(--ease-out-expo); }
+  .principle-row:hover { padding-left: 0.5rem; }
+  .principle-row:hover dt { color: var(--color-zapier); }
   .lanes { display: flex; flex-wrap: wrap; gap: 0.5rem; }
   .lane {
     padding: 0.5rem 0.95rem;

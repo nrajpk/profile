@@ -211,6 +211,11 @@ html.js [data-reveal="wipe"].in {
   clip-path: inset(-0.25em -0.25em -0.25em -0.25em);
 }
 
+/* Photographs follow the page skin: natural on Paper, deeper on Ink,
+   a blue duotone on Blueprint. */
+html[data-skin="ink"] .photo { filter: contrast(1.08) brightness(0.94); }
+html[data-skin="blueprint"] .photo { filter: grayscale(1) sepia(1) hue-rotate(178deg) saturate(1.5) brightness(0.92); }
+
 /* 6. PROJECT COVERS — diagram animations */
 .cover { color: var(--color-stone-400); }
 .cover text { font-family: var(--font-mono); font-size: 7.5px; letter-spacing: 0.14em; fill: var(--color-stone-500); text-transform: uppercase; }
@@ -236,6 +241,18 @@ html.js [data-reveal="wipe"].in {
   94% { opacity: 1; }
   100% { offset-distance: 100%; opacity: 0; }
 }
+
+.cover .travel-free { offset-path: path("M40 125 H360"); animation: cover-travel-free 5s var(--ease-out-expo) infinite; }
+.cover .travel-curve { offset-path: path("M56 190 C 120 190, 120 96, 200 96 S 290 150, 340 110"); animation: cover-travel-free 5.5s ease-in-out infinite; }
+@keyframes cover-travel-free {
+  0% { offset-distance: 0%; opacity: 0; }
+  8% { opacity: 1; }
+  88% { opacity: 1; }
+  100% { offset-distance: 100%; opacity: 0; }
+}
+
+.cover .playhead { animation: cover-playhead 8s linear infinite; }
+@keyframes cover-playhead { to { transform: translateX(318px); } }
 
 .cover .deal { animation: cover-deal 7s var(--ease-out-expo) infinite; }
 @keyframes cover-deal {
@@ -278,5 +295,5 @@ html.js [data-reveal="wipe"].in {
     scroll-behavior: auto !important;
   }
   html.js [data-reveal] { opacity: 1; transform: none; clip-path: none; }
-  .cover .travel, .cover .unit { opacity: 1; }
+  .cover .travel, .cover .travel-free, .cover .travel-curve, .cover .unit { opacity: 1; }
 }

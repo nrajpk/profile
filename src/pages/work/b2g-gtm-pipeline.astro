@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import ProjectCover from '../../components/ProjectCover.jsx';
+import ChainPosition from '../../components/ChainPosition.astro';
 
 // LIVE TELEMETRY — pulled from production tooling on 20 Jul 2026.
 // Update these by re-querying n8n + Instantly. Do not invent values.
@@ -89,9 +90,9 @@ const stack = ['n8n', 'Apollo API', 'Apify', 'Airtable', 'Instantly', 'Smartlead
         <span class="font-mono text-[10px] font-bold text-zapier uppercase tracking-[0.35em] mb-5 block">
           System Breakdown // Live Production
         </span>
-        <h1 class="text-4xl md:text-6xl font-bold tracking-tight text-stone-900 leading-[1.02] mb-8">
+        <h1 class="font-serif text-5xl md:text-7xl font-normal tracking-tight text-stone-900 leading-[0.98] mb-8">
           A B2G outbound pipeline where automation does the work and
-          <span class="font-serif italic font-normal text-stone-400">judgment does the deciding.</span>
+          <span class="italic text-stone-400">judgment does the deciding.</span>
         </h1>
         <p class="text-stone-500 text-lg md:text-xl leading-relaxed max-w-2xl">
           Built for long-cycle armoured vehicle sales into government and defense-adjacent markets — an environment where one careless email costs more than a hundred good ones earn. Every design decision below follows from that constraint.
@@ -99,32 +100,34 @@ const stack = ['n8n', 'Apollo API', 'Apify', 'Airtable', 'Instantly', 'Smartlead
       </header>
 
       <!-- System diagram -->
-      <figure class="mb-16 bg-stone-100 border border-stone-200 p-4 md:p-8" data-reveal="wipe">
+      <figure class="mb-8 bg-stone-100 border border-stone-200 p-4 md:p-8" data-reveal="wipe">
         <ProjectCover kind="pipeline" />
       </figure>
 
+      <ChainPosition />
+
       <!-- Live telemetry -->
       <section class="mb-16">
-        <div class="bg-stone-950 text-white rounded-[32px] p-8 md:p-10">
+        <div class="bg-stone-950 text-white p-8 md:p-10">
           <div class="flex flex-wrap items-center justify-between gap-3 mb-8">
             <span class="font-mono text-[9px] font-bold uppercase tracking-[0.3em] text-zapier">Production Telemetry</span>
             <span class="font-mono text-[9px] text-stone-500 uppercase tracking-widest">Queried from live tooling &middot; {telemetry.pulledOn}</span>
           </div>
           <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
             <div>
-              <p class="text-4xl font-bold tracking-tighter">{telemetry.executionsTotal}</p>
+              <p class="font-serif text-5xl leading-none tracking-tight tabular-nums">{telemetry.executionsTotal}</p>
               <p class="font-mono text-[9px] uppercase tracking-widest text-stone-500 mt-2">Workflow executions</p>
             </div>
             <div>
-              <p class="text-4xl font-bold tracking-tighter">{telemetry.recentSuccessRate}</p>
+              <p class="font-serif text-5xl leading-none tracking-tight tabular-nums">{telemetry.recentSuccessRate}</p>
               <p class="font-mono text-[9px] uppercase tracking-widest text-stone-500 mt-2">Success rate, last {telemetry.recentSampleSize} runs</p>
             </div>
             <div>
-              <p class="text-4xl font-bold tracking-tighter">{telemetry.emailsSent} &rarr; {telemetry.positiveReplies}</p>
+              <p class="font-serif text-5xl leading-none tracking-tight tabular-nums">{telemetry.emailsSent} &rarr; {telemetry.positiveReplies}</p>
               <p class="font-mono text-[9px] uppercase tracking-widest text-stone-500 mt-2">First emails &rarr; positive replies</p>
             </div>
             <div>
-              <p class="text-4xl font-bold tracking-tighter">{telemetry.opportunities}</p>
+              <p class="font-serif text-5xl leading-none tracking-tight tabular-nums">{telemetry.opportunities}</p>
               <p class="font-mono text-[9px] uppercase tracking-widest text-stone-500 mt-2">Opportunity created</p>
             </div>
           </div>
@@ -136,13 +139,13 @@ const stack = ['n8n', 'Apollo API', 'Apify', 'Airtable', 'Instantly', 'Smartlead
 
       <!-- Problem & constraint -->
       <section class="mb-16 grid md:grid-cols-2 gap-8">
-        <div class="bg-white border border-stone-200 rounded-[28px] p-8">
+        <div class="bg-white border border-stone-200 p-8">
           <span class="font-mono text-[9px] font-bold uppercase tracking-[0.3em] text-stone-400 block mb-4">The Problem</span>
           <p class="text-stone-600 leading-relaxed">
             Sourcing B2G prospects meant hours of manual research per batch, inconsistent record quality, and no clean handoff between research, qualification, and outreach. Sales attention was going into copy-paste work instead of conversations.
           </p>
         </div>
-        <div class="bg-white border border-stone-200 rounded-[28px] p-8">
+        <div class="bg-white border border-stone-200 p-8">
           <span class="font-mono text-[9px] font-bold uppercase tracking-[0.3em] text-stone-400 block mb-4">The Constraint</span>
           <p class="text-stone-600 leading-relaxed">
             Defense-adjacent outreach cannot tolerate spray-and-pray. Wrong targets, burned domains, or sloppy personalization carry reputational cost far beyond marketing. The system had to be fast <em>and</em> conservative — which is exactly the tension the architecture resolves.
@@ -152,8 +155,8 @@ const stack = ['n8n', 'Apollo API', 'Apify', 'Airtable', 'Instantly', 'Smartlead
 
       <!-- Pipeline -->
       <section class="mb-16">
-        <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-stone-900 mb-8 font-serif italic">The pipeline.</h2>
-        <div class="bg-paper border border-stone-200 rounded-[28px] p-8">
+        <h2 class="font-serif italic text-4xl md:text-5xl font-normal tracking-tight text-stone-900 leading-none mb-8">The pipeline.</h2>
+        <div class="bg-paper border border-stone-200 p-8">
           <ol class="space-y-4">
             {pipeline.map((step, i) => (
               <li class="flex items-center gap-4 text-stone-700">
@@ -168,17 +171,17 @@ const stack = ['n8n', 'Apollo API', 'Apify', 'Airtable', 'Instantly', 'Smartlead
 
       <!-- Decisions -->
       <section class="mb-16">
-        <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-stone-900 mb-4 font-serif italic">Six decisions that define the system.</h2>
+        <h2 class="font-serif italic text-4xl md:text-5xl font-normal tracking-tight text-stone-900 leading-none mb-4">Six decisions that define the system.</h2>
         <p class="text-stone-500 leading-relaxed mb-10 max-w-2xl">
           Anyone can wire APIs together. The system is the set of choices about what <em>not</em> to automate, what not to track, and what not to send.
         </p>
         <div class="space-y-6">
           {decisions.map((d) => (
-            <article class="bg-white border border-stone-200 rounded-[28px] p-8 hover:border-zapier/40 transition-colors">
+            <article class="bg-white border border-stone-200 p-8 hover:border-zapier/40 transition-colors">
               <div class="flex items-start gap-5">
                 <span class="font-mono text-xs font-bold text-zapier mt-1">{d.n}</span>
                 <div>
-                  <h3 class="text-xl font-bold text-stone-900 mb-3 leading-tight">{d.title}</h3>
+                  <h3 class="font-serif text-3xl text-stone-900 mb-3 leading-[1.05] tracking-tight">{d.title}</h3>
                   <p class="text-stone-600 text-sm leading-relaxed mb-4">{d.what}</p>
                   <p class="text-stone-400 text-sm leading-relaxed border-l-2 border-stone-100 pl-4">
                     <span class="font-mono text-[9px] font-bold uppercase tracking-widest text-stone-400 block mb-1">Why not the obvious alternative</span>
@@ -203,7 +206,7 @@ const stack = ['n8n', 'Apollo API', 'Apify', 'Airtable', 'Instantly', 'Smartlead
 
       <!-- Disclosure -->
       <section class="mb-20">
-        <div class="bg-stone-50 border border-stone-200 rounded-[28px] p-8">
+        <div class="bg-stone-50 border border-stone-200 p-8">
           <span class="font-mono text-[9px] font-bold uppercase tracking-[0.3em] text-stone-400 block mb-4">Disclosure</span>
           <p class="text-stone-500 text-sm leading-relaxed">
             Telemetry figures were queried directly from the production workflow engine and sending platform on {telemetry.pulledOn}. Prospect data, recipient identities, campaign contents, and client-specific details are omitted. Figures reflect an early controlled-volume phase and are reported as-is, without extrapolation.
@@ -213,7 +216,7 @@ const stack = ['n8n', 'Apollo API', 'Apify', 'Airtable', 'Instantly', 'Smartlead
 
       <!-- CTA -->
       <section class="text-center">
-        <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-stone-900 mb-6 font-serif italic">Want the deeper walkthrough?</h2>
+        <h2 class="font-serif italic text-4xl md:text-5xl font-normal tracking-tight text-stone-900 leading-none mb-6">Want the deeper walkthrough?</h2>
         <p class="text-stone-500 leading-relaxed max-w-xl mx-auto mb-8">
           I can walk through the workflow architecture, the qualification prompt design, and the deliverability setup live — with the actual system on screen.
         </p>

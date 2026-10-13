@@ -275,6 +275,12 @@ html[data-skin="blueprint"] .photo { filter: grayscale(1) sepia(1) hue-rotate(17
 .cover .bar { transform-box: fill-box; transform-origin: bottom; animation: cover-bar 4.5s var(--ease-out-expo) infinite alternate; animation-delay: calc(var(--i) * 0.25s); }
 @keyframes cover-bar { from { transform: scaleY(0.35); } to { transform: scaleY(1); } }
 
+/* Hero collage: tower windows (one per build) and the handwritten note. */
+.window { display: block; background: color-mix(in srgb, var(--color-stone-500) 55%, transparent); }
+.window.lit { background: var(--color-zapier); animation: window-lit 5s ease-in-out infinite; animation-delay: calc(var(--i) * 0.4s); }
+@keyframes window-lit { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+.hand { font-family: "Caveat", cursive; font-weight: 600; }
+
 /* Orbit lettering around the hero portrait. */
 .orbit { animation: spin 48s linear infinite; transform-origin: center; }
 

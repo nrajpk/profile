@@ -3,6 +3,7 @@
 // 12 Oct 2026). Status labels are deliberate: do not promote a prototype to
 // "live", and do not add outcome claims the source repo cannot back up.
 //
+// chain: id of the composed system on /systems this build belongs to.
 // status: live | internal | build | pilot | prototype | concept | creative
 
 export const statusLabels = {
@@ -25,6 +26,7 @@ export const groups = [
 export const archive = [
   {
     id: 'mahindraarmored-com',
+    chain: 'sales',
     group: 'company',
     status: 'live',
     title: 'mahindraarmored.com',
@@ -38,6 +40,7 @@ export const archive = [
   },
   {
     id: 'service-network-map',
+    chain: 'sales',
     group: 'company',
     status: 'live',
     title: 'Global Service Network map',
@@ -50,7 +53,22 @@ export const archive = [
     link: { href: 'https://support.mahindraarmored.com', label: 'support.mahindraarmored.com' },
   },
   {
+    id: 'meva-console',
+    group: 'company',
+    status: 'live',
+    chain: 'sales',
+    title: 'MEVA Console',
+    line: 'The operations console behind the B2G pipeline: intelligence, lead generation and outreach.',
+    what: 'One console with three areas. Lead generation holds the master lead list, relevance and vehicle-fit marks and the lead pipeline. Outreach holds the campaign builder and outreach reporting. Intelligence adds a procurement view. It is where campaign configs are submitted and where the merged reporting is read.',
+    part: 'Designed and built it. The workflows it drives are documented in the B2G pipeline case study.',
+    stack: ['React', 'Vite', 'Supabase', 'n8n', 'Airtable'],
+    evidence: '122 commits, Jun – Oct 2026',
+    period: '2026',
+    related: { href: '/work/b2g-gtm-pipeline', label: 'B2G pipeline' },
+  },
+  {
     id: 'meva-finance',
+    chain: 'treasury',
     group: 'company',
     status: 'internal',
     title: 'MEVA Finance',
@@ -63,6 +81,7 @@ export const archive = [
   },
   {
     id: 'meva-connect',
+    chain: 'sales',
     group: 'company',
     status: 'prototype',
     title: 'MEVAConnect conversion flow',
@@ -88,6 +107,7 @@ export const archive = [
   },
   {
     id: 'meva-brand-film',
+    chain: 'sales',
     group: 'company',
     status: 'creative',
     title: 'MEVA brand film',
@@ -100,6 +120,7 @@ export const archive = [
   },
   {
     id: 'letsgo',
+    chain: 'product',
     group: 'product',
     status: 'build',
     title: 'Let’s Go',
@@ -112,6 +133,7 @@ export const archive = [
   },
   {
     id: 'ledge-keel',
+    chain: 'treasury',
     group: 'product',
     status: 'build',
     title: 'Ledge & Keel',
@@ -124,6 +146,7 @@ export const archive = [
   },
   {
     id: 'defense-auto',
+    chain: 'sales',
     group: 'product',
     status: 'pilot',
     title: 'defense.auto',
@@ -137,6 +160,7 @@ export const archive = [
   },
   {
     id: 'upholstery-ops',
+    chain: 'custody',
     group: 'client',
     status: 'build',
     title: 'Upholstery operations system',
@@ -197,6 +221,7 @@ export const archive = [
   },
   {
     id: 'hunt',
+    chain: 'collection',
     group: 'experiment',
     status: 'pilot',
     title: 'Hunt',

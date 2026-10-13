@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import ProjectCover from '../../components/ProjectCover.jsx';
+import ChainPosition from '../../components/ChainPosition.astro';
 
 // FACTS FROM THE REPOSITORY README AND SCHEMA — July 2026.
 const facts = {
@@ -88,9 +89,11 @@ const stack = ['Next.js', 'Supabase (Postgres, RLS, RPC)', 'Vercel', 'React'];
       </header>
 
       <!-- System diagram -->
-      <figure class="mb-16 bg-stone-100 border border-stone-200 p-4 md:p-8" data-reveal="wipe">
+      <figure class="mb-8 bg-stone-100 border border-stone-200 p-4 md:p-8" data-reveal="wipe">
         <ProjectCover kind="tracker" />
       </figure>
+
+      <ChainPosition />
 
       <!-- Facts -->
       <section class="mb-16">

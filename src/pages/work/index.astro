@@ -4,6 +4,9 @@ import ProjectCover from '../../components/ProjectCover.jsx';
 import { projects } from '../../data/projects.js';
 import WorkArchive from '../../components/WorkArchive.jsx';
 import { archive, groups, statusLabels } from '../../data/archive.js';
+import { chains } from '../../data/compose.js';
+
+const chainNames = Object.fromEntries(chains.map((c) => [c.id, c.tab]));
 ---
 
 <Layout
@@ -97,10 +100,10 @@ import { archive, groups, statusLabels } from '../../data/archive.js';
             </h2>
           </div>
           <p class="lg:col-span-4 text-stone-600 leading-relaxed" data-reveal style="--d:120ms">
-            Company platforms, my own products, client builds and experiments. Each one says what it is, what my part was, and how far along it is. Most of the code is private, so the evidence shown is the repository's own history.
+            Company platforms, my own products, client builds and experiments. Each one says what it is, what my part was, how far along it is, and which larger system it belongs to. Most of the code is private, so the evidence shown is the repository's own history.
           </p>
         </div>
-        <WorkArchive client:visible items={archive} groups={groups} statusLabels={statusLabels} />
+        <WorkArchive client:visible items={archive} groups={groups} statusLabels={statusLabels} chainNames={chainNames} />
       </div>
     </section>
 

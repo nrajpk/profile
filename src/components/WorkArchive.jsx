@@ -5,7 +5,7 @@ import { ArrowUpRight, Plus } from "lucide-react";
 const ease = [0.16, 1, 0.3, 1];
 
 // The wider body of work as a filterable index. Rows open in place.
-export default function WorkArchive({ items, groups, statusLabels }) {
+export default function WorkArchive({ items, groups, statusLabels, chainNames = {} }) {
   const reduce = useReducedMotion();
   const [group, setGroup] = useState("all");
   const [open, setOpen] = useState(null);
@@ -99,7 +99,7 @@ export default function WorkArchive({ items, groups, statusLabels }) {
                             <p className="text-stone-700 leading-relaxed">{item.part}</p>
                           </div>
                         </div>
-                        <div className="md:col-span-3 space-y-5">
+                        <div className="md:col-span-3 flex flex-col items-start gap-5">
                           <ul className="flex flex-wrap gap-2">
                             {item.stack.map((tool) => (
                               <li key={tool} className="px-3 py-1.5 border border-stone-300 rounded-full text-xs font-medium text-stone-600">
@@ -111,6 +111,11 @@ export default function WorkArchive({ items, groups, statusLabels }) {
                           {item.link && (
                             <a href={item.link.href} target="_blank" rel="noreferrer" className="link-arrow">
                               {item.link.label} <ArrowUpRight size={14} />
+                            </a>
+                          )}
+                          {item.chain && chainNames[item.chain] && (
+                            <a href={`/systems#compose-${item.chain}`} className="link-arrow">
+                              Part of: {chainNames[item.chain]} <ArrowUpRight size={14} />
                             </a>
                           )}
                           {item.related && (

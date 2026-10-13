@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import ProjectCover from '../../components/ProjectCover.jsx';
+import ChainPosition from '../../components/ChainPosition.astro';
 
 // PRODUCT SCOPE FACTS — observed from the live production system, July 2026.
 // Deliberately no pipeline counts, deal values, or client data.
@@ -87,9 +88,11 @@ const beforeAfter = [
       </header>
 
       <!-- System diagram -->
-      <figure class="mb-16 bg-stone-100 border border-stone-200 p-4 md:p-8" data-reveal="wipe">
+      <figure class="mb-8 bg-stone-100 border border-stone-200 p-4 md:p-8" data-reveal="wipe">
         <ProjectCover kind="crm" />
       </figure>
+
+      <ChainPosition />
 
       <!-- Product scope -->
       <section class="mb-16">

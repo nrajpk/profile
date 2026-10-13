@@ -2,6 +2,10 @@
 import Layout from '../layouts/Layout.astro';
 import { ArchitectEye, FormatReframe, OpticalInspectionLens, ConversionOptimizerDemo } from '../components/InterfaceDemos.jsx';
 import { skins } from '../data/site.js';
+import ArchiveCover from '../components/ArchiveCover.jsx';
+import { archive } from '../data/archive.js';
+
+const coverOf = (id) => archive.find((item) => item.id === id).cover;
 
 const skinNotes = {
   paper: 'Warm off-white, dark type, one orange. The default.',
@@ -78,30 +82,30 @@ const skinNotes = {
           Interfaces that exist. <span class="italic text-stone-400">Not mock-ups of ones that might.</span>
         </h2>
         <p class="lg:col-span-4 text-stone-600 leading-relaxed" data-reveal style="--d:120ms">
-          A live company site, a film written in code and a complete workshop site.
+          A live company site, a film written in code and a complete workshop site. Company work is shown as diagrams, not screenshots.
         </p>
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-x-10 gap-y-16">
         <figure class="lg:col-span-7" data-reveal="wipe">
-          <a href="https://www.mahindraarmored.com" target="_blank" rel="noreferrer" class="shot block overflow-hidden border border-stone-200">
-            <img src="/work/mahindraarmored.webp" alt="The mahindraarmored.com homepage: navigation, language selector and a full-width vehicle test-track hero." width="1400" height="875" loading="lazy" class="w-full h-auto" />
+          <a href="/work#company-website" class="shot block overflow-hidden border border-stone-200 bg-stone-100 p-4 md:p-8">
+            <ArchiveCover cover={coverOf('company-website')} />
           </a>
           <figcaption class="mt-5">
             <span class="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-stone-500"><span class="h-1.5 w-1.5 rounded-full bg-green-500"></span>Live · company website</span>
-            <span class="block mt-2 font-serif text-3xl md:text-4xl leading-none tracking-tight">mahindraarmored.com</span>
-            <span class="block mt-3 text-stone-600 leading-relaxed max-w-xl">Four languages on a Next.js front end. Built with an agency; my commits cover page-level SEO, the performance and accessibility passes, the vehicle gallery and staged releases. Screenshot of the live site, October 2026.</span>
+            <span class="block mt-2 font-serif text-3xl md:text-4xl leading-none tracking-tight">A defense manufacturer’s website</span>
+            <span class="block mt-3 text-stone-600 leading-relaxed max-w-xl">Four languages on a Next.js front end. Built with an agency; my commits cover page-level SEO, the performance and accessibility passes, the vehicle gallery and staged releases.</span>
           </figcaption>
         </figure>
 
         <figure class="lg:col-span-5 lg:mt-32" data-reveal="wipe" style="--d:120ms">
-          <div class="shot overflow-hidden border border-stone-200">
-            <img src="/work/brand-film.webp" alt="A frame from the brand film: a line of armoured vehicles outside the factory, captioned Fleets, built to order, scene 6 of 12." width="1600" height="900" loading="lazy" class="w-full h-auto" />
-          </div>
+          <a href="/work#brand-film" class="shot block overflow-hidden border border-stone-200 bg-stone-100 p-4 md:p-6">
+            <ArchiveCover cover={coverOf('brand-film')} />
+          </a>
           <figcaption class="mt-5">
-            <span class="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-stone-500"><span class="h-1.5 w-1.5 rounded-full bg-stone-400"></span>Creative · film in code</span>
-            <span class="block mt-2 font-serif text-3xl md:text-4xl leading-none tracking-tight">MEVA brand film</span>
-            <span class="block mt-3 text-stone-600 leading-relaxed">Twelve scenes and 65 seconds, composed and rendered programmatically rather than cut in an editor. A frame from scene six.</span>
+            <span class="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-stone-500"><span class="h-1.5 w-1.5 rounded-full bg-stone-400"></span>Rendered · film in code</span>
+            <span class="block mt-2 font-serif text-3xl md:text-4xl leading-none tracking-tight">Brand film</span>
+            <span class="block mt-3 text-stone-600 leading-relaxed">Twelve scenes and 65 seconds, composed and rendered programmatically rather than cut in an editor.</span>
           </figcaption>
         </figure>
 
@@ -121,7 +125,7 @@ const skinNotes = {
 
       <ul class="mt-20 border-t border-stone-200">
         {[
-          ['Global Service Network map', 'Live on the support site. Service hubs and support centres by region.', 'https://support.mahindraarmored.com'],
+          ['Global Service Network map', 'Live on the manufacturer’s support site. Service hubs and support centres by region.', '/work#service-network-map'],
           ['Let’s Go design system', 'Colour, type, motion and surface rules for an iOS-first trip app, with tests that enforce them.', '/systems#compose-product'],
           ['Duchè Gebba', 'A fashion storefront prototype with department, group and item navigation.', '/work#duche-gebba'],
           ['MACE ’16 Decennial', 'A live reunion site with a countdown, a poll and a photo archive.', '/work#mace-decennial'],
@@ -191,8 +195,8 @@ const skinNotes = {
 </Layout>
 
 <style>
-  .shot img { transition: transform 1.2s var(--ease-out-expo); }
-  .shot:hover img { transform: scale(1.03); }
+  .shot img, .shot svg { transition: transform 1.2s var(--ease-out-expo); }
+  .shot:hover img, .shot:hover svg { transform: scale(1.03); }
   .skin-card[aria-pressed="true"] { border-color: var(--color-zapier); box-shadow: inset 0 0 0 1px var(--color-zapier); }
   .skin-card .skin-state::after { content: "Apply"; }
   .skin-card[aria-pressed="true"] .skin-state { color: var(--color-zapier); }

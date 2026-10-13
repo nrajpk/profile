@@ -218,6 +218,25 @@ const Route = () => (
   </>
 );
 
+const Timeline = ({ scenes, label, tag }) => {
+  const w = 320 / scenes;
+  return (
+    <>
+      <text x="40" y="44">{label}</text>
+      <text x="360" y="44" textAnchor="end" className="hot-text">{tag}</text>
+      <rect x="40" y="62" width="320" height="104" rx="6" className="softer" strokeWidth="1" />
+      <path d="M186 98 L222 114 L186 130 Z" className="hot gate" />
+      {Array.from({ length: scenes }, (_, i) => (
+        <g key={i}>
+          <rect x={40 + i * w + 2} y="182" width={w - 4} height="22" rx="3" className="soft cell" style={{ "--i": i }} />
+          <text x={40 + i * w + w / 2} y="222" textAnchor="middle">{String(i + 1).padStart(2, "0")}</text>
+        </g>
+      ))}
+      <rect x="40" y="176" width="2" height="34" className="hot playhead" />
+    </>
+  );
+};
+
 const kinds = {
   flowline: [Flowline, (p) => `Diagram: ${p.nodes.join(", then ")}.`],
   ledger: [Ledger, (p) => `Diagram: ${p.left} scanned into ${p.right}.`],
@@ -227,6 +246,7 @@ const kinds = {
   phone: [Phone, () => "Diagram: a phone showing a trip as days and stops, between plan, travel and relive."],
   layers: [Layers, (p) => `Diagram: ${p.layers.join(", then ")}.`],
   countdown: [Countdown, (p) => `Diagram: a countdown to ${p.date} above a photo archive.`],
+  timeline: [Timeline, (p) => `Diagram: a film timeline of ${p.scenes} scenes with a moving playhead.`],
   route: [Route, () => "Diagram: a customer travelling to a restaurant, location shared only on the way."],
 };
 

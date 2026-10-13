@@ -246,6 +246,9 @@ html.js [data-reveal="wipe"].in {
   100% { offset-distance: 100%; opacity: 0; }
 }
 
+.cover .playhead { animation: cover-playhead 8s linear infinite; }
+@keyframes cover-playhead { to { transform: translateX(318px); } }
+
 .cover .deal { animation: cover-deal 7s var(--ease-out-expo) infinite; }
 @keyframes cover-deal {
   0%, 12% { transform: translate(0, 0); }

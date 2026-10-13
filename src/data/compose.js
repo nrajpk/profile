@@ -17,10 +17,10 @@ export const chains = [
     stages: [
       {
         verb: 'Attract',
-        project: 'mahindraarmored.com & the brand film',
+        project: 'Company website & brand film',
         line: 'The vehicle range, certifications and an enquiry form in four languages; a 65-second film for the top of the funnel.',
         status: 'live',
-        href: '/work#mahindraarmored-com',
+        href: '/work#company-website',
       },
       {
         verb: 'Sense',
@@ -31,7 +31,7 @@ export const chains = [
       },
       {
         verb: 'Source & reach',
-        project: 'MEVA Console · B2G pipeline',
+        project: 'Operations Console · B2G pipeline',
         line: 'Prospects searched, validated and scored against ICP rules. A person approves each one before a capped, stop-on-reply sequence sends.',
         status: 'live',
         href: '/work/b2g-gtm-pipeline',
@@ -52,10 +52,10 @@ export const chains = [
       },
       {
         verb: 'Convert',
-        project: 'MEVAConnect',
+        project: 'Order conversion flow',
         line: 'Onboarding, finance and accounts, then work-order release, each behind a stage gate with an audit trail.',
         status: 'prototype',
-        href: '/work#meva-connect',
+        href: '/work#order-conversion',
       },
       {
         verb: 'Build',
@@ -66,10 +66,10 @@ export const chains = [
       },
       {
         verb: 'Account',
-        project: 'MEVA Finance',
+        project: 'Finance workspace',
         line: 'Bank statements imported, checked for continuity and classified into liquidity and cash-flow reports.',
         status: 'internal',
-        href: '/work#meva-finance',
+        href: '/work#finance-workspace',
       },
       {
         verb: 'Support',
@@ -86,13 +86,13 @@ export const chains = [
     title: 'An internal tool, then a product.',
     thesis:
       'The finance workspace was built for one company’s bank accounts. Ledge & Keel is the same discipline with every company-specific assumption moved into configuration.',
-    note: 'MEVA Finance is an internal tool. Ledge & Keel is in development.',
+    note: 'The finance workspace is an internal tool. Ledge & Keel is in development.',
     sequence: true,
     stages: [
-      { verb: 'Import', project: 'MEVA Finance', line: 'Bank statements parsed per account stream, previewed before anything is saved.', status: 'internal', href: '/work#meva-finance' },
-      { verb: 'Control', project: 'MEVA Finance', line: 'Duplicate checks, balance-continuity checks and explicit acknowledgement of any break.', status: 'internal', href: '/work#meva-finance' },
-      { verb: 'Classify', project: 'MEVA Finance', line: 'Categories, counterparties and splits, with a record of every reclassification.', status: 'internal', href: '/work#meva-finance' },
-      { verb: 'Report', project: 'MEVA Finance', line: 'Liquidity views and Excel-ready cash-flow and fund-position outputs.', status: 'internal', href: '/work#meva-finance' },
+      { verb: 'Import', project: 'Finance workspace', line: 'Bank statements parsed per account stream, previewed before anything is saved.', status: 'internal', href: '/work#finance-workspace' },
+      { verb: 'Control', project: 'Finance workspace', line: 'Duplicate checks, balance-continuity checks and explicit acknowledgement of any break.', status: 'internal', href: '/work#finance-workspace' },
+      { verb: 'Classify', project: 'Finance workspace', line: 'Categories, counterparties and splits, with a record of every reclassification.', status: 'internal', href: '/work#finance-workspace' },
+      { verb: 'Report', project: 'Finance workspace', line: 'Liquidity views and Excel-ready cash-flow and fund-position outputs.', status: 'internal', href: '/work#finance-workspace' },
       { verb: 'Generalise', project: 'Ledge & Keel', line: 'Organisations, banks, currencies and import formats become configuration; each organisation’s data is isolated at the database; the whole thing self-hosts.', status: 'build', href: '/work#ledge-keel' },
     ],
   },
@@ -122,7 +122,7 @@ export const chains = [
     sequence: false,
     stages: [
       { verb: 'Tenders', project: 'Tender discovery in the CRM', line: 'System-found tenders appear on the same calendar as the pipeline, so an RFP always has an owner.', status: 'live', href: '/work/crm-product-ownership' },
-      { verb: 'Prospects', project: 'MEVA Console', line: 'Extraction with field validation and rate-limit guardrails before any AI step, and a search signature so re-runs never repeat a segment.', status: 'live', href: '/work/b2g-gtm-pipeline' },
+      { verb: 'Prospects', project: 'Operations Console', line: 'Extraction with field validation and rate-limit guardrails before any AI step, and a search signature so re-runs never repeat a segment.', status: 'live', href: '/work/b2g-gtm-pipeline' },
       { verb: 'Programmes', project: 'defense.auto', line: 'Five source connectors feed an evidence inbox. Capturing a document never asserts a fact on its own; an editor publishes.', status: 'pilot', href: '/work#defense-auto' },
       { verb: 'Roles', project: 'Hunt', line: 'Public job-board feeds every six hours, de-duplicated by source and content fingerprint, with persistent run records.', status: 'pilot', href: '/work#hunt' },
     ],
@@ -182,7 +182,7 @@ export const principles = [
       ['Upholstery operations', 'An append-only audit ledger.'],
       ['Ledge & Keel', 'Original statement files kept with their lineage; reclassifications and deletions recorded.'],
       ['Tender engine', 'The generated document traces each answer back to its requirement.'],
-      ['MEVAConnect', 'An audit trail across every stage gate.'],
+      ['Order conversion flow', 'An audit trail across every stage gate.'],
     ],
   },
   {

@@ -14,7 +14,7 @@ const deployments = [
     period: "2023 - PRESENT",
     phase: "Systems Layer",
     role: "Marketing & Digital Transformation",
-    company: "Mahindra Emirates Vehicle Armouring",
+    company: "Defense Manufacturer",
     location: "UAE (Global Markets)",
     environment: "B2B / B2G Defense Solutions",
     core: "Working across digital marketing, CRM workflows, data extraction, and global campaign operations for high-consideration markets.",

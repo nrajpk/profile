@@ -19,8 +19,8 @@ export const statusLabels = {
 
 export const groups = [
   { id: 'company', name: 'Company platforms', line: 'Built inside a defense manufacturer.' },
-  { id: 'product', name: 'Own products', line: 'No client, no employer. Mine from the first commit.' },
-  { id: 'client', name: 'Client & community', line: 'Built for other people’s businesses and occasions.' },
+  { id: 'product', name: 'Own products', line: 'Made for nobody else. Mine from the first commit.' },
+  { id: 'client', name: 'Friends & community', line: 'Built for people I know: their businesses and our occasions.' },
   { id: 'experiment', name: 'Experiments', line: 'Smaller builds that test one idea each.' },
 ];
 

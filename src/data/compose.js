@@ -102,7 +102,7 @@ export const chains = [
     title: 'Rules first, software second.',
     thesis:
       'For a stock-and-cash system, the business rules were proven in a prototype, frozen into a contract, and only then built for real, so the backend can be checked line by line against what was agreed.',
-    note: 'A client build in progress. The reference server runs today; the production backend is being built against it.',
+    note: 'A build for a friend’s business, in progress. The reference server runs today; the production backend is being built against it.',
     sequence: true,
     stages: [
       { verb: 'Prove', project: 'Prototype', line: '46 business rules for stock, transfers, production, cash handovers and discrepancies, worked through as a clickable prototype.', status: 'prototype', href: '/work#upholstery-ops' },
@@ -132,7 +132,7 @@ export const chains = [
     tab: 'Consumer product',
     title: 'One product, owned whole.',
     thesis:
-      'Let’s Go carries a trip from plan to travel to memory. It is the one build here with no client and no employer: product, design system, mobile app, API and web, all by one person.',
+      'Let’s Go carries a trip from plan to travel to memory. It is the one build here made for nobody else: product, design system, mobile app, API and web, all by one person.',
     note: 'In development. iOS first; not yet released.',
     sequence: false,
     stages: [

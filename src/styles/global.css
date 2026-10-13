@@ -211,6 +211,11 @@ html.js [data-reveal="wipe"].in {
   clip-path: inset(-0.25em -0.25em -0.25em -0.25em);
 }
 
+/* Photographs follow the page skin: natural on Paper, deeper on Ink,
+   a blue duotone on Blueprint. */
+html[data-skin="ink"] .photo { filter: contrast(1.08) brightness(0.94); }
+html[data-skin="blueprint"] .photo { filter: grayscale(1) sepia(1) hue-rotate(178deg) saturate(1.5) brightness(0.92); }
+
 /* 6. PROJECT COVERS — diagram animations */
 .cover { color: var(--color-stone-400); }
 .cover text { font-family: var(--font-mono); font-size: 7.5px; letter-spacing: 0.14em; fill: var(--color-stone-500); text-transform: uppercase; }

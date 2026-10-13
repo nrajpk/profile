@@ -183,15 +183,24 @@ export default function HeroStage() {
               initial={reduce ? false : { clipPath: "inset(100% 0 0 0)" }}
               animate={{ clipPath: "inset(0% 0 0 0)" }}
               transition={{ delay: 0.45, duration: 1.3, ease }}
-              className="group h-full w-full overflow-hidden bg-stone-200"
+              className="group relative h-full w-full overflow-hidden bg-stone-200"
             >
+              {/* Two sides: the studio portrait, and the colour one underneath it on hover */}
               <img
-                src="/portrait.webp"
-                alt="Nikhil Raj PK"
-                width="800"
-                height="800"
+                src="/photos/portrait-bw.webp"
+                alt="Nikhil Raj PK, arms crossed, leaning against a textured wall"
+                width="1122"
+                height="1402"
                 fetchPriority="high"
-                className="h-full w-full object-cover grayscale contrast-[1.08] group-hover:grayscale-0 scale-105 group-hover:scale-100 transition-all duration-1000 ease-out"
+                className="absolute inset-0 h-full w-full object-cover object-[50%_18%] scale-105 group-hover:scale-100 transition-transform duration-1000 ease-out"
+              />
+              <img
+                src="/photos/portrait-steps.webp"
+                alt=""
+                width="1086"
+                height="1448"
+                loading="lazy"
+                className="absolute inset-0 h-full w-full object-cover object-[50%_12%] opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out"
               />
             </motion.div>
             <p className="mt-3 text-xs text-stone-500 leading-snug">

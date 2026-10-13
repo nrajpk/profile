@@ -57,6 +57,9 @@ const routes = [
 
     <!-- Who am I -->
     <section class="max-w-7xl mx-auto px-5 md:px-8 py-24 md:py-36">
+      <figure class="desk mb-16 md:mb-24 overflow-hidden bg-stone-200" data-reveal="wipe">
+        <img src="/photos/desk.webp" alt="Nikhil Raj PK at a desk with a laptop and notebook" width="1672" height="941" loading="lazy" class="photo w-full aspect-[4/3] md:aspect-[21/9] object-cover object-[72%_35%]" />
+      </figure>
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
         <div class="lg:col-span-5" data-reveal>
           <span class="kicker mb-6">Who am I</span>
@@ -142,6 +145,8 @@ const routes = [
 </Layout>
 
 <style>
+  .desk img { transition: transform 1.6s var(--ease-out-expo), filter 0.8s; }
+  .desk:hover img { transform: scale(1.03); }
   .route { transition: color 0.5s var(--ease-out-expo); }
   .route-body { color: var(--color-stone-600); transition: color 0.5s var(--ease-out-expo); }
   .route-fill {

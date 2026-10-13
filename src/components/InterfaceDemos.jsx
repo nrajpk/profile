@@ -58,7 +58,7 @@ export const FormatReframe = () => {
           <motion.img
             layout
             transition={spring}
-            src="/portrait.webp"
+            src="/photos/portrait-bw.webp"
             alt=""
             className="absolute object-cover grayscale contrast-[1.08]"
             style={
@@ -117,7 +117,7 @@ export const OpticalInspectionLens = () => {
       onPointerEnter={() => setActive(true)}
       onPointerLeave={() => setActive(false)}
     >
-      <img src="/portrait.webp" alt="" className="absolute inset-0 h-full w-full object-cover object-[50%_22%] grayscale brightness-75 opacity-50" />
+      <img src="/photos/sofa-black.webp" alt="" className="absolute inset-0 h-full w-full object-cover object-[66%_30%] grayscale brightness-75 opacity-50" />
 
       <motion.div
         className="absolute inset-0 pointer-events-none"
@@ -128,7 +128,7 @@ export const OpticalInspectionLens = () => {
         }}
         transition={{ type: "spring", bounce: 0, duration: 0.2 }}
       >
-        <img src="/portrait.webp" alt="" className="absolute inset-0 h-full w-full object-cover object-[50%_22%] scale-[1.12]" />
+        <img src="/photos/sofa-black.webp" alt="" className="absolute inset-0 h-full w-full object-cover object-[66%_30%] scale-[1.12]" />
         <div
           className="absolute border-2 border-zapier rounded-full flex items-center justify-center"
           style={{ left: `${pos.x}%`, top: `${pos.y}%`, width: "200px", height: "200px", transform: "translate(-50%, -50%)" }}

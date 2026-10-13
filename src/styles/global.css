@@ -237,6 +237,15 @@ html.js [data-reveal="wipe"].in {
   100% { offset-distance: 100%; opacity: 0; }
 }
 
+.cover .travel-free { offset-path: path("M40 125 H360"); animation: cover-travel-free 5s var(--ease-out-expo) infinite; }
+.cover .travel-curve { offset-path: path("M56 190 C 120 190, 120 96, 200 96 S 290 150, 340 110"); animation: cover-travel-free 5.5s ease-in-out infinite; }
+@keyframes cover-travel-free {
+  0% { offset-distance: 0%; opacity: 0; }
+  8% { opacity: 1; }
+  88% { opacity: 1; }
+  100% { offset-distance: 100%; opacity: 0; }
+}
+
 .cover .deal { animation: cover-deal 7s var(--ease-out-expo) infinite; }
 @keyframes cover-deal {
   0%, 12% { transform: translate(0, 0); }
@@ -278,5 +287,5 @@ html.js [data-reveal="wipe"].in {
     scroll-behavior: auto !important;
   }
   html.js [data-reveal] { opacity: 1; transform: none; clip-path: none; }
-  .cover .travel, .cover .unit { opacity: 1; }
+  .cover .travel, .cover .travel-free, .cover .travel-curve, .cover .unit { opacity: 1; }
 }

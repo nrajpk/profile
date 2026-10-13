@@ -1,8 +1,8 @@
 import React, { useEffect, useRef } from "react";
 
-// The handoff chain as a living field. Records enter on the left, a share
-// is dropped at Qualify, the rest queue at the human approval gate and
-// leave it approved (accent colour) and faster. The cursor pushes records
+// The handoff chain as a living field (Systems page). Records enter on the
+// left, a share is dropped at Qualify, the rest queue at the human approval
+// gate and leave it approved (accent colour) and a little faster. The cursor pushes records
 // off their lane; they spring back. Canvas 2D, paused when off-screen or
 // the tab is hidden, and a single still frame under reduced motion.
 
@@ -43,18 +43,14 @@ export default function SystemField() {
     };
 
     // Lane geometry: a wide stream that pinches at the gate and fans out again.
-    // Before the gate the stream runs wide under the copy; after it, the
-    // approved records drop into a tight band along the foot of the hero so
-    // they stay in view beside the portrait instead of passing behind it.
+    // A wide stream that pinches to a single file at the approval gate,
+    // then leaves it as a tight band.
     const smooth = (x) => (x <= 0 ? 0 : x >= 1 ? 1 : x * x * (3 - 2 * x));
-    const centre = (t) => {
-      const fall = smooth((t - GATE) / 0.2);
-      return height * (0.735 + 0.02 * Math.sin(t * Math.PI * 3) * (1 - fall) + 0.17 * fall);
-    };
+    const centre = (t) => height * (0.5 + 0.03 * Math.sin(t * Math.PI * 3) * (1 - smooth((t - GATE + 0.1) / 0.1)));
     const spread = (t) => {
-      const wide = height * 0.15;
-      const narrow = height * 0.02;
-      if (t > GATE) return narrow + height * 0.012 * smooth((t - GATE) / 0.2);
+      const wide = height * 0.3;
+      const narrow = height * 0.035;
+      if (t > GATE) return narrow + height * 0.03 * smooth((t - GATE) / 0.25);
       return wide - (wide - narrow) * gauss(t, GATE, 0.085);
     };
 
@@ -115,7 +111,7 @@ export default function SystemField() {
       for (const p of particles) {
         // Queue before the gate, release quickly after it.
         const slow = 1 - 0.82 * gauss(p.t, GATE - 0.035, 0.04);
-        const boost = p.t > GATE ? 1.7 : 1;
+        const boost = p.t > GATE ? 1.25 : 1;
         p.t += p.speed * slow * boost * dt;
         if (p.t > 1.04) spawn(p, false);
 
@@ -131,7 +127,7 @@ export default function SystemField() {
 
         const wobble = Math.sin(p.phase + p.t * 14) * 2.2;
         const bx = p.t * width;
-        const by = centre(p.t) + p.u * spread(p.t) + wobble + (p.drop && p.t > QUALIFY ? (p.t - QUALIFY) * height * 1.4 : 0);
+        const by = centre(p.t) + p.u * spread(p.t) + wobble + (p.drop && p.t > QUALIFY ? (p.t - QUALIFY) * height * 2.2 : 0);
 
         // Cursor pushes records off their lane; a spring pulls them back.
         if (pointer.active) {

@@ -29,19 +29,21 @@ export default function FeaturedIndex({ projects }) {
                 <div className="min-w-0">
                   <h3
                     className={`font-serif text-3xl md:text-[2.6rem] leading-[1.02] tracking-tight transition-all duration-500 lg:group-hover:translate-x-3 ${
-                      active === i ? "lg:text-stone-900" : "lg:text-stone-400"
+                      active === i ? "lg:text-stone-900" : "lg:text-quiet"
                     }`}
                   >
                     {project.title}
                   </h3>
-                  <p className="mt-3 text-sm text-stone-500">{project.tools.join(" · ")}</p>
+                  <p className="mt-3 text-stone-700 leading-relaxed max-w-xl">{project.after}</p>
+                  <p className="mt-2 text-sm text-stone-600">{project.tools.join(" · ")}</p>
                 </div>
                 <span
                   className={`mt-2 shrink-0 h-10 w-10 rounded-full border flex items-center justify-center transition-all duration-500 ${
                     active === i
                       ? "lg:bg-zapier lg:border-zapier lg:text-white lg:rotate-0"
                       : "lg:-rotate-45"
-                  } border-stone-300 text-stone-500 group-hover:bg-zapier group-hover:border-zapier group-hover:text-white`}
+                  } border-stone-300 text-stone-600 group-hover:bg-zapier group-hover:border-zapier group-hover:text-white`}
+                  aria-hidden="true"
                 >
                   <ArrowUpRight size={16} />
                 </span>
@@ -51,7 +53,7 @@ export default function FeaturedIndex({ projects }) {
         ))}
       </ol>
 
-      <div className="hidden lg:block lg:col-span-5 sticky top-28">
+      <div className="hidden lg:block lg:col-span-5 sticky top-28" aria-hidden="true">
         <div className="relative bg-stone-100 border border-stone-200 p-6 overflow-hidden">
           <AnimatePresence mode="wait" initial={false}>
             <motion.div

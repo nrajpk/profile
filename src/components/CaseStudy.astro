@@ -1,0 +1,201 @@
+---
+// One template for every system breakdown under /work. Pages pass data only,
+// so the four breakdowns share the editorial type, labels and spacing of
+// the rest of the site. Paragraph props that need emphasis accept inline
+// HTML (author-controlled strings only).
+import Layout from '../layouts/Layout.astro';
+import ProjectCover from './ProjectCover.jsx';
+import ChainPosition from './ChainPosition.astro';
+import { projects } from '../data/projects.js';
+import { contact } from '../data/site.js';
+
+const {
+  slug,
+  title,
+  description,
+  headline,
+  headlineQuiet,
+  lede,
+  figures,
+  problem,
+  constraint,
+  sequence,
+  comparison,
+  decisionsTitle,
+  decisionsIntro,
+  decisions,
+  stack = [],
+  disclosure,
+  walkthrough,
+} = Astro.props;
+
+const index = projects.findIndex((p) => p.slug === slug);
+const project = projects[index];
+const next = projects[(index + 1) % projects.length];
+const arrow = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9" /></svg>';
+---
+
+<Layout title={title} description={description}>
+  <main id="main" class="overflow-x-clip">
+    <article>
+      <header class="max-w-7xl mx-auto px-5 md:px-8 pt-32 md:pt-44 pb-12 md:pb-16">
+        <a href="/work" class="inline-flex items-center gap-2 py-2 text-sm font-medium text-stone-600 hover:text-zapier-ink transition-colors">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7" /></svg>
+          All work
+        </a>
+        <div class="mt-10 max-w-4xl">
+          <p class="label flex items-center gap-2">
+            <span class:list={['h-1.5 w-1.5 rounded-full', project.status.startsWith('Live') ? 'bg-green-500' : 'bg-zapier']}></span>
+            {project.status}
+          </p>
+          <h1 class="mt-6 font-serif font-normal text-[clamp(2.5rem,5.6vw,4.75rem)] leading-[1] tracking-tight">
+            {headline} <span class="italic text-quiet">{headlineQuiet}</span>
+          </h1>
+          <p class="mt-8 text-lg md:text-xl text-stone-600 leading-relaxed max-w-2xl">{lede}</p>
+        </div>
+      </header>
+
+      <div class="max-w-7xl mx-auto px-5 md:px-8">
+        <div class="max-w-5xl">
+          <!-- What changed -->
+          <section aria-labelledby="changed" class="border-y border-stone-200 py-8 md:py-10 mb-12 md:mb-16">
+            <h2 id="changed" class="sr-only">What changed</h2>
+            <dl class="grid grid-cols-1 md:grid-cols-12 gap-x-10 gap-y-6">
+              <div class="md:col-span-5">
+                <dt class="label">Before</dt>
+                <dd class="mt-2 text-stone-600 leading-relaxed">{project.before}</dd>
+              </div>
+              <div class="md:col-span-7">
+                <dt class="label text-zapier-ink!">Now</dt>
+                <dd class="mt-2 font-serif text-2xl md:text-3xl leading-[1.15]">{project.after}</dd>
+              </div>
+            </dl>
+          </section>
+
+          <figure class="mb-10 bg-stone-100 border border-stone-200 p-4 md:p-8" data-reveal="wipe">
+            <ProjectCover kind={project.cover} />
+          </figure>
+
+          <ChainPosition />
+
+          <!-- Figures -->
+          <section aria-labelledby="figures" class="mb-20 md:mb-24 bg-stone-900 text-white p-7 md:p-10">
+            <div class="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2 mb-8">
+              <h2 id="figures" class="text-xs font-semibold uppercase tracking-[0.2em] text-stone-300">{figures.label}</h2>
+              <p class="text-sm text-stone-300">{figures.asOf}</p>
+            </div>
+            <dl class="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-8">
+              {figures.items.map((item) => (
+                <div class="flex flex-col-reverse">
+                  <dt class="mt-2 text-sm text-stone-300 leading-snug">{item.label}</dt>
+                  <dd class="font-serif text-5xl leading-none tracking-tight tabular-nums">{item.value}</dd>
+                </div>
+              ))}
+            </dl>
+            <p class="mt-8 pt-6 border-t border-white/15 text-sm text-stone-300 leading-relaxed max-w-3xl">{figures.note}</p>
+          </section>
+
+          {problem && (
+            <section class="mb-20 md:mb-24 grid grid-cols-1 md:grid-cols-2 gap-x-14 gap-y-10 border-t border-stone-200 pt-10">
+              <div>
+                <h2 class="label">The problem</h2>
+                <p class="mt-4 text-lg text-stone-700 leading-relaxed" set:html={problem} />
+              </div>
+              <div>
+                <h2 class="label">The constraint</h2>
+                <p class="mt-4 text-lg text-stone-700 leading-relaxed" set:html={constraint} />
+              </div>
+            </section>
+          )}
+
+          {sequence && (
+            <section class="mb-20 md:mb-24">
+              <h2 class="font-serif italic text-4xl md:text-5xl tracking-tight leading-none mb-8">{sequence.title}</h2>
+              <ol class="flow max-w-3xl">
+                {sequence.steps.map((step) => <li class="flow-step">{step}</li>)}
+              </ol>
+            </section>
+          )}
+
+          {comparison && (
+            <section class="mb-20 md:mb-24">
+              <h2 class="font-serif italic text-4xl md:text-5xl tracking-tight leading-none mb-8">{comparison.title}</h2>
+              <div class="border-t border-stone-200">
+                <div class="hidden md:grid grid-cols-2 gap-x-10 py-4 border-b border-stone-200">
+                  <p class="label">{comparison.beforeLabel}</p>
+                  <p class="label text-zapier-ink!">{comparison.afterLabel}</p>
+                </div>
+                <ul>
+                  {comparison.rows.map((row) => (
+                    <li class="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-2 py-5 border-b border-stone-200">
+                      <p class="text-stone-600 leading-relaxed"><span class="md:hidden label block mb-1">{comparison.beforeLabel}</span>{row.before}</p>
+                      <p class="text-stone-900 leading-relaxed"><span class="md:hidden label text-zapier-ink! block mb-1">{comparison.afterLabel}</span>{row.after}</p>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </section>
+          )}
+
+          <!-- Decisions -->
+          <section class="mb-20 md:mb-24">
+            <h2 class="font-serif italic text-4xl md:text-5xl tracking-tight leading-none">{decisionsTitle}</h2>
+            <p class="mt-5 text-lg text-stone-600 leading-relaxed max-w-2xl" set:html={decisionsIntro} />
+            <ol class="mt-10 border-t border-stone-200">
+              {decisions.map((d) => (
+                <li id={`decision-${d.n}`} class="grid grid-cols-[2.25rem_1fr] md:grid-cols-[4rem_1fr] gap-x-4 py-10 md:py-12 border-b border-stone-200 scroll-mt-24">
+                  <span class="font-serif text-2xl leading-none text-zapier-ink tabular-nums pt-1">{d.n}</span>
+                  <div>
+                    <h3 class="font-serif text-3xl md:text-4xl leading-[1.05] tracking-tight">{d.title}</h3>
+                    <p class="mt-4 text-stone-700 leading-relaxed max-w-2xl">{d.what}</p>
+                    <div class="mt-6 pl-5 border-l border-stone-300 max-w-2xl">
+                      <p class="label">Why not the obvious alternative</p>
+                      <p class="mt-2 text-stone-600 leading-relaxed">{d.whyNot}</p>
+                    </div>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </section>
+
+          {stack.length > 0 && (
+            <section class="mb-14">
+              <h2 class="label">Stack</h2>
+              <ul class="mt-4 flex flex-wrap gap-2">
+                {stack.map((t) => (
+                  <li class="px-3 py-1.5 border border-stone-300 rounded-full text-sm font-medium text-stone-700">{t}</li>
+                ))}
+              </ul>
+            </section>
+          )}
+
+          <aside class="mb-20 md:mb-28 border-t border-stone-200 pt-8" aria-labelledby="disclosure">
+            <h2 id="disclosure" class="label">Disclosure</h2>
+            <p class="mt-3 text-sm text-stone-600 leading-relaxed max-w-3xl">{disclosure}</p>
+          </aside>
+
+          <!-- Walkthrough and next -->
+          <section class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-end border-t border-stone-200 pt-14 md:pt-20 mb-8">
+            <div class="lg:col-span-7">
+              <h2 class="font-serif italic text-4xl md:text-5xl tracking-tight leading-none">Want the deeper walkthrough?</h2>
+              <p class="mt-5 text-stone-600 leading-relaxed max-w-xl">{walkthrough}</p>
+              <div class="mt-8 flex flex-wrap items-center gap-x-8 gap-y-4">
+                <a href={`mailto:${contact.email}?subject=${encodeURIComponent(`Walkthrough: ${project.title}`)}`} class="inline-flex items-center gap-2 h-14 px-8 rounded-full bg-stone-900 text-white font-semibold text-sm hover:bg-zapier-ink transition-colors active:scale-95">
+                  Book a system walkthrough
+                </a>
+                <a href={contact.linkedin} target="_blank" rel="noreferrer" class="link-arrow">LinkedIn <Fragment set:html={arrow} /></a>
+              </div>
+            </div>
+            <a href={next.href} class="group lg:col-span-5 block border-t-2 border-stone-900 pt-5">
+              <span class="label">Next breakdown</span>
+              <span class="mt-3 flex items-start justify-between gap-6">
+                <span class="font-serif text-3xl md:text-4xl leading-[1.05] tracking-tight group-hover:text-zapier-ink transition-colors">{next.title}</span>
+                <span class="shrink-0 mt-1 transition-transform duration-500 group-hover:translate-x-1 group-hover:-translate-y-1"><Fragment set:html={arrow.replace(/14/g, '22')} /></span>
+              </span>
+            </a>
+          </section>
+        </div>
+      </div>
+    </article>
+  </main>
+</Layout>

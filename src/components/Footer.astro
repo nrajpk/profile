@@ -1,40 +1,49 @@
 ---
-import { nav, contact } from '../data/site.js';
+import { nav, contact, person } from '../data/site.js';
 ---
 
 <footer id="contact" class="relative border-t border-stone-200 overflow-hidden">
   <div class="max-w-7xl mx-auto px-5 md:px-8 pt-24 md:pt-36 pb-10">
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-end">
-      <div class="lg:col-span-8">
+      <div class="lg:col-span-7">
         <span class="kicker mb-6">Contact</span>
-        <h2 class="font-serif italic leading-[0.9] tracking-tight text-[clamp(3.5rem,11vw,6rem)]" data-reveal="wipe">
+        <h2 class="font-serif italic leading-[0.9] tracking-tight text-[clamp(3.5rem,11vw,6rem)]">
           Let’s map it.
         </h2>
       </div>
-      <div class="lg:col-span-4 flex flex-col gap-4 lg:items-end">
+      <div class="lg:col-span-5 flex flex-col gap-5 lg:items-end">
         <a
           href={`mailto:${contact.email}`}
           data-magnetic
-          class="inline-flex items-center justify-center gap-3 h-16 px-10 rounded-full bg-stone-900 text-white font-semibold hover:bg-zapier transition-colors"
+          class="inline-flex items-center justify-center gap-3 h-16 px-10 rounded-full bg-stone-900 text-white font-semibold hover:bg-zapier-ink transition-colors"
         >
           {contact.email}
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9" /></svg>
         </a>
-        <a href={contact.linkedin} target="_blank" rel="noreferrer" class="link-arrow">
-          LinkedIn — /in/nrajpk
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9" /></svg>
-        </a>
+        <div class="flex flex-wrap items-center gap-x-7 gap-y-3 lg:justify-end">
+          <button type="button" data-copy={contact.email} class="link-arrow">
+            <span data-copy-label aria-live="polite">Copy address</span>
+          </button>
+          <a href={contact.linkedin} target="_blank" rel="noreferrer" class="link-arrow">
+            LinkedIn
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9" /></svg>
+          </a>
+          <a href="/cv" class="link-arrow">
+            One-page CV
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9" /></svg>
+          </a>
+        </div>
       </div>
     </div>
 
-    <div class="mt-20 pt-6 border-t border-stone-200 flex flex-col md:flex-row md:items-center justify-between gap-5 text-[13px] text-stone-500">
+    <div class="mt-20 pt-6 border-t border-stone-200 flex flex-col md:flex-row md:items-center justify-between gap-5 text-[13px] text-stone-600">
       <p>
         <span class="font-bold text-stone-900">nrajpk<span class="text-zapier">_</span></span>
-        &nbsp; Nikhil Raj PK · Growth Engineer · {contact.location}
+        &nbsp; {person.name} · {person.title} · {contact.location}
       </p>
-      <nav class="flex flex-wrap gap-x-6 gap-y-2" aria-label="Footer">
+      <nav class="flex flex-wrap gap-x-6 gap-y-1" aria-label="Footer">
         {nav.map((link) => (
-          <a href={link.href} class="hover:text-zapier transition-colors">{link.name}</a>
+          <a href={link.href} class="py-2 hover:text-zapier-ink transition-colors">{link.name}</a>
         ))}
       </nav>
     </div>

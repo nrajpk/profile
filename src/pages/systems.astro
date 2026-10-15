@@ -6,6 +6,9 @@ import BentoSystems from '../components/BentoSystems.jsx';
 import { chain, craft, ecosystem, measurement } from '../data/systems.js';
 import Composer from '../components/Composer.jsx';
 import { chains, chainStatus, principles } from '../data/compose.js';
+
+const count = (n) => ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'][n] ?? String(n);
+const cap = (w) => w[0].toUpperCase() + w.slice(1);
 ---
 
 <Layout
@@ -16,25 +19,25 @@ import { chains, chainStatus, principles } from '../data/compose.js';
     <header class="max-w-7xl mx-auto px-5 md:px-8 pt-32 md:pt-44 pb-14 md:pb-20 grid grid-cols-1 lg:grid-cols-12 gap-10 items-end">
       <div class="lg:col-span-8">
         <span class="kicker mb-8">GTM Stack Map</span>
-        <h1 class="display" data-reveal="wipe">
-          Tools matter less <br /><span class="italic text-stone-400">than the handoffs.</span>
+        <h1 class="display">
+          Tools matter less <br /><span class="italic text-quiet">than the handoffs.</span>
         </h1>
       </div>
-      <p class="lg:col-span-4 text-stone-600 leading-relaxed" data-reveal style="--d:150ms">
-        I'm a digital marketer at the core — campaigns, paid media, creative. The chain below is what I've built around that craft, so every campaign runs on clean data and clear handoffs.
+      <p class="lg:col-span-4 text-stone-600 leading-relaxed">
+        I'm a growth engineer with a marketer's core — campaigns, paid media, creative. The chain below is what I've built around that craft, so every campaign runs on clean data and clear handoffs.
       </p>
     </header>
 
     <!-- The chain, running -->
     <section class="relative border-y border-stone-200 h-72 md:h-96 overflow-hidden mb-16 md:mb-24" aria-label="Records moving through the handoff chain">
       <SystemField client:visible />
-      <p class="absolute left-5 md:left-8 top-5 max-w-xs text-sm text-stone-500 leading-relaxed pointer-events-none">
+      <p class="absolute left-5 md:left-8 top-5 max-w-xs text-sm text-stone-600 leading-relaxed pointer-events-none">
         Records moving through the chain. Some drop out at Qualify. The rest wait for a person at Approve, then move on.
       </p>
       <ol class="absolute inset-x-0 bottom-5 h-4 pointer-events-none" aria-hidden="true">
         {STAGES.map((stage, i) => (
           <li
-            class:list={['absolute -translate-x-1/2 text-[9px] md:text-[10px] font-semibold uppercase tracking-[0.12em] md:tracking-[0.22em]', stage === 'Approve' ? 'text-zapier' : 'text-stone-400']}
+            class:list={['absolute -translate-x-1/2 text-[11px] font-semibold uppercase tracking-[0.06em] md:tracking-[0.18em]', stage === 'Approve' ? 'text-zapier-ink' : 'text-stone-600']}
             style={`left:${stageAt(i) * 100}%`}
           >
             {stage}
@@ -45,7 +48,7 @@ import { chains, chainStatus, principles } from '../data/compose.js';
 
     <!-- The handoff chain -->
     <section class="max-w-7xl mx-auto px-5 md:px-8 pb-24 md:pb-32" aria-label="The handoff chain">
-      <div class="border border-stone-200 bg-white p-6 md:p-12" data-reveal>
+      <div class="border border-stone-200 bg-white p-6 md:p-12">
         <HandoffChain client:load chain={chain} />
       </div>
     </section>
@@ -56,12 +59,12 @@ import { chains, chainStatus, principles } from '../data/compose.js';
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-end mb-12 md:mb-16">
           <div class="lg:col-span-8">
             <span class="kicker mb-6">Composed systems</span>
-            <h2 class="font-serif text-5xl md:text-6xl leading-[0.98] tracking-tight" data-reveal>
-              No build stands alone. <span class="italic text-stone-400">Here is what they add up to.</span>
+            <h2 class="font-serif text-5xl md:text-6xl leading-[0.98] tracking-tight">
+              No build stands alone. <span class="italic text-quiet">Here is what they add up to.</span>
             </h2>
           </div>
-          <p class="lg:col-span-4 text-stone-600 leading-relaxed" data-reveal style="--d:120ms">
-            Each project on this site solves one handoff. Put side by side, they form five larger systems. Pick one to see which build owns which step, and how finished each step is.
+          <p class="lg:col-span-4 text-stone-600 leading-relaxed">
+            Each project on this site solves one handoff. Put side by side, they form {count(chains.length)} larger systems. Pick one to see which build owns which step, and how finished each step is.
           </p>
         </div>
         <Composer client:load chains={chains} statusLabels={chainStatus} />
@@ -70,15 +73,15 @@ import { chains, chainStatus, principles } from '../data/compose.js';
 
     <!-- Two lanes: the craft and the systems around it -->
     <section class="max-w-7xl mx-auto px-5 md:px-8 pb-24 md:pb-32 grid grid-cols-1 lg:grid-cols-12 gap-y-14 gap-x-14">
-      <div class="lg:col-span-5" data-reveal>
+      <div class="lg:col-span-5">
         <h2 class="font-serif text-4xl md:text-5xl leading-none tracking-tight">The marketing craft</h2>
         <p class="mt-3 text-stone-600">Where I come from — and still operate daily.</p>
         <ul class="mt-8 lanes">
           {craft.map((tool) => <li class="lane lane-strong">{tool}</li>)}
         </ul>
       </div>
-      <div class="lg:col-span-7" data-reveal style="--d:120ms">
-        <h2 class="font-serif italic text-4xl md:text-5xl leading-none tracking-tight text-stone-400">The systems ecosystem</h2>
+      <div class="lg:col-span-7">
+        <h2 class="font-serif italic text-4xl md:text-5xl leading-none tracking-tight text-quiet">The systems ecosystem</h2>
         <p class="mt-3 text-stone-600">What I build with, integrate, or design workflows around.</p>
         <ul class="mt-8 lanes">
           {ecosystem.map((tool) => <li class="lane">{tool}</li>)}
@@ -91,12 +94,12 @@ import { chains, chainStatus, principles } from '../data/compose.js';
 
     <!-- Principles that repeat across the builds -->
     <section class="max-w-7xl mx-auto px-5 md:px-8 pt-24 md:pt-32">
-      <h2 class="font-serif text-5xl md:text-6xl leading-[0.98] tracking-tight max-w-4xl mb-12 md:mb-16" data-reveal>
-        Four decisions <span class="italic text-stone-400">I keep making.</span>
+      <h2 class="font-serif text-5xl md:text-6xl leading-[0.98] tracking-tight max-w-4xl mb-12 md:mb-16">
+        {cap(count(principles.length))} decisions <span class="italic text-quiet">I keep making.</span>
       </h2>
       <div class="border-t border-stone-200">
         {principles.map((p, i) => (
-          <article class="grid grid-cols-1 lg:grid-cols-12 gap-x-14 gap-y-6 py-10 md:py-12 border-b border-stone-200" data-reveal>
+          <article class="grid grid-cols-1 lg:grid-cols-12 gap-x-14 gap-y-6 py-10 md:py-12 border-b border-stone-200">
             <div class="lg:col-span-5">
               <h3 class="font-serif text-4xl md:text-[2.75rem] leading-[1.02] tracking-tight">{p.title}</h3>
               <p class="mt-4 text-stone-600 leading-relaxed max-w-md">{p.body}</p>
@@ -116,11 +119,11 @@ import { chains, chainStatus, principles } from '../data/compose.js';
 
     <!-- Measurement & attribution -->
     <section class="max-w-7xl mx-auto px-5 md:px-8 py-24 md:py-36 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-      <div class="lg:col-span-6" data-reveal>
+      <div class="lg:col-span-6">
         <span class="kicker mb-6">Measurement &amp; Attribution</span>
         <h2 class="font-serif italic text-5xl md:text-6xl leading-[0.98] tracking-tight">The work is the system.</h2>
         <p class="mt-6 text-lg text-stone-600 leading-relaxed">
-          Every system ships with its measurement wired in: GTM events, GA4 conversions, source-to-CRM attribution and reporting views leadership actually opens. That discipline comes from years of running paid acquisition — where untracked spend is just spending.
+          Where a system touches acquisition, its measurement is part of the build: GTM events, GA4 conversions, source-to-CRM attribution and reporting views leadership actually opens. That discipline comes from years of running paid acquisition — where untracked spend is just spending.
         </p>
         <ul class="mt-8 flex flex-wrap gap-2">
           {['Google Ads', 'GA4', 'GTM', 'MS Power BI'].map((t) => (
@@ -135,7 +138,7 @@ import { chains, chainStatus, principles } from '../data/compose.js';
 
       <dl class="lg:col-span-6 border-t border-stone-200">
         {measurement.map((item, i) => (
-          <div class="measure group flex items-baseline justify-between gap-6 py-6 border-b border-stone-200" data-reveal style={`--d:${i * 90}ms`}>
+          <div class="measure group flex items-baseline justify-between gap-6 py-6 border-b border-stone-200" style={`--d:${i * 90}ms`}>
             <dt class="font-serif text-3xl md:text-4xl leading-none transition-transform duration-500 group-hover:translate-x-2">{item.l}</dt>
             <dd class="flex items-center gap-2.5 text-sm text-stone-600 text-right">
               <span class="h-1.5 w-1.5 rounded-full bg-zapier shrink-0"></span>{item.v}

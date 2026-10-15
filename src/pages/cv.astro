@@ -1,0 +1,177 @@
+---
+// The CV, built from the same data as the rest of the site so it never
+// drifts: person and contact (site.js), roles and education (career.js),
+// case studies (projects.js), the marketing craft (systems.js).
+// It prints to a single A4 page; "Save as PDF" opens the print dialog.
+import Layout from '../layouts/Layout.astro';
+import { person, contact } from '../data/site.js';
+import { roles, education } from '../data/career.js';
+import { projects } from '../data/projects.js';
+import { craft } from '../data/systems.js';
+
+const site = (Astro.site ?? new URL('https://www.nrajpk.com')).host.replace(/^www\./, '');
+const marketing = new Set(['LinkedIn Ads', 'CRM Workflows', 'Custom CRM', 'Vercel', 'PyMuPDF']);
+const systems = [...new Set([...roles[0].tools, ...projects.flatMap((p) => p.tools), 'Airtable', 'LLM APIs', 'REST / webhooks'])].filter((t) => !marketing.has(t));
+---
+
+<Layout
+  title={`CV — ${person.name}, ${person.title}`}
+  description={`${person.name}'s CV: ${person.title.toLowerCase()} in the UAE. ${roles.length} roles since 2016, ${projects.length} production systems, ${education.degree}.`}
+>
+  <main id="main" class="max-w-7xl mx-auto px-5 md:px-8 pt-28 md:pt-36 pb-24">
+    <div class="no-print max-w-[60rem] mx-auto flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
+      <p class="text-sm text-stone-600 max-w-md">One page. Every system on it has a full write-up on this site.</p>
+      <div class="flex flex-wrap gap-3">
+        <button type="button" data-print class="inline-flex items-center gap-2 h-11 px-6 rounded-full bg-stone-900 text-white text-sm font-semibold hover:bg-zapier-ink transition-colors">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M5 21h14" /></svg>
+          Save as PDF
+        </button>
+        <a href={`mailto:${contact.email}`} class="inline-flex items-center h-11 px-6 rounded-full border border-stone-300 text-sm font-semibold hover:border-stone-900 transition-colors">Email me</a>
+      </div>
+    </div>
+
+    <article class="cv">
+      <header class="cv-head">
+        <img class="cv-photo" src="/photos/headshot.webp" alt={`${person.name} at a desk, smiling, hands clasped`} width="480" height="480" fetchpriority="high" />
+        <div>
+          <h1 class="cv-name">{person.name}</h1>
+          <p class="cv-title">{person.title} · {contact.location}</p>
+        </div>
+        <ul class="cv-contact">
+          <li><a href={`mailto:${contact.email}`}>{contact.email}</a></li>
+          <li><a href={contact.linkedin}>{contact.linkedin.replace(/^https:\/\/www\./, '')}</a></li>
+          <li><a href="/">{site}</a></li>
+        </ul>
+      </header>
+
+      <p class="cv-summary">{person.summary}</p>
+
+      <div class="cv-body">
+        <section aria-labelledby="cv-experience">
+          <h2 id="cv-experience" class="cv-h">Experience</h2>
+          <ol class="cv-roles">
+            {roles.map((job) => (
+              <li class="cv-role">
+                <div class="cv-role-head">
+                  <h3><span class="cv-role-title">{job.role}</span><span class="sr-only">, </span><span class="cv-company">{job.company}</span></h3>
+                  <p class="cv-when">{job.period}</p>
+                </div>
+                <p class="cv-where">{job.location} · {job.sector}</p>
+                <ul class="cv-points">
+                  {job.highlights.map((point) => <li>{point}</li>)}
+                </ul>
+              </li>
+            ))}
+          </ol>
+        </section>
+
+        <aside class="cv-side">
+          <section aria-labelledby="cv-cases">
+            <h2 id="cv-cases" class="cv-h">Case studies</h2>
+            <ul class="cv-list cv-cases">
+              {projects.map((p) => (
+                <li>
+                  <a href={p.href}>{p.title}</a>
+                  <span>{p.after}</span>
+                </li>
+              ))}
+            </ul>
+            <p class="cv-note">{site}/work</p>
+          </section>
+          <section aria-labelledby="cv-marketing">
+            <h2 id="cv-marketing" class="cv-h">Marketing</h2>
+            <p class="cv-tags">{craft.join('\u00a0· ')}</p>
+          </section>
+          <section aria-labelledby="cv-systems">
+            <h2 id="cv-systems" class="cv-h">Systems</h2>
+            <p class="cv-tags">{systems.join('\u00a0· ')}</p>
+          </section>
+          <section aria-labelledby="cv-education">
+            <h2 id="cv-education" class="cv-h">Education</h2>
+            <p class="cv-tags"><strong>{education.degree}</strong><br />{education.school}, {education.year}</p>
+          </section>
+        </aside>
+      </div>
+    </article>
+  </main>
+</Layout>
+
+<script>
+  document.addEventListener('click', (event) => {
+    if (event.target.closest('[data-print]')) window.print();
+  });
+</script>
+
+<style>
+  .cv {
+    max-width: 60rem;
+    margin: 0 auto;
+    padding: clamp(1.5rem, 5vw, 3.5rem);
+    background: var(--color-surface);
+    border: 1px solid var(--color-stone-200);
+    box-shadow: 0 30px 60px -40px rgb(0 0 0 / 0.35);
+    color: var(--color-stone-900);
+  }
+  .cv a { text-decoration: none; }
+  .cv a:hover { color: var(--color-zapier-ink); }
+
+  .cv-head { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 1.25rem; align-items: end; padding-bottom: 1.5rem; border-bottom: 2px solid var(--color-stone-900); }
+  .cv-photo { width: 5.5rem; aspect-ratio: 1; object-fit: cover; background: var(--color-stone-200); }
+  .cv-name { font-family: var(--font-serif); font-weight: 400; font-size: clamp(2.5rem, 6vw, 3.75rem); line-height: 1; letter-spacing: -0.02em; }
+  .cv-title { margin-top: 0.6rem; font-size: 1.0625rem; color: var(--color-stone-700); }
+  .cv-contact { grid-column: 1 / -1; font-size: 0.875rem; line-height: 1.7; color: var(--color-stone-700); }
+  .cv-summary { margin-top: 1.5rem; max-width: 46rem; font-size: 1.0625rem; line-height: 1.6; color: var(--color-stone-700); }
+
+  .cv-body { margin-top: 2.5rem; display: grid; gap: 2.5rem; }
+  .cv-h { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--color-zapier-ink); padding-bottom: 0.5rem; border-bottom: 1px solid var(--color-stone-200); margin-bottom: 1.1rem; }
+
+  .cv-roles { display: grid; gap: 1.6rem; }
+  .cv-role-head { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: baseline; gap: 0.25rem 1rem; }
+  .cv-role-head h3 { font-size: 1rem; font-weight: 500; }
+  .cv-role-title { display: block; font-weight: 700; }
+  .cv-company { display: block; }
+  .cv-when { font-size: 0.875rem; font-variant-numeric: tabular-nums; color: var(--color-stone-600); white-space: nowrap; }
+  .cv-where { margin-top: 0.15rem; font-size: 0.875rem; color: var(--color-stone-600); }
+  .cv-points { margin-top: 0.6rem; display: grid; gap: 0.35rem; }
+  .cv-points li { position: relative; padding-left: 1rem; font-size: 0.9375rem; line-height: 1.5; color: var(--color-stone-700); }
+  .cv-points li::before { content: ""; position: absolute; left: 0; top: 0.6em; width: 5px; height: 5px; border-radius: 99px; background: var(--color-zapier); }
+
+  .cv-side { display: grid; gap: 2rem; align-content: start; }
+  .cv-list { display: grid; gap: 0.9rem; }
+  .cv-cases li { display: grid; gap: 0.2rem; }
+  .cv-cases a { font-weight: 600; font-size: 0.9375rem; line-height: 1.3; }
+  .cv-cases span { font-size: 0.875rem; line-height: 1.45; color: var(--color-stone-600); }
+  .cv-note { margin-top: 0.75rem; font-size: 0.8125rem; color: var(--color-stone-600); }
+  .cv-tags { font-size: 0.875rem; line-height: 1.65; color: var(--color-stone-700); }
+
+  @media (min-width: 768px) {
+    .cv-head { grid-template-columns: auto minmax(0, 1fr) auto; gap: 1.75rem; }
+    .cv-photo { width: 7.5rem; }
+    .cv-contact { grid-column: auto; text-align: right; }
+    .cv-body { grid-template-columns: minmax(0, 1fr) 16.5rem; gap: 3rem; }
+  }
+
+  /* Print: a single A4 page, black on white, two columns at any paper width. */
+  @media print {
+    .cv { max-width: none; padding: 0; border: 0; box-shadow: none; background: #fff; color: #000; font-size: 9pt; }
+    .cv-head { grid-template-columns: 24mm minmax(0, 1fr) auto; gap: 6mm; padding-bottom: 8pt; border-bottom-width: 1.5pt; border-color: #000; }
+    .cv-photo { width: 24mm; }
+    .cv-name { font-size: 26pt; }
+    .cv-title { margin-top: 3pt; font-size: 11pt; color: #222; }
+    .cv-contact { grid-column: auto; text-align: right; font-size: 8.5pt; line-height: 1.5; color: #222; }
+    .cv-summary { margin-top: 9pt; font-size: 10pt; line-height: 1.45; color: #222; }
+    .cv-body { margin-top: 12pt; grid-template-columns: minmax(0, 1fr) 52mm; gap: 8mm; }
+    .cv-h { font-size: 7.5pt; margin-bottom: 6pt; padding-bottom: 3pt; color: #a33000; border-color: #ccc; }
+    .cv-roles { gap: 11pt; }
+    .cv-role { break-inside: avoid; }
+    .cv-role-head h3 { font-size: 10pt; }
+    .cv-when, .cv-where { font-size: 8.75pt; color: #444; }
+    .cv-points { margin-top: 3pt; gap: 1.5pt; }
+    .cv-points li { font-size: 9.25pt; line-height: 1.4; color: #111; padding-left: 8pt; }
+    .cv-points li::before { width: 3pt; height: 3pt; background: #c83800; }
+    .cv-side { gap: 10pt; }
+    .cv-list { gap: 5pt; }
+    .cv-cases a { font-size: 9.25pt; }
+    .cv-cases span, .cv-tags, .cv-note { font-size: 8.75pt; line-height: 1.42; color: #333; }
+  }
+</style>

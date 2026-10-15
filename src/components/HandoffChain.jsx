@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { UserCheck } from "lucide-react";
+import useMotionOff from "./useMotionOff.js";
 
 const ease = [0.16, 1, 0.3, 1];
 
 // The seven-stage handoff chain as a working diagram. A record travels the
 // line on its own until the visitor takes over by choosing a stage.
 export default function HandoffChain({ chain }) {
-  const reduce = useReducedMotion();
+  const reduce = useMotionOff();
   const [active, setActive] = useState(0);
   const [auto, setAuto] = useState(true);
 
@@ -58,8 +59,8 @@ export default function HandoffChain({ chain }) {
                       current
                         ? "bg-zapier border-zapier text-white scale-110"
                         : lit
-                        ? "bg-paper border-zapier text-zapier"
-                        : "bg-paper border-stone-300 text-stone-400 group-hover:border-stone-500"
+                        ? "bg-paper border-zapier text-zapier-ink"
+                        : "bg-paper border-stone-300 text-stone-500 group-hover:border-stone-500"
                     }`}
                   >
                     {item.human ? <UserCheck size={12} /> : <span className="h-1.5 w-1.5 rounded-full bg-current" />}
@@ -70,12 +71,12 @@ export default function HandoffChain({ chain }) {
                   <span className="block lg:mt-5">
                     <span
                       className={`block font-serif text-2xl lg:text-[1.7rem] leading-none transition-colors duration-500 ${
-                        current ? "text-stone-900" : "text-stone-400 group-hover:text-stone-700"
+                        current ? "text-stone-900" : "text-quiet group-hover:text-stone-700"
                       }`}
                     >
                       {item.verb}
                     </span>
-                    <span className="block mt-1.5 text-xs text-stone-500">{item.line}</span>
+                    <span className="block mt-1.5 text-xs text-stone-600">{item.line}</span>
                   </span>
                 </button>
               </li>
@@ -96,10 +97,10 @@ export default function HandoffChain({ chain }) {
           >
             <p className="md:col-span-5 font-serif text-4xl md:text-5xl leading-none tracking-tight">
               <span className="text-zapier tabular-nums">{stage.n}</span> {stage.line}
-              <span className="text-stone-400">.</span>
+              <span className="text-quiet">.</span>
             </p>
             <div className="md:col-span-7">
-              <p className="text-sm text-stone-500 mb-3">
+              <p className="text-sm text-stone-600 mb-3">
                 {stage.human
                   ? "The one stage that is deliberately not automated."
                   : `What does the ${stage.verb.toLowerCase()} work`}
@@ -119,7 +120,7 @@ export default function HandoffChain({ chain }) {
       <button
         type="button"
         onClick={() => setAuto((a) => !a)}
-        className="mt-6 text-xs font-semibold text-stone-500 hover:text-zapier transition-colors"
+        className="mt-6 py-2 text-xs font-semibold text-stone-600 hover:text-zapier-ink transition-colors"
       >
         {auto ? "Pause the walkthrough" : "Resume the walkthrough"}
       </button>

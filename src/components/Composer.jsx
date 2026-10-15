@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import useMotionOff from "./useMotionOff.js";
 import { ArrowUpRight } from "lucide-react";
 
 const ease = [0.16, 1, 0.3, 1];
@@ -16,7 +17,7 @@ const dot = {
 // Shows how separate builds line up into one larger system. Pick a system;
 // each row is one handoff and names the build that owns it.
 export default function Composer({ chains, statusLabels }) {
-  const reduce = useReducedMotion();
+  const reduce = useMotionOff();
   const [active, setActive] = useState(chains[0].id);
   const chain = chains.find((c) => c.id === active);
 
@@ -46,7 +47,7 @@ export default function Composer({ chains, statusLabels }) {
             }`}
           >
             {c.tab}
-            <span className={`ml-2 tabular-nums font-normal ${c.id === active ? "opacity-70" : "text-stone-400"}`}>{c.stages.length}</span>
+            <span className={`ml-2 tabular-nums font-normal ${c.id === active ? "opacity-70" : "text-stone-500"}`}>{c.stages.length}</span>
           </button>
         ))}
       </div>

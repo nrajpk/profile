@@ -1,9 +1,19 @@
+// One name, one title, used everywhere: page titles, the hero, the footer,
+// structured data and the CV. Change it here only.
+export const person = {
+  name: 'Nikhil Raj PK',
+  title: 'Growth Engineer',
+  summary:
+    'Ten years of marketing on a computer science degree, now building the systems growth runs on: pipelines, CRM logic, qualification and reporting that hold up in production.',
+};
+
 export const nav = [
   { name: 'Work', href: '/work', note: 'Production systems, kept factual' },
   { name: 'Systems', href: '/systems', note: 'How the handoffs fit together' },
   { name: 'Lab', href: '/lab', note: 'Production patterns, rebuilt in the open' },
   { name: 'Interface', href: '/interface', note: 'Visual trust, engineered for action' },
   { name: 'About', href: '/about', note: 'A marketing path with a technical base' },
+  { name: 'CV', href: '/cv', note: 'One page, printable' },
 ];
 
 export const contact = {
@@ -16,13 +26,4 @@ export const skins = [
   { id: 'paper', name: 'Paper', swatch: '#F9F8F6' },
   { id: 'ink', name: 'Ink', swatch: '#141210' },
   { id: 'blueprint', name: 'Blueprint', swatch: '#0B2545' },
-];
-
-// Real, verifiable figures only — sources noted per stat.
-// Update alongside the detail pages when numbers grow.
-export const stats = [
-  { value: '5', label: 'Systems in production', note: 'Breakdowns in Work' },
-  { value: '79', label: 'Workflow executions logged', note: 'n8n, July 2026' },
-  { value: '37/37', label: 'Tests passing', note: 'Tender engine v1' },
-  { value: '14', label: 'Production stages tracked', note: 'Vehicle tracker' },
 ];

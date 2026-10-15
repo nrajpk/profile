@@ -4,7 +4,8 @@ import React, { useEffect, useRef } from "react";
 // left, a share is dropped at Qualify, the rest queue at the human approval
 // gate and leave it approved (accent colour) and a little faster. The cursor pushes records
 // off their lane; they spring back. Canvas 2D, paused when off-screen or
-// the tab is hidden, and a single still frame under reduced motion.
+// the tab is hidden, and a single still frame while animations are paused
+// (the site motion switch, which defaults to prefers-reduced-motion).
 
 export const STAGES = ["Source", "Enrich", "Qualify", "Approve", "Send", "Track", "Report"];
 export const stageAt = (i) => 0.08 + i * 0.14; // Approve sits at 0.5
@@ -23,7 +24,7 @@ export default function SystemField() {
     const ctx = canvas?.getContext("2d");
     if (!ctx) return;
 
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let reduce = document.documentElement.classList.contains("motion-off");
     let width = 0;
     let height = 0;
     let dpr = 1;
@@ -196,6 +197,15 @@ export default function SystemField() {
       readColors();
       if (reduce) draw(0);
     };
+    const onMotion = () => {
+      reduce = document.documentElement.classList.contains("motion-off");
+      if (reduce) {
+        stop();
+        draw(0);
+      } else {
+        start();
+      }
+    };
 
     readColors();
     resize();
@@ -212,6 +222,7 @@ export default function SystemField() {
     document.addEventListener("pointerleave", onLeave);
     document.addEventListener("visibilitychange", onVisibility);
     document.addEventListener("skinchange", onSkin);
+    document.addEventListener("motionchange", onMotion);
     start();
 
     return () => {
@@ -222,6 +233,7 @@ export default function SystemField() {
       document.removeEventListener("pointerleave", onLeave);
       document.removeEventListener("visibilitychange", onVisibility);
       document.removeEventListener("skinchange", onSkin);
+      document.removeEventListener("motionchange", onMotion);
     };
   }, []);
 

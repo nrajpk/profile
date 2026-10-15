@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
+import useMotionOff from "./useMotionOff.js";
 import { Eye, Crosshair, Focus, Activity } from "lucide-react";
 
 const ease = [0.16, 1, 0.3, 1];
@@ -37,7 +38,7 @@ export const FormatReframe = () => {
   const [active, setActive] = useState(0);
   const format = formats[active];
   const tall = format.ratio <= 1;
-  const reduce = useReducedMotion();
+  const reduce = useMotionOff();
   const spring = reduce ? { duration: 0 } : { type: "spring", stiffness: 170, damping: 22 };
 
   return (
@@ -60,6 +61,10 @@ export const FormatReframe = () => {
             transition={spring}
             src="/photos/portrait-bw.webp"
             alt=""
+            width="1122"
+            height="1402"
+            loading="lazy"
+            decoding="async"
             className="absolute object-cover grayscale contrast-[1.08]"
             style={
               tall
@@ -69,7 +74,7 @@ export const FormatReframe = () => {
           />
           <motion.div layout transition={spring} className="absolute" style={{ left: "8%", top: tall ? "8%" : "18%", width: tall ? "74%" : "30%" }}>
             <p className="font-serif leading-[0.95] text-stone-900" style={{ fontSize: "1.15rem" }}>
-              Marketing instinct. <span className="text-zapier">Engineering</span> discipline.
+              Marketing instinct. <span className="text-zapier-ink">Engineering</span> discipline.
             </p>
             <div className="mt-3 h-5 w-20 rounded-full bg-stone-900" />
           </motion.div>
@@ -117,7 +122,7 @@ export const OpticalInspectionLens = () => {
       onPointerEnter={() => setActive(true)}
       onPointerLeave={() => setActive(false)}
     >
-      <img src="/photos/sofa-black.webp" alt="" className="absolute inset-0 h-full w-full object-cover object-[66%_30%] grayscale brightness-75 opacity-50" />
+      <img src="/photos/sofa-black.webp" alt="" width="1448" height="1086" loading="lazy" decoding="async" className="absolute inset-0 h-full w-full object-cover object-[66%_30%] grayscale brightness-75 opacity-50" />
 
       <motion.div
         className="absolute inset-0 pointer-events-none"
@@ -128,7 +133,7 @@ export const OpticalInspectionLens = () => {
         }}
         transition={{ type: "spring", bounce: 0, duration: 0.2 }}
       >
-        <img src="/photos/sofa-black.webp" alt="" className="absolute inset-0 h-full w-full object-cover object-[66%_30%] scale-[1.12]" />
+        <img src="/photos/sofa-black.webp" alt="" width="1448" height="1086" loading="lazy" decoding="async" className="absolute inset-0 h-full w-full object-cover object-[66%_30%] scale-[1.12]" />
         <div
           className="absolute border-2 border-zapier rounded-full flex items-center justify-center"
           style={{ left: `${pos.x}%`, top: `${pos.y}%`, width: "200px", height: "200px", transform: "translate(-50%, -50%)" }}
@@ -157,11 +162,11 @@ export const ConversionOptimizerDemo = () => {
   return (
     <div className="relative w-full max-w-sm bg-stone-900 border border-stone-800 shadow-2xl rounded-[24px] p-4 flex flex-col gap-3">
       <div className="flex justify-between items-center mb-2 px-1">
-        <span className="font-mono text-[9px] text-stone-500 uppercase tracking-widest">
+        <span className="font-mono text-[11px] text-stone-300 uppercase tracking-wider">
           {isOptimized ? "Optimized_State" : "Base_Layout_v1"}
         </span>
         <div className="flex items-center gap-2">
-          <span className="font-mono text-[9px] text-stone-400">STATE:</span>
+          <span className="font-mono text-[11px] text-stone-300">STATE:</span>
           <span className={`font-mono text-[12px] font-bold transition-colors duration-700 ${isOptimized ? "text-emerald-400" : "text-stone-300"}`}>
             {isOptimized ? "READY" : "BASE"}
           </span>
@@ -194,7 +199,7 @@ export const ConversionOptimizerDemo = () => {
       <button
         type="button"
         onClick={() => setIsOptimized(!isOptimized)}
-        className="mt-2 w-full py-3 bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg font-mono text-[10px] text-white uppercase tracking-widest transition-colors flex justify-center items-center gap-2"
+        className="mt-2 w-full py-3 bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg font-mono text-[11px] text-white uppercase tracking-widest transition-colors flex justify-center items-center gap-2"
       >
         <Activity size={11} className={isOptimized ? "text-emerald-400" : "text-stone-400"} />
         {isOptimized ? "Revert Layout" : "Run Layout Check"}

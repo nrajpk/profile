@@ -5,7 +5,7 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
 const isActive = (href) => path === href || path.startsWith(href + '/');
 ---
 
-<header class="fixed top-0 inset-x-0 z-50 bg-paper/85 backdrop-blur-md border-b border-stone-200/70">
+<header id="site-header" class="fixed top-0 inset-x-0 z-50 bg-paper/85 backdrop-blur-md border-b border-stone-200/70">
   <div class="max-w-7xl mx-auto px-5 md:px-8 h-16 flex items-center justify-between gap-6">
     <div class="flex items-center gap-6">
       <a href="/" class="font-bold text-lg tracking-tight text-stone-900 group" aria-label="nrajpk — home">
@@ -20,14 +20,14 @@ const isActive = (href) => path === href || path.startsWith(href + '/');
       </div>
     </div>
 
-    <nav class="hidden md:flex items-center gap-7" aria-label="Primary">
+    <nav class="hidden md:flex items-center gap-6 lg:gap-7" aria-label="Primary">
       {nav.map((link) => (
         <a
           href={link.href}
           aria-current={isActive(link.href) ? 'page' : undefined}
           class:list={[
             'relative text-[13px] font-medium transition-colors group py-2',
-            isActive(link.href) ? 'text-zapier' : 'text-stone-500 hover:text-stone-900',
+            isActive(link.href) ? 'text-zapier-ink' : 'text-stone-600 hover:text-stone-900',
           ]}
         >
           {link.name}
@@ -42,14 +42,14 @@ const isActive = (href) => path === href || path.startsWith(href + '/');
     </nav>
 
     <div class="flex items-center gap-2 md:gap-3">
-      <div class="hidden sm:flex items-center gap-1 p-1 rounded-full border border-stone-200" role="group" aria-label="Page skin">
+      <div class="hidden lg:flex items-center gap-1 p-1 rounded-full border border-stone-200" role="group" aria-label="Page skin">
         {skins.map((skin) => (
           <button
             type="button"
             data-skin-set={skin.id}
             aria-pressed="false"
             title={`${skin.name} skin`}
-            class="skin-dot h-5 w-5 rounded-full border border-stone-300 transition-transform duration-300 hover:scale-110"
+            class="skin-dot h-6 w-6 rounded-full border border-stone-300 transition-transform duration-300 hover:scale-110"
             style={`background:${skin.swatch}`}
           >
             <span class="sr-only">{skin.name} skin</span>
@@ -59,16 +59,28 @@ const isActive = (href) => path === href || path.startsWith(href + '/');
 
       <button
         type="button"
+        data-motion-toggle
+        aria-pressed="false"
+        title="Pause animations"
+        class="motion-btn hidden lg:inline-flex h-8 w-8 items-center justify-center rounded-full border border-stone-200 text-stone-600 hover:text-stone-900 hover:border-stone-400 transition-colors"
+      >
+        <svg class="i-pause" width="12" height="12" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true"><rect x="2" y="1.5" width="2.5" height="9" rx="0.6" /><rect x="7.5" y="1.5" width="2.5" height="9" rx="0.6" /></svg>
+        <svg class="i-play" width="12" height="12" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true"><path d="M3 1.8v8.4a.6.6 0 0 0 .9.5l6.6-4.2a.6.6 0 0 0 0-1L3.9 1.3a.6.6 0 0 0-.9.5Z" /></svg>
+        <span class="sr-only">Pause animations</span>
+      </button>
+
+      <button
+        type="button"
         data-palette-open
-        class="hidden lg:inline-flex items-center gap-2 h-8 px-3 rounded-full border border-stone-200 text-[11px] font-medium text-stone-500 hover:text-stone-900 hover:border-stone-400 transition-colors"
+        class="hidden lg:inline-flex items-center gap-2 h-8 px-3 rounded-full border border-stone-200 text-[11px] font-medium text-stone-600 hover:text-stone-900 hover:border-stone-400 transition-colors"
       >
         Jump to
-        <kbd class="font-mono text-[10px] text-stone-400">⌘K</kbd>
+        <kbd class="font-mono text-[11px] text-stone-500">⌘K</kbd>
       </button>
 
       <a
         href={`mailto:${contact.email}`}
-        class="hidden sm:inline-flex items-center h-9 px-5 rounded-full bg-stone-900 text-white text-[12px] font-semibold hover:bg-zapier transition-colors active:scale-95"
+        class="hidden sm:inline-flex items-center h-9 px-5 rounded-full bg-stone-900 text-white text-[12px] font-semibold hover:bg-zapier-ink transition-colors active:scale-95"
       >
         Connect
       </a>
@@ -78,7 +90,7 @@ const isActive = (href) => path === href || path.startsWith(href + '/');
         id="menu-toggle"
         aria-expanded="false"
         aria-controls="mobile-menu"
-        class="md:hidden relative h-10 w-10 -mr-2 flex items-center justify-center"
+        class="md:hidden relative h-11 w-11 -mr-2 flex items-center justify-center"
       >
         <span class="sr-only">Menu</span>
         <span class="menu-bars" aria-hidden="true"><i></i><i></i></span>
@@ -95,7 +107,7 @@ const isActive = (href) => path === href || path.startsWith(href + '/');
           <a
             href={link.href}
             aria-current={(link.href === '/' ? path === '/' : isActive(link.href)) ? 'page' : undefined}
-            class="flex items-baseline justify-between gap-4 py-4 aria-[current=page]:text-zapier"
+            class="flex items-baseline justify-between gap-4 py-4 aria-[current=page]:text-zapier-ink"
           >
             <span class="font-serif text-4xl leading-none">{link.name}</span>
             <span class="text-xs text-stone-500 text-right">{link.note}</span>
@@ -105,20 +117,31 @@ const isActive = (href) => path === href || path.startsWith(href + '/');
     </ul>
 
     <div class="pt-8 flex flex-col gap-5">
-      <div class="flex items-center justify-between">
-        <span class="text-xs font-semibold uppercase tracking-[0.2em] text-stone-500">Skin</span>
+      <div class="flex items-center justify-between gap-4">
+        <span class="label">Skin</span>
         <div class="flex items-center gap-2" role="group" aria-label="Page skin">
           {skins.map((skin) => (
             <button
               type="button"
               data-skin-set={skin.id}
               aria-pressed="false"
-              class="skin-chip h-9 px-4 rounded-full border border-stone-300 text-xs font-semibold"
+              class="skin-chip h-11 px-4 rounded-full border border-stone-300 text-xs font-semibold"
             >
               {skin.name}
             </button>
           ))}
         </div>
+      </div>
+      <div class="flex items-center justify-between gap-4">
+        <span class="label">Motion</span>
+        <button
+          type="button"
+          data-motion-toggle
+          aria-pressed="false"
+          class="skin-chip h-11 px-4 rounded-full border border-stone-300 text-xs font-semibold"
+        >
+          Pause animations
+        </button>
       </div>
       <div class="flex gap-3">
         <a href={`mailto:${contact.email}`} class="flex-1 h-12 rounded-full bg-stone-900 text-white text-sm font-semibold flex items-center justify-center">Email me</a>
@@ -130,7 +153,11 @@ const isActive = (href) => path === href || path.startsWith(href + '/');
 
 <style>
   .skin-dot[aria-pressed="true"] { outline: 2px solid var(--color-zapier); outline-offset: 2px; }
-  .skin-chip[aria-pressed="true"] { background: var(--color-zapier); border-color: var(--color-zapier); color: #fff; }
+  .skin-chip[aria-pressed="true"] { background: var(--color-zapier-ink); border-color: var(--color-zapier-ink); color: var(--color-on-accent); }
+  .motion-btn .i-play { display: none; }
+  .motion-btn[aria-pressed="true"] { border-color: var(--color-zapier); color: var(--color-zapier-ink); }
+  .motion-btn[aria-pressed="true"] .i-pause { display: none; }
+  .motion-btn[aria-pressed="true"] .i-play { display: block; }
 
   .menu-bars { position: relative; width: 22px; height: 10px; display: block; }
   .menu-bars i {

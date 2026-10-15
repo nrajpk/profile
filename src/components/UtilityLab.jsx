@@ -15,15 +15,16 @@ const EnrichmentDemo = () => {
   const [active, setActive] = useState(false);
 
   return (
-    <div className="bg-stone-950 p-4 rounded-xl font-mono text-[9px] mt-4 border border-stone-800">
+    <div className="bg-stone-900 p-4 rounded-xl font-mono text-[11px] mt-4 border border-stone-800 text-stone-300">
       <div className="flex justify-between items-center mb-3">
-        <span className="text-stone-500 uppercase tracking-tighter">
+        <span className="text-stone-300 uppercase tracking-tight">
           enrichment_waterfall.py
         </span>
         <button
           onClick={() => setActive(!active)}
-          className="text-zapier hover:text-white transition-colors"
-          aria-label="Run demo"
+          className="h-8 w-8 -m-2 flex items-center justify-center text-zapier hover:text-white transition-colors"
+          aria-label={active ? "Reset demo" : "Run demo"}
+          aria-pressed={active}
           type="button"
         >
           <Play size={12} fill={active ? "currentColor" : "none"} />
@@ -31,7 +32,7 @@ const EnrichmentDemo = () => {
       </div>
 
       <div className="space-y-1.5 overflow-hidden">
-        <p className="text-stone-600 font-bold leading-none italic">
+        <p className="text-stone-300 font-bold leading-none italic">
           &gt; reading raw_contacts.csv...
         </p>
         <AnimatePresence>
@@ -40,11 +41,11 @@ const EnrichmentDemo = () => {
               initial={{ opacity: 0, x: -5 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -5 }}
-              className="space-y-1 text-blue-400 border-l border-blue-900/50 pl-2 ml-1"
+              className="space-y-1 text-stone-300 border-l border-stone-700 pl-2 ml-1"
             >
               <p>&gt; Provider_A: no email found</p>
               <p>&gt; trying Provider_B instead</p>
-              <p className="text-green-400 font-bold">
+              <p className="text-white font-bold">
                 &gt; output: enriched_record.csv
               </p>
             </motion.div>
@@ -56,7 +57,7 @@ const EnrichmentDemo = () => {
 };
 
 const SignalHarvesterDemo = () => (
-  <div className="mt-4 p-4 border border-dashed border-stone-200 rounded-xl font-mono text-[8px] text-stone-400 uppercase tracking-[0.18em] bg-white">
+  <div className="mt-4 p-4 border border-dashed border-stone-200 rounded-xl font-mono text-[11px] text-stone-600 uppercase tracking-[0.12em] bg-white">
     <div className="flex items-center gap-2 mb-3">
       <ScanSearch size={12} className="text-zapier" />
       Public signal monitor
@@ -68,7 +69,7 @@ const SignalHarvesterDemo = () => (
           className="flex justify-between border-b border-stone-100 pb-1"
         >
           <span>{item}</span>
-          <span className="text-stone-300">queued</span>
+          <span className="text-stone-500">queued</span>
         </div>
       ))}
     </div>
@@ -76,13 +77,13 @@ const SignalHarvesterDemo = () => (
 );
 
 const RouterDemo = () => (
-  <div className="mt-4 p-4 bg-stone-950 rounded-xl border border-stone-800 font-mono text-[9px]">
+  <div className="mt-4 p-4 bg-stone-900 rounded-xl border border-stone-800 font-mono text-[11px] text-stone-300">
     <div className="flex items-center gap-2 mb-3">
-      <div className="px-1.5 py-0.5 bg-zapier/20 text-zapier rounded border border-zapier/30">
+      <div className="px-1.5 py-0.5 bg-zapier-ink text-on-accent rounded">
         WEBHOOK
       </div>
-      <span className="text-stone-600">→</span>
-      <span className="text-blue-400 font-bold uppercase tracking-tighter">
+      <span className="text-stone-300" aria-hidden="true">→</span>
+      <span className="text-white font-bold uppercase tracking-tight">
         Slack Alert
       </span>
     </div>
@@ -96,7 +97,7 @@ const RouterDemo = () => (
           className="h-full bg-zapier"
         />
       </div>
-      <div className="flex justify-between text-stone-500 uppercase tracking-widest">
+      <div className="flex justify-between text-stone-300 uppercase tracking-wider">
         <span>Lead parsed</span>
         <span>route: gcc</span>
       </div>
@@ -108,7 +109,7 @@ const ScoringDemo = () => {
   const [active, setActive] = useState("score");
 
   return (
-    <div className="mt-4 p-4 bg-stone-50 rounded-xl border border-stone-200 font-mono text-[9px]">
+    <div className="mt-4 p-4 bg-stone-50 rounded-xl border border-stone-200 font-mono text-[11px]">
       <div className="flex gap-2 mb-3">
         {["score", "rules"].map((tab) => (
           <button
@@ -118,7 +119,7 @@ const ScoringDemo = () => {
             className={`px-2 py-1 rounded uppercase font-bold ${
               active === tab
                 ? "bg-stone-900 text-white"
-                : "bg-white text-stone-400 border border-stone-100"
+                : "bg-white text-stone-600 border border-stone-200"
             }`}
           >
             {tab}
@@ -133,13 +134,13 @@ const ScoringDemo = () => {
           exit={{ opacity: 0, y: -4 }}
         >
           {active === "score" ? (
-            <div className="text-stone-500 leading-relaxed">
+            <div className="text-stone-600 leading-relaxed">
               &#123; "fit_score": 78,
               <br />
               "reason": "fleet and procurement signal present" &#125;
             </div>
           ) : (
-            <div className="text-stone-500 leading-relaxed">
+            <div className="text-stone-600 leading-relaxed">
               rules: title_match, market_fit,
               <br />
               public_signal, exclusion_filter
@@ -200,12 +201,8 @@ const labProjects = [
   }
 ];
 
-const LabProjectCard = ({ project, index }) => (
-  <motion.div
-    initial={{ opacity: 0, y: 20 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    transition={{ delay: index * 0.08 }}
-    viewport={{ once: true }}
+const LabProjectCard = ({ project }) => (
+  <div
     className="p-7 md:p-9 bg-white border border-stone-200 flex flex-col justify-between group hover:border-zapier transition-colors duration-500"
   >
     <div>
@@ -213,7 +210,7 @@ const LabProjectCard = ({ project, index }) => (
         <div className="w-10 h-10 rounded-2xl flex items-center justify-center border bg-paper text-stone-400 group-hover:text-zapier border-stone-100 transition-colors">
           {project.icon}
         </div>
-        <span className="px-2 py-1 rounded-full font-mono text-[8px] font-bold uppercase tracking-widest bg-stone-100 text-stone-400">
+        <span className="px-2.5 py-1 rounded-full text-[11px] font-semibold uppercase tracking-[0.14em] bg-stone-100 text-stone-600">
           {project.rebuild}
         </span>
       </div>
@@ -222,27 +219,27 @@ const LabProjectCard = ({ project, index }) => (
         {project.title}
       </h4>
 
-      <p className="text-stone-500 text-sm leading-relaxed mb-4">
+      <p className="text-stone-600 text-sm leading-relaxed mb-4">
         {project.desc}
       </p>
 
-      <p className="text-xs text-stone-400 leading-relaxed mb-4">
+      <p className="text-xs text-stone-600 leading-relaxed mb-4">
         {project.productionNote}
       </p>
 
       {project.demo}
     </div>
 
-    <div className="mt-8 pt-6 border-t border-stone-50 flex justify-between items-center text-[9px] font-mono font-bold uppercase tracking-widest gap-4">
-      <span className="text-stone-400">{project.tech}</span>
+    <div className="mt-8 pt-6 border-t border-stone-50 flex flex-wrap justify-between items-center text-[11px] font-mono font-bold uppercase tracking-wider gap-x-4 gap-y-2">
+      <span className="text-stone-600">{project.tech}</span>
       <a
         href={project.productionHref}
-        className="whitespace-nowrap inline-flex items-center gap-1 text-stone-400 group-hover:text-zapier transition-colors"
+        className="whitespace-nowrap inline-flex items-center gap-1 py-2 text-stone-600 hover:text-zapier-ink group-hover:text-zapier-ink transition-colors"
       >
         Production version <ArrowUpRight size={11} />
       </a>
     </div>
-  </motion.div>
+  </div>
 );
 
 export default function UtilityLab() {
@@ -250,8 +247,8 @@ export default function UtilityLab() {
     <section id="lab" className="pb-10 bg-paper relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-5 md:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {labProjects.map((project, index) => (
-            <LabProjectCard key={project.id} project={project} index={index} />
+          {labProjects.map((project) => (
+            <LabProjectCard key={project.id} project={project} />
           ))}
         </div>
       </div>

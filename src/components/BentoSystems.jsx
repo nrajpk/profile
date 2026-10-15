@@ -1,6 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import useMotionOff from "./useMotionOff.js";
 import {
   Workflow,
   Target,
@@ -14,6 +15,8 @@ import {
 export default function BentoSystems() {
   const [view, setView] = useState("data");
   const [statIndex, setStatIndex] = useState(0);
+  const [held, setHeld] = useState(false);
+  const off = useMotionOff();
 
   const content = {
     data: {
@@ -77,12 +80,16 @@ export default function BentoSystems() {
 
   const active = content[view];
 
+  // Stats advance every 5s unless animations are paused, or the visitor is
+  // pointing at or focused inside the panel.
+  const rotating = !off && !held;
   useEffect(() => {
+    if (!rotating) return;
     const timer = setInterval(() => {
       setStatIndex((prev) => (prev + 1) % active.stats.length);
     }, 5000);
     return () => clearInterval(timer);
-  }, [view, active.stats.length]);
+  }, [view, active.stats.length, rotating]);
 
   useEffect(() => setStatIndex(0), [view]);
 
@@ -97,15 +104,21 @@ export default function BentoSystems() {
             The operating layer.
           </h2>
         </div>
-        <p className="max-w-md text-stone-500 leading-relaxed">
+        <p className="max-w-md text-stone-600 leading-relaxed">
           Three lenses on the same job — data, automation, and revenue. Switch between them to see how I approach each layer.
         </p>
       </div>
 
-      <div className="max-w-7xl mx-auto px-5 md:px-8 grid grid-cols-1 md:grid-cols-12 gap-5 md:auto-rows-[225px]">
+      <div
+        className="max-w-7xl mx-auto px-5 md:px-8 grid grid-cols-1 md:grid-cols-12 gap-5 md:auto-rows-[225px]"
+        onMouseEnter={() => setHeld(true)}
+        onMouseLeave={() => setHeld(false)}
+        onFocus={() => setHeld(true)}
+        onBlur={(e) => { if (!e.currentTarget.contains(e.relatedTarget)) setHeld(false); }}
+      >
         <div className="md:col-span-8 md:row-span-2 p-8 md:p-10 bg-white border border-stone-200 flex flex-col justify-between relative overflow-hidden group">
           <div className="relative z-10">
-            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-zapier mb-5 block">
+            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-zapier-ink mb-5 block">
               Marketing Ops / GTM Systems
             </span>
             <AnimatePresence mode="wait" initial={false}>
@@ -119,22 +132,24 @@ export default function BentoSystems() {
                 <h3 className="font-serif text-4xl md:text-5xl font-normal leading-[1.02] text-stone-900 tracking-tight max-w-xl">
                   {active.title}
                 </h3>
-                <p className="text-stone-500 text-base md:text-lg mt-5 max-w-lg leading-relaxed">
+                <p className="text-stone-600 text-base md:text-lg mt-5 max-w-lg leading-relaxed">
                   {active.desc}
                 </p>
               </motion.div>
             </AnimatePresence>
           </div>
 
-          <div className="flex flex-wrap items-center gap-3 font-mono text-[10px] font-bold uppercase relative z-10 pt-8 md:pt-0">
+          <div className="flex flex-wrap items-center gap-3 font-mono text-[11px] font-bold uppercase relative z-10 pt-8 md:pt-0" role="group" aria-label="Lens">
             {Object.keys(content).map((item) => (
               <button
                 key={item}
+                type="button"
                 onClick={() => setView(item)}
-                className={`px-6 py-2.5 rounded-full transition-all duration-500 border ${
+                aria-pressed={view === item}
+                className={`px-6 py-3 rounded-full transition-all duration-500 border ${
                   view === item
                     ? "bg-stone-900 text-white border-stone-900"
-                    : "bg-paper text-stone-400 border-stone-200 hover:border-stone-400"
+                    : "bg-paper text-stone-600 border-stone-300 hover:border-stone-500"
                 }`}
               >
                 {content[item].nav}
@@ -157,53 +172,57 @@ export default function BentoSystems() {
                 <p className="text-5xl md:text-6xl font-normal tracking-tight italic font-serif leading-none">
                   {active.stats[statIndex].value}
                 </p>
-                <p className="font-mono text-[10px] uppercase tracking-widest text-stone-500 mt-2 font-bold">
+                <p className="font-mono text-[11px] uppercase tracking-wider text-stone-300 mt-2 font-bold">
                   {active.stats[statIndex].label}
                 </p>
               </div>
             </motion.div>
           </AnimatePresence>
           <div className="absolute bottom-0 left-0 w-full h-1 bg-stone-800">
-            <motion.div
-              key={`${view}-${statIndex}`}
-              initial={{ width: "0%" }}
-              animate={{ width: "100%" }}
-              transition={{ duration: 5, ease: "linear" }}
-              className="h-full bg-zapier/50"
-            />
+            {rotating && (
+              <motion.div
+                key={`${view}-${statIndex}`}
+                initial={{ scaleX: 0 }}
+                animate={{ scaleX: 1 }}
+                transition={{ duration: 5, ease: "linear" }}
+                className="h-full bg-zapier/50 origin-left"
+              />
+            )}
           </div>
         </div>
 
-        <div
-          className="md:col-span-4 bg-paper border border-stone-200 p-8 flex flex-col justify-between group cursor-pointer hover:border-stone-400 transition-colors"
+        <button
+          type="button"
+          className="md:col-span-4 bg-paper border border-stone-200 p-8 flex flex-col justify-between text-left group cursor-pointer hover:border-stone-400 transition-colors"
           onClick={() => setStatIndex((prev) => (prev + 1) % active.insights.length)}
         >
+          <span className="sr-only">Show the next insight. </span>
           <AnimatePresence mode="wait" initial={false}>
-            <motion.div
+            <motion.span
               key={`${view}-${statIndex}-insight`}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               className="h-full flex flex-col justify-between"
             >
-              <div className="flex justify-between items-center">
-                <div className="h-1.5 w-1.5 rounded-full bg-zapier animate-pulse" />
-                <ChevronRight className="w-4 h-4 text-stone-300 group-hover:text-stone-900 transition-colors" />
-              </div>
-              <div>
-                <p className="text-xs font-semibold text-stone-500 uppercase tracking-[0.2em] mb-3">
+              <span className="flex justify-between items-center">
+                <span className="h-1.5 w-1.5 rounded-full bg-zapier animate-pulse" aria-hidden="true" />
+                <ChevronRight className="w-4 h-4 text-stone-500 group-hover:text-stone-900 transition-colors" aria-hidden="true" />
+              </span>
+              <span className="block">
+                <span className="block text-xs font-semibold text-stone-600 uppercase tracking-[0.2em] mb-3">
                   Technical Insight
-                </p>
-                <p className="font-serif text-3xl leading-none text-stone-900 mb-3">
+                </span>
+                <span className="block font-serif text-3xl leading-none text-stone-900 mb-3">
                   {active.insights[statIndex].title}
-                </p>
-                <p className="text-stone-500 text-sm leading-relaxed">
+                </span>
+                <span className="block text-stone-600 text-sm leading-relaxed">
                   {active.insights[statIndex].detail}
-                </p>
-              </div>
-            </motion.div>
+                </span>
+              </span>
+            </motion.span>
           </AnimatePresence>
-        </div>
+        </button>
       </div>
 
       <div className="max-w-7xl mx-auto px-5 md:px-8 mt-8 text-center md:text-left">

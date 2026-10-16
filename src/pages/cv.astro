@@ -2,14 +2,20 @@
 // The CV, built from the same data as the rest of the site so it never
 // drifts: person and contact (site.js), roles and education (career.js),
 // case studies (projects.js), the marketing craft (systems.js).
-// It prints to a single A4 page; "Save as PDF" opens the print dialog.
+// The download is a pre-rendered PDF so every visitor gets the identical
+// file whatever their print settings. After changing any of that data, run
+// `npm run cv:pdf` to regenerate public/<Name>-CV.pdf, and commit it.
+// Printing this page directly also fits one page on A4 or US Letter.
 import Layout from '../layouts/Layout.astro';
-import { person, contact } from '../data/site.js';
+import { person, contact, cvPdf } from '../data/site.js';
 import { roles, education } from '../data/career.js';
 import { projects } from '../data/projects.js';
 import { craft } from '../data/systems.js';
 
-const site = (Astro.site ?? new URL('https://www.nrajpk.com')).host.replace(/^www\./, '');
+const origin = Astro.site ?? new URL('https://www.nrajpk.com');
+const site = origin.host.replace(/^www\./, '');
+// Absolute links, so they still work inside the downloaded PDF.
+const abs = (path) => new URL(path, origin).href;
 const marketing = new Set(['LinkedIn Ads', 'CRM Workflows', 'Custom CRM', 'Vercel', 'PyMuPDF']);
 const systems = [...new Set([...roles[0].tools, ...projects.flatMap((p) => p.tools), 'Airtable', 'LLM APIs', 'REST / webhooks'])].filter((t) => !marketing.has(t));
 ---
@@ -22,10 +28,10 @@ const systems = [...new Set([...roles[0].tools, ...projects.flatMap((p) => p.too
     <div class="no-print max-w-[60rem] mx-auto flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
       <p class="text-sm text-stone-600 max-w-md">One page. Every system on it has a full write-up on this site.</p>
       <div class="flex flex-wrap gap-3">
-        <button type="button" data-print class="inline-flex items-center gap-2 h-11 px-6 rounded-full bg-stone-900 text-white text-sm font-semibold hover:bg-zapier-ink transition-colors">
+        <a href={`/${cvPdf}`} download={cvPdf} class="inline-flex items-center gap-2 h-11 px-6 rounded-full bg-stone-900 text-white text-sm font-semibold hover:bg-zapier-ink transition-colors">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M5 21h14" /></svg>
-          Save as PDF
-        </button>
+          Download PDF
+        </a>
         <a href={`mailto:${contact.email}`} class="inline-flex items-center h-11 px-6 rounded-full border border-stone-300 text-sm font-semibold hover:border-stone-900 transition-colors">Email me</a>
       </div>
     </div>
@@ -40,7 +46,7 @@ const systems = [...new Set([...roles[0].tools, ...projects.flatMap((p) => p.too
         <ul class="cv-contact">
           <li><a href={`mailto:${contact.email}`}>{contact.email}</a></li>
           <li><a href={contact.linkedin}>{contact.linkedin.replace(/^https:\/\/www\./, '')}</a></li>
-          <li><a href="/">{site}</a></li>
+          <li><a href={abs('/')}>{site}</a></li>
         </ul>
       </header>
 
@@ -71,12 +77,12 @@ const systems = [...new Set([...roles[0].tools, ...projects.flatMap((p) => p.too
             <ul class="cv-list cv-cases">
               {projects.map((p) => (
                 <li>
-                  <a href={p.href}>{p.title}</a>
+                  <a href={abs(p.href)}>{p.title}</a>
                   <span>{p.after}</span>
                 </li>
               ))}
             </ul>
-            <p class="cv-note">{site}/work</p>
+            <p class="cv-note"><a href={abs('/work/')}>{site}/work</a></p>
           </section>
           <section aria-labelledby="cv-marketing">
             <h2 id="cv-marketing" class="cv-h">Marketing</h2>
@@ -95,12 +101,6 @@ const systems = [...new Set([...roles[0].tools, ...projects.flatMap((p) => p.too
     </article>
   </main>
 </Layout>
-
-<script>
-  document.addEventListener('click', (event) => {
-    if (event.target.closest('[data-print]')) window.print();
-  });
-</script>
 
 <style>
   .cv {
@@ -133,8 +133,11 @@ const systems = [...new Set([...roles[0].tools, ...projects.flatMap((p) => p.too
   .cv-when { font-size: 0.875rem; font-variant-numeric: tabular-nums; color: var(--color-stone-600); white-space: nowrap; }
   .cv-where { margin-top: 0.15rem; font-size: 0.875rem; color: var(--color-stone-600); }
   .cv-points { margin-top: 0.6rem; display: grid; gap: 0.35rem; }
+  /* The bullet is a typeset character, not a painted dot: browsers drop
+     background colours when printing, and Chrome clips hanging list
+     markers in print. Text always prints. */
   .cv-points li { position: relative; padding-left: 1rem; font-size: 0.9375rem; line-height: 1.5; color: var(--color-stone-700); }
-  .cv-points li::before { content: ""; position: absolute; left: 0; top: 0.6em; width: 5px; height: 5px; border-radius: 99px; background: var(--color-zapier); }
+  .cv-points li::before { content: "•"; position: absolute; left: 0.1rem; top: 0; color: var(--color-zapier); font-weight: 700; }
 
   .cv-side { display: grid; gap: 2rem; align-content: start; }
   .cv-list { display: grid; gap: 0.9rem; }
@@ -151,27 +154,55 @@ const systems = [...new Set([...roles[0].tools, ...projects.flatMap((p) => p.too
     .cv-body { grid-template-columns: minmax(0, 1fr) 16.5rem; gap: 3rem; }
   }
 
-  /* Print: a single A4 page, black on white, two columns at any paper width. */
+  /* Print. Always one page, black on white, two columns.
+     The base sizes fit the tightest common setup (US Letter with 1-inch
+     margins: 165 x 229mm). When the page has room (A4 or Letter with normal
+     margins, and the downloadable PDF) the second block sets roomier type.
+     Re-measure both after adding content. */
   @media print {
     .cv { max-width: none; padding: 0; border: 0; box-shadow: none; background: #fff; color: #000; font-size: 9pt; }
-    .cv-head { grid-template-columns: 24mm minmax(0, 1fr) auto; gap: 6mm; padding-bottom: 8pt; border-bottom-width: 1.5pt; border-color: #000; }
-    .cv-photo { width: 24mm; }
-    .cv-name { font-size: 26pt; }
-    .cv-title { margin-top: 3pt; font-size: 11pt; color: #222; }
-    .cv-contact { grid-column: auto; text-align: right; font-size: 8.5pt; line-height: 1.5; color: #222; }
-    .cv-summary { margin-top: 9pt; font-size: 10pt; line-height: 1.45; color: #222; }
-    .cv-body { margin-top: 12pt; grid-template-columns: minmax(0, 1fr) 52mm; gap: 8mm; }
-    .cv-h { font-size: 7.5pt; margin-bottom: 6pt; padding-bottom: 3pt; color: #a33000; border-color: #ccc; }
-    .cv-roles { gap: 11pt; }
-    .cv-role { break-inside: avoid; }
-    .cv-role-head h3 { font-size: 10pt; }
-    .cv-when, .cv-where { font-size: 8.75pt; color: #444; }
-    .cv-points { margin-top: 3pt; gap: 1.5pt; }
-    .cv-points li { font-size: 9.25pt; line-height: 1.4; color: #111; padding-left: 8pt; }
-    .cv-points li::before { width: 3pt; height: 3pt; background: #c83800; }
-    .cv-side { gap: 10pt; }
-    .cv-list { gap: 5pt; }
-    .cv-cases a { font-size: 9.25pt; }
-    .cv-cases span, .cv-tags, .cv-note { font-size: 8.75pt; line-height: 1.42; color: #333; }
+    .cv-head { grid-template-columns: 21mm minmax(0, 1fr) auto; gap: 5mm; padding-bottom: 6pt; border-bottom-width: 1.5pt; border-color: #000; break-inside: avoid; }
+    .cv-photo { width: 21mm; }
+    .cv-name { font-size: 23pt; }
+    .cv-title { margin-top: 2pt; font-size: 10.5pt; color: #222; }
+    .cv-contact { grid-column: auto; text-align: right; font-size: 8.25pt; line-height: 1.45; color: #222; }
+    .cv-summary { margin-top: 7pt; max-width: none; font-size: 9.5pt; line-height: 1.4; color: #222; }
+    .cv-body { margin-top: 10pt; grid-template-columns: minmax(0, 1fr) 30%; gap: 7mm; }
+    .cv-h { font-size: 7.5pt; margin-bottom: 5pt; padding-bottom: 2.5pt; color: #a33000; border-color: #ccc; }
+    .cv-roles { gap: 8pt; }
+    .cv-role, .cv-side section { break-inside: avoid; }
+    .cv-role-head h3 { font-size: 9.5pt; line-height: 1.3; }
+    .cv-when, .cv-where { font-size: 8.25pt; color: #444; }
+    .cv-where { margin-top: 1pt; }
+    .cv-points { margin-top: 2.5pt; gap: 1pt; }
+    .cv-points li { font-size: 9pt; line-height: 1.33; color: #111; padding-left: 9pt; }
+    .cv-points li::before { left: 0.5pt; color: #c83800; }
+    .cv-side { gap: 9pt; }
+    .cv-list { gap: 4.5pt; }
+    .cv-cases li { gap: 1pt; }
+    .cv-cases a { font-size: 9pt; }
+    .cv-cases span, .cv-tags, .cv-note { font-size: 8.5pt; line-height: 1.36; color: #333; }
+    .cv-note { margin-top: 5pt; }
+  }
+
+  @media print and (min-height: 250mm) and (min-width: 175mm) {
+    .cv-head { grid-template-columns: 25mm minmax(0, 1fr) auto; gap: 6mm; padding-bottom: 9pt; }
+    .cv-photo { width: 25mm; }
+    .cv-name { font-size: 27pt; }
+    .cv-title { margin-top: 3pt; font-size: 11pt; }
+    .cv-contact { font-size: 8.75pt; line-height: 1.5; }
+    .cv-summary { margin-top: 10pt; font-size: 10.25pt; line-height: 1.45; }
+    .cv-body { margin-top: 14pt; gap: 8mm; }
+    .cv-h { font-size: 7.75pt; margin-bottom: 7pt; padding-bottom: 3pt; }
+    .cv-roles { gap: 12pt; }
+    .cv-role-head h3 { font-size: 10.25pt; }
+    .cv-when, .cv-where { font-size: 8.75pt; }
+    .cv-where { margin-top: 1.5pt; }
+    .cv-points { margin-top: 4pt; gap: 2pt; }
+    .cv-points li { font-size: 9.5pt; line-height: 1.42; padding-left: 10pt; }
+    .cv-side { gap: 12pt; }
+    .cv-list { gap: 6pt; }
+    .cv-cases a { font-size: 9.5pt; }
+    .cv-cases span, .cv-tags, .cv-note { font-size: 9pt; line-height: 1.42; }
   }
 </style>

@@ -7,6 +7,9 @@ export const person = {
     'Ten years of marketing on a computer science degree, now building the systems growth runs on: pipelines, CRM logic, qualification and reporting that hold up in production.',
 };
 
+// The downloadable CV, rendered from /cv by `npm run cv:pdf`.
+export const cvPdf = `${person.name.replace(/\s+/g, '-')}-CV.pdf`;
+
 export const nav = [
   { name: 'Work', href: '/work', note: 'Production systems, kept factual' },
   { name: 'Systems', href: '/systems', note: 'How the handoffs fit together' },

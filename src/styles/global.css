@@ -373,10 +373,11 @@ html.motion-off .cover .cell { opacity: 1; }
 
 /* 10. PRINT — the CV page, and any page someone prints. */
 @media print {
-  @page { size: A4; margin: 14mm 16mm; }
+  @page { size: A4; margin: 12mm 14mm; }
   html, body { background: #fff !important; color: #000 !important; }
   body::before { display: none; }
   #site-header, #contact, #mobile-menu, #palette, #pb, .no-print, .skip-link { display: none !important; }
-  main { padding-top: 0 !important; }
+  /* No screen padding around the content: it only pushes a page break. */
+  main { padding: 0 !important; margin: 0 !important; max-width: none !important; }
   a { color: inherit !important; text-decoration: none !important; }
 }
